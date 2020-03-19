@@ -58,8 +58,8 @@ class CF(object):
         user_id = np.where(self.users == u)[0][0]
         course_id = np.where(self.items == i)[0][0]
         if self.e_matrix[user_id, course_id] > 0:
-            self.e_matrix[user_id, course_id]
-        # cac course duoc enroll boi user u
+            return self.e_matrix[user_id, course_id]
+
         enrolled_c_ids = np.where(self.e_matrix[user_id].flatten() > 0)[0]
         enrolled_c_vals = self.e_matrix[user_id, enrolled_c_ids]
         # print(enrolled_c_ids, enrolled_c_vals)
@@ -97,9 +97,10 @@ if __name__ == '__main__':
 
     rs = CF(data_df, k_neighbor)
     rs.fit()
-    # score = rs.predict('user0', 'course7')
-    # print(score)
-    total = 0
+
+    precision = 0
+    recall = 0
+    n_users = 0
     for idx, u in enumerate(rs.users):
         r_items = rs.recommend(u)
         r_items = [k for k, v in sorted(r_items.items(), key=lambda item: -item[1])[:5]]
@@ -107,15 +108,23 @@ if __name__ == '__main__':
         gt_row = test_df[test_df['user'] == u]
         gt_items = []
         display = False
-        if not gt_row.empty:
-            for col in gt_row.columns:
-                if col != 'user' and gt_row[col].values[0] > 0:
-                    if col in r_items:
-                        display = True
-                        total += 1
-                    gt_items.append(col)
-        if display:
-            print(u)
-            print('Recommend for {} : {}'.format(u, r_items))
-            print('Gt enrolled of {} : {}'.format(u, gt_items))
-    print(total)
+        if gt_row.empty:
+            continue
+        n_users += 1
+        for col in gt_row.columns:
+            if col != 'user' and gt_row[col].values[0] > 0:
+                gt_items.append(col)
+
+        n_hit = len([i in r_items for i in gt_items])
+        n_hidden = len([i not in r_items for i in gt_items])
+        n_rs = len(r_items)
+
+        precision += n_hit / n_rs
+        recall += n_hit / n_hidden
+        print('-------------- {} -------------'.format(u))
+        print('rs : {}'.format(r_items))
+        print('gt : {}'.format(gt_items))
+
+    precision /= n_users
+    recall /= n_users
+    print(precision, recall)
