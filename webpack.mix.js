@@ -1,13 +1,13 @@
 const mix = require('laravel-mix');
 
-// mix.webpackConfig({
-//     resolve: {
-//         extensions: ['.js', '.vue'],
-//         alias: {
-//             '@': __dirname + '/resources'
-//         }
-//     }
-// });
+mix.webpackConfig({
+    resolve: {
+        extensions: ['.js', '.css'],
+        alias: {
+            '@': __dirname + '/public/assets'
+        }
+    }
+});
 
 /*
  |--------------------------------------------------------------------------
@@ -22,6 +22,3 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
-
-mix.js('resources/js/app.js', 'public/assets/js')
-    .sass('resources/sass/app.scss', 'public/assets/css').sourceMaps();

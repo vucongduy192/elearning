@@ -1,33 +1,20 @@
  <template>
     <div>
-        <div class="home">
-            <div class="home_background" style="background-image: url('assets/images/index_background.jpg');"></div>
-            <div class="home_content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-center">
-                            <h1 class="home_title">Learn Languages Easily</h1>
-                            <div class="home_button trans_200"><a href="#">get started</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <course_list></course_list>
-        <professor_list></professor_list>
-        <Blog></Blog>
+        <h1>Test</h1>
     </div>
 </template>
 
 <script>
-    import Course from "../components/course/Course_List";
-    import Professor from "../components/professor/Professor_List";
-    import Blog from "../components/blog/Blog_Category";
+    import Course_List from "../components/course/Course_List";
+    import Professor_List from "../components/professor/Professor_List";
+    import Blog_Category from "../components/blog/Blog_Category";
+    import Blog_List from "../components/blog/Blog_List";
+    import Banner from "../components/includes/Banner";
 
     export default {
         name: 'home',
         components: {
-            Course, Professor, Blog
+            Course_List, Professor_List, Blog_List, Blog_Category
         }
     }
 </script>

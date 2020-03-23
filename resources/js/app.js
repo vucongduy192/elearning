@@ -7,6 +7,13 @@
 import './bootstrap.js'
 import Vue from 'vue'
 
+import '@/js/jquery-3.2.1.min.js'
+import '@/styles/bootstrap4/popper.js'
+import '@/styles/bootstrap4/bootstrap.min.js'
+import '@/plugins/OwlCarousel2-2.2.1/owl.carousel.js'
+import '@/plugins/easing/easing.js'
+import '@/js/custom.js'
+
 import Routes from './routes.js'
 import App from './layouts/App.vue'
 

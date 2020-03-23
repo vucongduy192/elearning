@@ -1,18 +1,18 @@
 <template>
     <div>
         <div class="super_container">
+            <Navbar></Navbar>
             <main>
                 <router-view></router-view>
-                    <Navbar></Navbar>
-                    <Footer></Footer>
             </main>
+            <Footer></Footer>
         </div>
     </div>
 </template>
 
 <script>
-    import Navbar from '../components/Navbar.vue';
-    import Footer from '../components/Footer.vue';
+    import Navbar from '../includes/Navbar.vue';
+    import Footer from '../includes/Footer.vue';
 
 
     export default {
