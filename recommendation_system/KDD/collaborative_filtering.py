@@ -29,7 +29,8 @@ class CF(object):
         self.dist_func = dist_func
         self.simI_matrix = None
         self.simC_matrix = np.array(simC.drop('course_id', axis=1))
-        print(self.n_users, self.n_items)
+        self.sim_matrix = None
+        # print(self.n_users, self.n_items)
         # print(self.users, self.items)
 
     def normalize_matrix(self):
@@ -43,6 +44,9 @@ class CF(object):
         assert magnitude.shape == (self.n_users, )
         self.e_matrix = np.divide(self.e_matrix, magnitude.reshape(self.n_users, 1) + 1e-8)
 
+        magnitude = np.sqrt(np.square(self.simC_matrix).sum(axis=1))
+        assert magnitude.shape == (self.n_items,)
+        self.simC_matrix = np.divide(self.simC_matrix, magnitude.reshape(self.n_items, 1) + 1e-8)
 
     def similarity(self):
         # Calculate sim item
@@ -55,6 +59,8 @@ class CF(object):
     def fit(self):
         self.normalize_matrix()
         self.similarity()
+        # print(self.simI_matrix, self.simC_matrix)
+        # print(self.sim_matrix)
 
     def predict(self, user_id, item_id):
         """
@@ -72,11 +78,14 @@ class CF(object):
 
         # Determine similar btw course i with those items
         sim = self.sim_matrix[item_id, enrolled_c_ids]
-        c_neighbors = sim.argsort()[-self.k:]
-        course_vals = enrolled_c_vals[c_neighbors]
-        sim = sim[c_neighbors]
 
-        return np.dot(sim, course_vals) / np.sum(self.sim_matrix[item_id])
+
+        c_neighbors = sim.argsort()[-self.k:]
+        # course_vals = enrolled_c_vals[c_neighbors]
+        # print(course_vals)
+
+        sim = sim[c_neighbors]
+        return np.sum(sim)
 
     def recommend(self, user_id):
         # User u already enroll course i
@@ -87,7 +96,7 @@ class CF(object):
             if item_id not in enrolled_c_ids:
                 items[item_id] = self.predict(user_id, item_id)
 
-        r_items = [k for k, v in sorted(items.items(), key=lambda i: -i[1])[:5]]
+        r_items = {k: v for k, v in sorted(items.items(), key=lambda i: -i[1])[:5]}
         return r_items
 
     def ground_truth(self, user_id):
@@ -133,8 +142,10 @@ class CF(object):
         print(enrolled_c)
 
         r_items = self.recommend(user_id)
+        print(r_items)
         gt_items = self.ground_truth(user_id)
-        print(r_items, gt_items)
+        r_items = courses_df[courses_df['course_id'].isin(r_items.keys())][['course_id', 'category']]
+        print(user_id, r_items)
         return enrolled_c
 
 
@@ -158,16 +169,16 @@ if __name__ == '__main__':
     test_df = pd.read_csv('./enroll_matrix_test.csv')
     users_df = pd.read_csv('./users.csv')
     courses_df = pd.read_csv('./courses.csv')
-    simC = pd.read_csv('./simC_matrix.csv')
+    simC_df = pd.read_csv('./simC_matrix.csv')
 
     k_neighbor = 3
 
-    rs = CF(data_df, simC, k_neighbor, c=0.2)
+    rs = CF(data_df, simC_df, k_neighbor, c=0.5)
     rs.fit()
-
+    # rs.evaluate(test_df)
     """
         rs.evaluate(test_df)
-        Consider user_id = 
+        Consider user_id =
         Enrolled 5 course in "Math and Logic" & "Personal Development"
         Normal CF Recommend:
             + With c = 0.2 (weight for simC):
@@ -176,4 +187,4 @@ if __name__ == '__main__':
         [2, 6, 13, 3, 18] []
     """
 
-    rs.example(37, courses_df, users_df)
+    rs.example(16, courses_df, users_df)
