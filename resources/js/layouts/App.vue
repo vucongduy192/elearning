@@ -14,11 +14,13 @@
     import Navbar from '../includes/Navbar.vue';
     import Footer from '../includes/Footer.vue';
 
-
     export default {
         name: "app",
         components: {
             Footer, Navbar
+        },
+        mounted() {
+            console.log('Component mounted.')
         }
     }
 </script>

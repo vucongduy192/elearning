@@ -57,11 +57,15 @@
                                         <div class="logo_text">Lingua</div>
                                     </a>
                                 </div>
+
                                 <nav class="main_nav_contaner">
                                     <ul class="main_nav">
-                                        <li class="active"><a href="index.html">Home</a></li>
-                                        <li><a href="courses.html">Courses</a></li>
-                                        <li><a href="instructors.html">Instructors</a></li>
+                                        <li class="active"><router-link :to="{ name: 'home' }">Home</router-link>
+                                        </li>
+                                        <li><router-link :to="{ name: 'courses' }">Courses</router-link>
+                                        </li>
+                                        <li><router-link :to="{ name: 'professors' }">Professors</router-link>
+                                        </li>
                                         <li><a href="#">Events</a></li>
                                         <li><a href="blog.html">Blog</a></li>
                                         <li><a href="contact.html">Contact</a></li>

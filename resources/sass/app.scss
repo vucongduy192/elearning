@@ -7,10 +7,16 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-@import "~/public/assets/styles/bootstrap4/bootstrap.min.css";
-@import "~/public/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css";
-@import "~/public/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css";
-@import "~/public/assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css";
-@import "~/public/assets/plugins/OwlCarousel2-2.2.1/animate.css";
-@import "~/public/assets/styles/main_styles.css";
-@import "~/public/assets/styles/responsive.css";
+@import "./assets/styles/bootstrap4/bootstrap.min.css";
+@import "./assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css";
+@import "./assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css";
+@import "./assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css";
+@import "./assets/plugins/OwlCarousel2-2.2.1/animate.css";
+@import "./assets/styles/main_styles";
+@import "./assets/styles/responsive";
+
+.course_categories { @extend .blog_categories !optional}
+.course_category_col { @extend .blog_category_col !optional}
+.course_category { @extend .blog_category !optional}
+.course_category_image { @extend .blog_category_image !optional}
+.course_category_title { @extend .blog_category_title !optional}
