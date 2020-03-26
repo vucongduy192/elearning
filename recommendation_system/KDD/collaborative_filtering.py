@@ -79,7 +79,6 @@ class CF(object):
         # Determine similar btw course i with those items
         sim = self.sim_matrix[item_id, enrolled_c_ids]
 
-
         c_neighbors = sim.argsort()[-self.k:]
         # course_vals = enrolled_c_vals[c_neighbors]
         # print(course_vals)
@@ -165,26 +164,51 @@ if __name__ == '__main__':
     print(unique_2_category)
     """
 
-    data_df = pd.read_csv('./enroll_matrix_train.csv')
-    test_df = pd.read_csv('./enroll_matrix_test.csv')
-    users_df = pd.read_csv('./users.csv')
-    courses_df = pd.read_csv('./courses.csv')
-    simC_df = pd.read_csv('./simC_matrix.csv')
+    # data_df = pd.read_csv('./enroll_matrix_train.csv')
+    # test_df = pd.read_csv('./enroll_matrix_test.csv')
+    # users_df = pd.read_csv('./users.csv')
+    # courses_df = pd.read_csv('./courses.csv')
+    # simC_df = pd.read_csv('./simC_matrix.csv')
+    #
+    # k_neighbor = 3
+    #
+    # rs = CF(data_df, simC_df, k_neighbor, c=0.5)
+    # rs.fit()
+    # # rs.evaluate(test_df)
+    # """
+    #     rs.evaluate(test_df)
+    #     Consider user_id =
+    #     Enrolled 5 course in "Math and Logic" & "Personal Development"
+    #     Normal CF Recommend:
+    #         + With c = 0.2 (weight for simC):
+    #             course 10 in "Math and Logic"
+    #             course 12  in "Personal Development"
+    #     [2, 6, 13, 3, 18] []
+    # """
+    #
+    # rs.example(16, courses_df, users_df)
+    c_similar = np.array([
+        [1,    1,    1,    0.8,    0.1,    0.1],
+        [1,    1,    1,    0.8,    0.1,    0.1],
+        [1,    1,    1,    0.8,    0.1,    0.1],
+        [0.8,    0.8,    0.8,    1,    0.1,    0.1],
+        [0.1,    0.1,    0.1,    0.1,    1,    1],
+        [0.1,    0.1,    0.1,    0.1,    1,    1],
+    ])
+    e_matrix = np.array([
+        [1, 1, 0, 0, 1, 0],
+        [0, 1, 1, 0, 1, 0],
+        [1, 0, 0, 0, 0, 1],
+        [0, 1, 0, 0, 1, 0],
+        [1, 0, 1, 1, 0, 0],
+        [1, 1, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0],
+    ])
+    magnitude = np.sqrt(np.square(e_matrix).sum(axis=1))
+    # print(np.divide(e_matrix, magnitude.reshape(7, 1) + 1e-8))
 
-    k_neighbor = 3
+    csr_matrix = sparse.csr_matrix(e_matrix)  # Compressed Sparse Row matrix
+    e_similar = cosine_similarity(csr_matrix.T, csr_matrix.T)
 
-    rs = CF(data_df, simC_df, k_neighbor, c=0.5)
-    rs.fit()
-    # rs.evaluate(test_df)
-    """
-        rs.evaluate(test_df)
-        Consider user_id =
-        Enrolled 5 course in "Math and Logic" & "Personal Development"
-        Normal CF Recommend:
-            + With c = 0.2 (weight for simC):
-                course 10 in "Math and Logic"
-                course 12  in "Personal Development"
-        [2, 6, 13, 3, 18] []
-    """
-
-    rs.example(16, courses_df, users_df)
+    i_similar = c_similar * 0.2 + e_similar * 0.8
+    print(i_similar)
