@@ -6,11 +6,11 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>E-learning</title>
-        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('front-end/css/app.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="app">
         </div>
-        <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+        <script type="text/javascript" src="{{ mix('front-end/js/app.js') }}"></script>
     </body>
 </html>

@@ -1,0 +1,22 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+// @import 'variables';
+
+// Bootstrap
+// @import '~bootstrap/scss/bootstrap';
+
+// @import "~bootstrap/scss/mixins";
+
+@import "~font-awesome/scss/font-awesome.scss";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+// CoreUI default layout.
+// @import "node_modules/@coreui/coreui-pro/scss/coreui";
+// @import "node_modules/font-awesome/scss/font-awesome.scss";
+
+@import "~admin-lte/dist/css/AdminLTE.css";
+@import "~admin-lte/dist/css/skins/_all-skins.css";
+
+// Custom styles
+@import "custom";

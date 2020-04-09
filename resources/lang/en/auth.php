@@ -15,5 +15,13 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'logout' => [
+        'success' => 'Logout successful.',
+        'warning' => 'Logout not completed.'
+    ],
+    'jwt_token' => [
+        'invalid' => 'Token is invalid',
+        'expired' => 'Token is expired',
+        'empty' => 'Token is empty'
+    ]
 ];
