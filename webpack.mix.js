@@ -4,7 +4,7 @@ mix.webpackConfig({
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            '*': path.resolve('resources/admin/js'),
+            '*': path.resolve('resources/back-end/js'),
             public: path.resolve('public'),
         },
     },
@@ -21,11 +21,18 @@ mix.webpackConfig({
  |
  */
 
-mix.js('resources/front-end/js/app.js', 'public/front-end/js').js(
-    'resources/admin/js/app.js',
-    'public/admin/js'
-);
+mix.js('resources/front-end/js/app.js', 'public/front-end/js')
+    .js('resources/back-end/js/app.js', 'public/back-end/js')
+    .styles(
+        [
+            'node_modules/bootstrap/dist/css/bootstrap.min.css',
+            'node_modules/admin-lte/dist/css/AdminLTE.css',
+            'node_modules/admin-lte/dist/css/skins/_all-skins.min.css',
+        ],
+        'public/back-end/css/lib.css'
+    )
+    .scripts(['node_modules/admin-lte/dist/js/demo.js'], 'public/back-end/js/lib.js');
 
 mix.sass('resources/front-end/sass/app.scss', 'public/front-end/css')
-    .sass('resources/admin/sass/app.scss', 'public/admin/css')
-    .copyDirectory('resources/admin/dist/img', 'public/dist/img');
+    .sass('resources/back-end/sass/app.scss', 'public/back-end/css')
+    .copyDirectory('resources/back-end/dist/img', 'public/dist/img');

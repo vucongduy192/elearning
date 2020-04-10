@@ -2,91 +2,118 @@
 
 namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
-
-/**
- * Class BaseRepository
- *
- * @package App\Repositories
- */
-class BaseRepository implements RepositoryInterface
+trait BaseRepository
 {
     /**
-     * @var Model
-     */
-    protected $model;
-
-    /**
-     * BaseRepository constructor.
+     * Get number of records
      *
-     * @param Model $model
+     * @return array
      */
-    public function __construct(Model $model)
+    public function getNumber()
     {
-        $this->model = $model;
+        return $this->model->count();
     }
 
     /**
-     * @inheritdoc
+     * Update columns in the record by id.
+     *
+     * @param $id
+     * @param $input
+     * @return App\Model|User
+     */
+    public function updateColumn($id, $input)
+    {
+        $this->model = $this->getById($id);
+
+        foreach ($input as $key => $value) {
+            $this->model->{$key} = $value;
+        }
+
+        return $this->model->save();
+    }
+
+    /**
+     * Destroy a model.
+     *
+     * @param  $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        return $this->getById($id)->delete();
+    }
+
+    /**
+     * Get model by id.
+     *
+     * @return App\Model
+     */
+    public function getById($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    /**
+     * Get all the records
+     *
+     * @return array User
      */
     public function all()
     {
-        return $this->model->all();
+        return $this->model->get();
     }
 
     /**
-     * @inheritdoc
+     * Get number of the records
+     *
+     * @param  int $number
+     * @param  string $sort
+     * @param  string $sortColumn
+     * @return Paginate
      */
-    public function find(array $conditions = [])
+    public function page($number = 10, $sort = 'desc', $sortColumn = 'created_at')
     {
-        return $this->model->where($conditions)->get();
+        return $this->model->orderBy($sortColumn, $sort)->paginate($number);
     }
 
     /**
-     * @inheritdoc
+     * Store a new record.
+     *
+     * @param  $input
+     * @return User
      */
-    public function findOne(array $conditions)
+    public function store($input)
     {
-        return $this->model->where($conditions)->first();
+        return $this->save($this->model, $input);
     }
 
     /**
-     * @inheritdoc
+     * Update a record by id.
+     *
+     * @param  $id
+     * @param  $input
+     * @return User
      */
-    public function findById(int $id)
+    public function update($id, $input)
     {
-        return $this->model->where('id', $id)->first();
+        $this->model = $this->getById($id);
+
+        return $this->save($this->model, $input);
     }
 
     /**
-     * @inheritdoc
+     * Save the input's data.
+     *
+     * @param  $model
+     * @param  $input
+     * @return User
      */
-    public function create(array $attributes)
+    public function save($model, $input)
     {
-        return $this->model->create($attributes);
-    }
+        $model->fill($input);
 
-    /**
-     * @inheritdoc
-     */
-    public function update(Model $model, array $attributes = [])
-    {
-        return $model->update($attributes);
-    }
+        $model->save();
 
-    /**
-     * @inheritdoc
-     */
-    public function save(Model $model)
-    {
-        return $model->save();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function delete(Model $model)
-    {
-        return $model->delete();
+        return $model;
     }
 }

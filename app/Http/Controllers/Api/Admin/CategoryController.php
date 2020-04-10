@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Controllers\Api\ApiController;
+use App\Repositories\CategoryRepository;
 
-class CategoryController extends Controller
+class CategoryController extends ApiController
 {
+    protected $category;
+    
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->category = $categoryRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return $this->response($this->category->pageWithRequest($request));
     }
 
     /**
@@ -33,9 +42,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $this->category->customStore($request);
+        return $this->response();
     }
 
     /**
@@ -46,7 +56,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->category->getById($id);
     }
 
     /**
@@ -67,9 +77,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $this->category->customUpdate($request, $id);
+        return $this->response();
     }
 
     /**
@@ -80,6 +91,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->category->customDestroy($id);
+        return $this->response();
     }
 }

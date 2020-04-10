@@ -11,4 +11,10 @@
 |
 */
 
-Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
+// Route::get('/admin', 'AdminController@index');
+// Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('{path?}', 'AdminController@index')->where('path', '[\/\w\.-]*');
+});
+ 

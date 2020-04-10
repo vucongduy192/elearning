@@ -1,6 +1,8 @@
 {
-    "/admin/js/app.js": "/admin/js/app.js",
+    "/back-end/js/app.js": "/back-end/js/app.js",
     "/front-end/js/app.js": "/front-end/js/app.js",
     "/front-end/css/app.css": "/front-end/css/app.css",
-    "/admin/css/app.css": "/admin/css/app.css"
+    "/back-end/css/app.css": "/back-end/css/app.css",
+    "/back-end/css/lib.css": "/back-end/css/lib.css",
+    "/back-end/js/lib.js": "/back-end/js/lib.js"
 }
