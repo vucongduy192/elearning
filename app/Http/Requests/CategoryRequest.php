@@ -21,12 +21,12 @@ class CategoryRequest extends FormRequest
      *
      * @return array
      */
-    public function rules($id=null)
+    public function rules()
     {
         $rules_store = [
             'name' => 'required|unique:course_categories',
             'overview' => 'required',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ];
         $rules_update = [
             'name' => 'required|unique:course_categories,name,'.$this->route('category'),

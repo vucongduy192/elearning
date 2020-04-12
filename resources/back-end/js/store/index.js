@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 import storeAuth from '*/modules/auth/store';
 import storeLoading from '*/modules/loading/store';
 import storeCategory from '*/modules/category/store';
+import storeRule from '*/modules/rule/store';
 
 Vue.use(Vuex);
 
@@ -17,5 +18,6 @@ export default new Vuex.Store({
         storeAuth,
         storeLoading,
         storeCategory,
+        storeRule,
     },
 });

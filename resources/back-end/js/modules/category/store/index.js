@@ -27,7 +27,10 @@ const actions = {
     async actionFetchCategory({ commit }, { vue, params }) {
         vue.$store.dispatch('setAdminMainLoading', { show: true });
         try {
-            const { data } = await axios.get(`/categories?page=${params.page}`);
+            let url = '/categories';
+            if (params.page) url += `?page=${params.page}`;
+
+            const { data } = await axios.get(url);
             commit(FETCH_CATEGORY, { listFetch: data });
         } catch (error) {}
         vue.$store.dispatch('setAdminMainLoading', { show: false });

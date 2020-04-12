@@ -10,6 +10,11 @@ import Category from '*/modules/category/views/Category';
 import CategoryAdd from '*/modules/category/views/CategoryAdd';
 import CategoryEdit from '*/modules/category/views/CategoryEdit';
 
+import Rule from '*/modules/rule/views/Rule';
+import RuleAdd from '*/modules/rule/views/RuleAdd';
+import RuleEdit from '*/modules/rule/views/RuleEdit';
+import RuleMatrix from '*/modules/rule/views/RuleMatrix';
+
 const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'active',
@@ -46,6 +51,36 @@ const router = new VueRouter({
                         },
                     ],
                 },
+                {
+                    path: 'rules',
+                    component: {
+                        render(c) {
+                            return c('router-view');
+                        },
+                    },
+                    children: [
+                        {
+                            path: '',
+                            name: 'main.rule',
+                            component: Rule,
+                        },
+                        {
+                            path: 'add',
+                            name: 'main.rule.add',
+                            component: RuleAdd,
+                        },
+                        {
+                            path: 'edit/:id',
+                            name: 'main.rule.edit',
+                            component: RuleEdit,
+                        },
+                        {
+                            path: 'matrix',
+                            name: 'main.rule.matrix',
+                            component: RuleMatrix,
+                        },
+                    ],
+                },
             ],
         },
         {
@@ -56,10 +91,14 @@ const router = new VueRouter({
     ],
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (store.state.storeAuth.token === undefined) {
-            return next({ path: '/admin/login' });
+        if (store.state.storeAuth.token) {
+            try {
+                await store.dispatch('fetchUser');
+            } catch (e) {}
+        } else {
+            return next({ name: 'login' });
         }
     }
 

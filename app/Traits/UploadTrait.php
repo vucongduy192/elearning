@@ -39,6 +39,8 @@ trait UploadTrait {
      */
     public function removeImage($path)
     {
-        unlink(storage_path(str_replace('/storage/', 'app/public/', $path)));
+        $file = storage_path(str_replace('/storage/', 'app/public/', $path));
+        if (file_exists($file))
+            unlink($file);
     }
 }

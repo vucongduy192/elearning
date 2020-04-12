@@ -5,13 +5,15 @@ namespace App\Repositories;
 use App\Models\Category;
 use App\Repositories\BaseRepository;
 use App\Traits\UploadTrait;
+use App\Traits\TransformPaginatorTrait;
 use App\Transformers\CategoryTransformer;
-use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 
-class CategoryRepository {
-    use BaseRepository, UploadTrait;
+class CategoryRepository
+{
+    use BaseRepository, UploadTrait, TransformPaginatorTrait;
     protected $model;
+
     /**
      * Constructor
      *
@@ -28,11 +30,8 @@ class CategoryRepository {
      */
     public function pageWithRequest($request, $number = 5, $sort = 'desc', $sortColumn = 'created_at')
     {
-        $categories = $this->model->orderBy('created_at', 'desc')->paginate($number);
-        if (isset($categories['data']))
-            $categories['data'] = $this->categoryTransformer->transform($categories['data'])->toArray();
-
-        return $categories;
+        $categoriesPaginator = $this->model->orderBy($sortColumn, $sort)->paginate($number);
+        return $this->buildTransformPaginator($categoriesPaginator, $this->categoryTransformer);
     }
 
     /**
@@ -44,7 +43,7 @@ class CategoryRepository {
     public function customStore(CategoryRequest $request)
     {
         $input = $request->only(['name', 'overview']);
-        $input['thumbnail'] = $this->uploadImage($request, $image_name="thumbnail");
+        $input['thumbnail'] = $this->uploadImage($request, $image_name = "thumbnail");
         $this->store($input);
     }
 
@@ -57,12 +56,13 @@ class CategoryRepository {
     public function customUpdate(CategoryRequest $request, $id)
     {
         $input = $request->only(['name', 'overview']);
-        $new_thumbnail = $this->uploadImage($request, $image_name="thumbnail");
-        if ($new_thumbnail != '')
+        $new_thumbnail = $this->uploadImage($request, $image_name = "thumbnail");
+        if ($new_thumbnail != '') {
             $input['thumbnail'] = $new_thumbnail;
             $this->removeImage($this->getById($id)->thumbnail);
+        }
 
-        $this->update($id, $input);        
+        $this->update($id, $input);
     }
 
     /**

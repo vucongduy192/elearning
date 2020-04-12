@@ -29,10 +29,15 @@
             <ul class="sidebar-menu tree" data-widget="tree">
                 <li>
                     <router-link :to="{ name: 'main.category' }">
-                        <i class="fa fa-th"></i> <span>Category</span>
+                        <i class="fa fa-list-alt"></i> <span>Category</span>
                     </router-link>
                 </li>
-                <li class="treeview">
+                <li>
+                    <router-link :to="{ name: 'main.rule' }">
+                        <i class="fa fa-gavel"></i> <span>Rule</span>
+                    </router-link>
+                </li>
+                <!-- <li class="treeview">
                     <a href="#">
                         <i class="fa fa-pie-chart"></i>
                         <span>Charts</span>
@@ -60,7 +65,7 @@
                             >
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </section>
         <!-- /.sidebar -->

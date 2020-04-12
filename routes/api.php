@@ -23,5 +23,7 @@ Route::group(['namespace' => 'Api\Admin', 'prefix' => 'v0'], function () {
         Route::post('logout', 'AuthController@logout');
 
         Route::resource('categories', 'CategoryController');
+        Route::resource('rules', 'RuleController');
+        Route::post('rules/csv', 'RuleController@dumpCSV');
     });
 });

@@ -3044,6 +3044,10 @@
   clip: auto;
 }
 
+.content-wrapper {
+  height: 954px;
+}
+
 .help-block {
   color: #f54242;
 }

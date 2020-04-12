@@ -23,6 +23,11 @@ class CategoryController extends ApiController
      */
     public function index(Request $request)
     {
+        if (!$request->get('page')) {
+            return $this->response([
+                "data" => $this->category->all(),
+            ]);
+        }
         return $this->response($this->category->pageWithRequest($request));
     }
 
@@ -44,6 +49,7 @@ class CategoryController extends ApiController
      */
     public function store(CategoryRequest $request)
     {
+        // dd($request->all());
         $this->category->customStore($request);
         return $this->response();
     }
@@ -79,6 +85,7 @@ class CategoryController extends ApiController
      */
     public function update(CategoryRequest $request, $id)
     {
+        // dd($request->all());
         $this->category->customUpdate($request, $id);
         return $this->response();
     }

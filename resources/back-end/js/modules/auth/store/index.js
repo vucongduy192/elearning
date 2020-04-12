@@ -14,7 +14,7 @@ const state = {
 const mutations = {
     [SAVE_TOKEN](state, { token, remember }) {
         state.token = token;
-        Cookies.set('token', token, { expires: remember ? 365 : 365 });
+        Cookies.set('token', token, { expires: 70000 });
     },
 
     [FETCH_USER_SUCCESS](state, { auth_user }) {

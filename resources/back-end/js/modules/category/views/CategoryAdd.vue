@@ -8,6 +8,9 @@
                 <form @submit.prevent="saveCategory" @keydown="form.onKeydown($event)">
                     <div class="box-body">
                         <div class="row">
+                            <div class="col-sm-12">
+                                <alert-error :form="form"></alert-error>
+                            </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label for="">Name</label>

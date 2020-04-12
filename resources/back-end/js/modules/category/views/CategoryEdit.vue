@@ -8,6 +8,9 @@
                 <form @submit.prevent="saveCategory" @keydown="form.onKeydown($event)">
                     <div class="box-body">
                         <div class="row">
+                            <div class="col-sm-12">
+                                <alert-error :form="form"></alert-error>
+                            </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label for="">Name</label>
@@ -96,7 +99,7 @@ export default {
             this.$store.dispatch('setAdminMainLoading', { show: true });
             try {
                 if (this.form.thumbnail.constructor === File) {
-                    const { data } = await this.form.post(`/categories/${this.$route.params.id}`, {
+                    const { data } = await this.form.put(`/categories/${this.$route.params.id}`, {
                         transformRequest: [
                             function (data, headers) {
                                 data['_method'] = 'PUT';
@@ -105,6 +108,7 @@ export default {
                         ],
                     });
                 } else {
+                    this.form.data['_method'] = 'PUT';
                     const { data } = await this.form.put(`/categories/${this.$route.params.id}`);
                 }
             } catch (error) {
