@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Api\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use App\Repositories\CategoryRepository;
+use App\Transformers\CategoryTransformer;
 
-class CategoryController extends ApiController
+class CategoryController extends Controller
 {
-    protected $category;
+    protected $entity;
     
     public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->category = $categoryRepository;
+        $this->entity = $categoryRepository;
     }
 
     /**
@@ -25,10 +26,10 @@ class CategoryController extends ApiController
     {
         if (!$request->get('page')) {
             return $this->response([
-                "data" => $this->category->all(),
+                "data" => $this->entity->all(),
             ]);
         }
-        return $this->response($this->category->pageWithRequest($request));
+        return $this->response($this->entity->pageWithRequest($request));
     }
 
     /**
@@ -50,7 +51,7 @@ class CategoryController extends ApiController
     public function store(CategoryRequest $request)
     {
         // dd($request->all());
-        $this->category->customStore($request);
+        $this->entity->customStore($request);
         return $this->response();
     }
 
@@ -62,7 +63,9 @@ class CategoryController extends ApiController
      */
     public function show($id)
     {
-        return $this->category->getById($id);
+        $category = $this->entity->getById($id);
+        $transformer = new CategoryTransformer();
+        return $this->response($transformer->transform($category));
     }
 
     /**
@@ -86,7 +89,7 @@ class CategoryController extends ApiController
     public function update(CategoryRequest $request, $id)
     {
         // dd($request->all());
-        $this->category->customUpdate($request, $id);
+        $this->entity->customUpdate($request, $id);
         return $this->response();
     }
 
@@ -98,7 +101,7 @@ class CategoryController extends ApiController
      */
     public function destroy($id)
     {
-        $this->category->customDestroy($id);
+        $this->entity->customDestroy($id);
         return $this->response();
     }
 }

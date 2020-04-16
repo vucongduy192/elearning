@@ -37,35 +37,37 @@
                         <i class="fa fa-gavel"></i> <span>Rule</span>
                     </router-link>
                 </li>
-                <!-- <li class="treeview">
+                <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-pie-chart"></i>
-                        <span>Charts</span>
+                        <i class="fa fa-user"></i>
+                        <span>User</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="pages/charts/chartjs.html"
-                                ><i class="fa fa-circle-o"></i> ChartJS</a
-                            >
+                            <router-link :to="{ name: 'main.user' }">
+                                <i class="fa fa-circle-o"></i> <span>Admin</span>
+                            </router-link>
                         </li>
                         <li>
-                            <a href="pages/charts/morris.html"
-                                ><i class="fa fa-circle-o"></i> Morris</a
-                            >
+                            <router-link :to="{ name: 'main.teacher' }">
+                                <i class="fa fa-circle-o"></i> <span>Teacher</span>
+                            </router-link>
                         </li>
                         <li>
-                            <a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a>
-                        </li>
-                        <li>
-                            <a href="pages/charts/inline.html"
-                                ><i class="fa fa-circle-o"></i> Inline charts</a
-                            >
+                            <router-link :to="{ name: 'main.student' }">
+                                <i class="fa fa-circle-o"></i> <span>Student</span>
+                            </router-link>
                         </li>
                     </ul>
-                </li> -->
+                </li>
+                <li>
+                    <router-link :to="{ name: 'main.course' }">
+                        <i class="fa fa-mortar-board"></i> <span>Course</span>
+                    </router-link>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -75,6 +77,9 @@
 <script>
 export default {
     name: 'AppAside',
+    mounted() {
+        $('.sidebar-menu').tree({})
+    },
     computed: {
         auth_user() {
             return this.$store.state.storeAuth.auth_user;

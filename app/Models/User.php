@@ -11,13 +11,17 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    const ADMIN = 2;
+    const TEACHER = 1;
+    const STUDENT = 0;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'avatar', 'role',
     ];
 
     /**
@@ -46,5 +50,16 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getRole()
+    {
+        $roles = ['student', 'teacher', 'admin'];
+        return $roles[$this->role];
+    }
+
+    public function teacher()
+    {
+        return $this->hasOne('App\Models\Teacher');
     }
 }

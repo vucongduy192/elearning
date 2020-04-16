@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\User;
-use App\Http\Controllers\Api\ApiController;
-
+use App\Transformers\UserTransformer;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\JWTAuth;
 
-class AuthController extends ApiController
+class AuthController extends Controller
 {
     protected $jwtAuth;
 
@@ -24,7 +24,9 @@ class AuthController extends ApiController
      */
     public function getUser(Request $request)
     {
-        return $this->response($request->user());
+        $user = $request->user();
+        $transformer = new UserTransformer();
+        return $this->response($transformer->transform($user));
     }
 
     /**

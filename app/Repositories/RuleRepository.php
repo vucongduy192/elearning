@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Rule;
+use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use App\Transformers\RuleTransformer;
 use App\Traits\TransformPaginatorTrait;
@@ -23,12 +24,21 @@ class RuleRepository {
     }
 
     /**
-     * Get list rule
+     * Get list category
      */
-    public function pageWithRequest($request, $number = 5, $sort = 'desc', $sortColumn = 'created_at')
+    public function pageWithRequest(Request $request, $number = 5)
     {
-        $rulesPaginator = $this->model->orderBy($sortColumn, $sort)->paginate($number);
-        return $this->buildTransformPaginator($rulesPaginator, $this->ruleTransformer);
+        $sortType = $request->get('sortType') ? $request->get('sortType') : 'desc';
+        $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';
+
+        $rulesPaginator = $this->model
+            ->orderBy($sortColumn, $sortType)
+            ->paginate($number);
+        
+        return $this->buildTransformPaginator(
+            $rulesPaginator, 
+            $this->ruleTransformer
+        );
     }
 
     /**

@@ -30,10 +30,12 @@
                             <table class="table table-bordered table-hover no-padding">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Category</th>
-                                        <th>Category</th>
-                                        <th>Weight</th>
+                                        <th id="id" @click="clickSort('id')">
+                                            ID <i class="sort fa fa-fw fa-sort-desc pull-right"></i>
+                                        </th>
+                                        <th id="cat_id1" @click="clickSort('cat_id1')">Category <i class="sort"></i></th>
+                                        <th id="cat_id2" @click="clickSort('cat_id2')">Category <i class="sort"></i></th>
+                                        <th id="weight" @click="clickSort('weight')">Weight <i class="sort"></i></th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -85,14 +87,38 @@ export default {
     mounted() {
         this.getResults();
     },
+    data() {
+        return {
+            sortColumn: 'id',
+            sortType: 'desc',
+        };
+    },
     computed: {
         listFetch() {
             return this.$store.state.storeRule.listFetch;
         },
     },
     methods: {
+        clickSort(column) {
+            this.sortType = this.sortType === 'desc' ? 'asc' : 'desc';
+            this.sortColumn = column;
+
+            $('.sort').replaceWith('<i class="sort"></i>');
+            $(`#${this.sortColumn} .sort`).replaceWith(
+                `<i class="sort fa fa-fw fa-sort-${this.sortType} pull-right"></i>`
+            );
+
+            this.getResults();
+        },
         getResults(page = 1) {
-            this.$store.dispatch('actionFetchRule', { vue: this, params: { page: page } });
+            this.$store.dispatch('actionFetchRule', { 
+                vue: this, 
+                params: {
+                    page: page,
+                    sortColumn: this.sortColumn,
+                    sortType: this.sortType,
+                },
+            });
         },
         clickEdit(rule) {
             this.$router.push({ name: 'main.rule.edit', params: { id: rule.id } });

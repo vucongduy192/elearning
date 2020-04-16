@@ -16,7 +16,7 @@ trait TransformPaginatorTrait {
         unset($paginator['data']);
 
         $entity = new Collection($entityPaginator->items(), $entityTransform);
-        $transform = $fractal->createData($entity)->toArray();;
+        $transform = $fractal->createData($entity)->toArray();
         $transform_paginator = array_merge($transform, $paginator);
         
         return $transform_paginator;

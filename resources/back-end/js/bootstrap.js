@@ -11,6 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
     require('bootstrap');
     require('admin-lte');
+    window.$('ul[data-widget="treeview"]').Treeview('init');
 } catch (e) {}
 
 /**

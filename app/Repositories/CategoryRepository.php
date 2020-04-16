@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use App\Traits\UploadTrait;
 use App\Traits\TransformPaginatorTrait;
@@ -28,10 +29,20 @@ class CategoryRepository
     /**
      * Get list category
      */
-    public function pageWithRequest($request, $number = 5, $sort = 'desc', $sortColumn = 'created_at')
+    public function pageWithRequest(Request $request, $number = 5, $searchColumn = 'name')
     {
-        $categoriesPaginator = $this->model->orderBy($sortColumn, $sort)->paginate($number);
-        return $this->buildTransformPaginator($categoriesPaginator, $this->categoryTransformer);
+        $sortType = $request->get('sortType') ? $request->get('sortType') : 'desc';
+        $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';
+
+        $categoriesPaginator = $this->model
+            ->where($searchColumn, 'like', '%'.$request->get($searchColumn).'%')
+            ->orderBy($sortColumn, $sortType)
+            ->paginate($number);
+        
+        return $this->buildTransformPaginator(
+            $categoriesPaginator, 
+            $this->categoryTransformer
+        );
     }
 
     /**

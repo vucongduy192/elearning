@@ -15,6 +15,17 @@ import RuleAdd from '*/modules/rule/views/RuleAdd';
 import RuleEdit from '*/modules/rule/views/RuleEdit';
 import RuleMatrix from '*/modules/rule/views/RuleMatrix';
 
+import User from '*/modules/user/views/User';
+import Teacher from '*/modules/user/views/Teacher';
+import Student from '*/modules/user/views/Student';
+import UserAdd from '*/modules/user/views/UserAdd';
+import UserEdit from '*/modules/user/views/UserEdit';
+
+import Course from '*/modules/course/views/Course';
+import CourseAdd from '*/modules/course/views/CourseAdd';
+import CourseEdit from '*/modules/course/views/CourseEdit';
+
+
 const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'active',
@@ -78,6 +89,66 @@ const router = new VueRouter({
                             path: 'matrix',
                             name: 'main.rule.matrix',
                             component: RuleMatrix,
+                        },
+                    ],
+                },
+                {
+                    path: 'users',
+                    component: {
+                        render(c) {
+                            return c('router-view');
+                        },
+                    },
+                    children: [
+                        {
+                            path: 'admin',
+                            name: 'main.user',
+                            component: User,
+                        },
+                        {
+                            path: 'teacher',
+                            name: 'main.teacher',
+                            component: Teacher,
+                        },
+                        {
+                            path: 'student',
+                            name: 'main.student',
+                            component: Student,
+                        },
+                        {
+                            path: 'add',
+                            name: 'main.user.add',
+                            component: UserAdd,
+                        },
+                        {
+                            path: 'edit/:id',
+                            name: 'main.user.edit',
+                            component: UserEdit,
+                        },
+                    ],
+                },
+                {
+                    path: 'courses',
+                    component: {
+                        render(c) {
+                            return c('router-view');
+                        },
+                    },
+                    children: [
+                        {
+                            path: '',
+                            name: 'main.course',
+                            component: Course,
+                        },
+                        {
+                            path: 'add',
+                            name: 'main.course.add',
+                            component: CourseAdd,
+                        },
+                        {
+                            path: 'edit/:id',
+                            name: 'main.course.edit',
+                            component: CourseEdit,
                         },
                     ],
                 },

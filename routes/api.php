@@ -25,5 +25,9 @@ Route::group(['namespace' => 'Api\Admin', 'prefix' => 'v0'], function () {
         Route::resource('categories', 'CategoryController');
         Route::resource('rules', 'RuleController');
         Route::post('rules/csv', 'RuleController@dumpCSV');
+        Route::resource('users', 'UserController');
+        Route::resource('teachers', 'TeacherController');
+        Route::resource('students', 'StudentController');
+        Route::resource('courses', 'CourseController');
     });
 });

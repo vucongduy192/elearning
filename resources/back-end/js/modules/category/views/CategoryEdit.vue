@@ -99,7 +99,7 @@ export default {
             this.$store.dispatch('setAdminMainLoading', { show: true });
             try {
                 if (this.form.thumbnail.constructor === File) {
-                    const { data } = await this.form.put(`/categories/${this.$route.params.id}`, {
+                    const { data } = await this.form.post(`/categories/${this.$route.params.id}`, {
                         transformRequest: [
                             function (data, headers) {
                                 data['_method'] = 'PUT';

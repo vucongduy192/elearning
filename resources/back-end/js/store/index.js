@@ -5,6 +5,8 @@ import storeAuth from '*/modules/auth/store';
 import storeLoading from '*/modules/loading/store';
 import storeCategory from '*/modules/category/store';
 import storeRule from '*/modules/rule/store';
+import storeUser from '*/modules/user/store';
+import storeCourse from '*/modules/course/store';
 
 Vue.use(Vuex);
 
@@ -19,5 +21,7 @@ export default new Vuex.Store({
         storeLoading,
         storeCategory,
         storeRule,
+        storeUser,
+        storeCourse,
     },
 });

@@ -15,6 +15,10 @@ trait UploadTrait {
      */
     public function uploadImage(Request $request, $image_name='image', $folder='category', $w=1024, $h=768)
     {
+        # Return path in public location. 
+        # Public location contains link to storage location
+        # ---------------Public--------------------||-----------------Storage---------------------
+        # '/storage/category/computer_science.png' || '/storage/app/public/category/computer_science.png' 
         if (!$request->hasFile($image_name)) {
             return '';
         }
@@ -39,8 +43,10 @@ trait UploadTrait {
      */
     public function removeImage($path)
     {
+        # Check exist in storage location
+        # '/storage/app/public/category/computer_science.png'
         $file = storage_path(str_replace('/storage/', 'app/public/', $path));
-        if (file_exists($file))
+        if ($path && file_exists($file))
             unlink($file);
     }
 }

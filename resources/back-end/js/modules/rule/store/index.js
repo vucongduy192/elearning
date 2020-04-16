@@ -27,7 +27,8 @@ const actions = {
     async actionFetchRule({ commit }, { vue, params }) {
         vue.$store.dispatch('setAdminMainLoading', { show: true });
         try {
-            const { data } = await axios.get(`/rules?page=${params.page}`);
+            let url = `/rules?${$.param(params)}`;
+            const { data } = await axios.get(url);
             commit(FETCH_RULE, { listFetch: data });
         } catch (error) {}
         vue.$store.dispatch('setAdminMainLoading', { show: false });

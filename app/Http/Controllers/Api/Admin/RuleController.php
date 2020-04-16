@@ -5,17 +5,16 @@ namespace App\Http\Controllers\Api\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\RuleRequest;
 use App\Repositories\RuleRepository;
-use App\Repositories\CategoryRepository;
-use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 
-class RuleController extends ApiController
+class RuleController extends Controller
 {
-    protected $rule;
+    protected $entity;
     
     public function __construct(RuleRepository $ruleRepository)
     {
-        $this->rule = $ruleRepository;
+        $this->entity = $ruleRepository;
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +23,7 @@ class RuleController extends ApiController
      */
     public function index(Request $request)
     {
-        return $this->response($this->rule->pageWithRequest($request));
+        return $this->response($this->entity->pageWithRequest($request));
     }
 
     /**
@@ -45,14 +44,14 @@ class RuleController extends ApiController
      */
     public function store(RuleRequest $request)
     {
-        $rules = $this->rule->getRule($request->get("cat_id1"), $request->get("cat_id2"));
+        $rules = $this->entity->getRule($request->get("cat_id1"), $request->get("cat_id2"));
         if ($rules->first()) {
             return $this->response(
                 ["message" => "The rule is existed"], $status=400
             );
         }
 
-        $this->rule->store($request->all());
+        $this->entity->store($request->all());
         return $this->response();
     }
 
@@ -64,7 +63,7 @@ class RuleController extends ApiController
      */
     public function show($id)
     {
-        return $this->rule->getById($id);
+        return $this->entity->getById($id);
     }
 
     /**
@@ -87,7 +86,7 @@ class RuleController extends ApiController
      */
     public function update(RuleRequest $request, $id)
     {
-        $rules = $this->rule->getRule(
+        $rules = $this->entity->getRule(
             $request->get("cat_id1"), 
             $request->get("cat_id2")
         );
@@ -97,7 +96,7 @@ class RuleController extends ApiController
                 ["message" => "The rule is existed"], $status=400
             );
         }
-        $this->rule->update($id, $request->all());
+        $this->entity->update($id, $request->all());
         return $this->response();
     }
 
@@ -109,7 +108,7 @@ class RuleController extends ApiController
      */
     public function destroy($id)
     {
-        $this->rule->destroy($id);
+        $this->entity->destroy($id);
         return $this->response();
     }
 
@@ -121,7 +120,7 @@ class RuleController extends ApiController
         foreach ($columns as $row_id => $category_id_i) {
             $row = array();
             foreach ($columns as $category_id_j) {
-                $rule = $this->rule->getRule($category_id_i, $category_id_j)
+                $rule = $this->entity->getRule($category_id_i, $category_id_j)
                             ->first();
 
                 $row[$category_id_j] = $rule ? $rule->weight : 0;

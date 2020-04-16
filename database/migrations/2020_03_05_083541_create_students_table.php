@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateStudentsTable extends Migration
 {
@@ -30,6 +31,8 @@ class CreateStudentsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('students');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

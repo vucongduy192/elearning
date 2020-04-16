@@ -29,9 +29,15 @@ mix.js('resources/front-end/js/app.js', 'public/front-end/js')
             'node_modules/admin-lte/dist/css/AdminLTE.css',
             'node_modules/admin-lte/dist/css/skins/_all-skins.min.css',
         ],
-        'public/back-end/css/lib.css'
+        'public/back-end/css/lib.min.css'
     )
-    .scripts(['node_modules/admin-lte/dist/js/demo.js'], 'public/back-end/js/lib.js');
+    .scripts(
+        [
+            // 'node_modules/admin-lte/dist/js/adminlte.min.js',
+            'node_modules/admin-lte/dist/js/demo.js',
+        ],
+        'public/back-end/js/lib.min.js'
+    );
 
 mix.sass('resources/front-end/sass/app.scss', 'public/front-end/css')
     .sass('resources/back-end/sass/app.scss', 'public/back-end/css')
