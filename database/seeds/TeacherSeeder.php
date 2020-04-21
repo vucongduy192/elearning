@@ -23,5 +23,29 @@ class TeacherSeeder extends Seeder
             'expert' => 'Tiến sỹ',
             'user_id' => 4
         ]);
+
+        DB::table('teachers')->insert([
+            'workplace' => 'Đại học Bách Khoa Hà Nội',
+            'expert' => 'Giảng viên',
+            'user_id' => 5
+        ]);
+
+        DB::table('teachers')->insert([
+            'workplace' => 'Đại học Bách Khoa Hà Nội',
+            'expert' => 'Giảng viên',
+            'user_id' => 6
+        ]);
+
+        DB::table('teachers')->insert([
+            'workplace' => 'Đại học Bách Khoa Hà Nội',
+            'expert' => 'Tiến sỹ',
+            'user_id' => 7
+        ]);
+
+        DB::table('teachers')->insert([
+            'workplace' => 'Đại học Bách Khoa Hà Nội',
+            'expert' => 'Giảng viên',
+            'user_id' => 8
+        ]);
     }
 }

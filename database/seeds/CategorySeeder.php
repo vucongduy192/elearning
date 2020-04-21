@@ -12,14 +12,19 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $fileCategories = fopen(base_path().'/recommendation_system/categories.csv', 'r');
-        $row = fgetcsv($fileCategories, 0, ',');
-        for ($i = 1; $i < sizeof($row); $i++) {
+        $file = fopen(base_path().'/SeedSQL/courses.csv', 'r');
+        $row = fgetcsv($file, 0, ',');
+        $unique = [];
+
+        while (($row = fgetcsv($file, 0, ',')) !== false) {
+            if (in_array($row[0], $unique))
+                continue;
+
+            array_push($unique, $row[0]);
             DB::table('course_categories')->insert([
-                'name' => $row[$i],
-                'overview' => 'abc',
-                'thumbnail' => public_path().'/images/image_placeholder.png',
+                'name' => $row[0], 
+                'overview' => 'abc'
             ]);
-        }        
+        }
     }
 }

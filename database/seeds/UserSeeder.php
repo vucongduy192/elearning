@@ -28,11 +28,11 @@ class UserSeeder extends Seeder
             'role' => 2,
         ]);
 
-        # Teacher
+        # Teacher []
         DB::table('users')->insert([
             'name' => 'Thang Nguyen',
             'email' => 'thang123@gmail.com',
-            'password' => Hash::make('thang'),
+            'password' => Hash::make('thang123'),
             'role' => 1,
         ]);
 
@@ -43,13 +43,43 @@ class UserSeeder extends Seeder
             'role' => 1,
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Duc Nguyen',
+            'email' => 'duc123@gmail.com',
+            'password' => Hash::make('duc123'),
+            'role' => 1,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Dat Nguyen',
+            'email' => 'dat123@gmail.com',
+            'password' => Hash::make('dat123'),
+            'role' => 1,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Quang Nguyen',
+            'email' => 'quang123@gmail.com',
+            'password' => Hash::make('quang123'),
+            'role' => 1,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Giang Nguyen',
+            'email' => 'giang123@gmail.com',
+            'password' => Hash::make('giang123'),
+            'role' => 1,
+        ]);
+
         # Users
-        $fileUsers = fopen(base_path().'/recommendation_system/users.csv', 'r');
+        $fileUsers = fopen(base_path().'/SeedSQL/users.csv', 'r');
         $row = fgetcsv($fileUsers, 0, ',');
         while (($row = fgetcsv($fileUsers, 0, ',')) !== false) {
             DB::table('users')->insert([
                 'name' => $row[0],
-                'email' => str_replace(' ', '', strtolower($row[1])).'@gmail.com',
+                'email' => str_replace(' ', '', strtolower($row[0])).'@gmail.com',
+                'first_name' => explode(' ', $row[1])[0],
+                'last_name' => explode(' ', $row[1])[1],
                 'password' => Hash::make($row[0]),
                 'role' => 0,
             ]);

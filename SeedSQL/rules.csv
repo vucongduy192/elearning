@@ -1,0 +1,16 @@
+c_from,c_to,weight
+Công nghệ phần mềm,Khoa học máy tính,0.9
+Công nghệ phần mềm,Kinh doanh,0.1
+Công nghệ phần mềm,Mạng và truyền thông,0.9
+Công nghệ phần mềm,Ngôn ngữ,0.1
+Công nghệ phần mềm,Toán học,0.5
+Khoa học máy tính,Kinh doanh,0.1
+Khoa học máy tính,Mạng và truyền thông,0.9
+Khoa học máy tính,Ngôn ngữ,0.1
+Khoa học máy tính,Toán học,0.5
+Kinh doanh,Mạng và truyền thông,0.1
+Kinh doanh,Ngôn ngữ,0.9
+Kinh doanh,Toán học,0.5
+Mạng và truyền thông,Ngôn ngữ,0.1
+Mạng và truyền thông,Toán học,0.5
+Ngôn ngữ,Toán học,0.1

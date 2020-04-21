@@ -12,15 +12,16 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        $fileCourses = fopen(base_path().'/recommendation_system/courses.csv', 'r');
-        $row = fgetcsv($fileCourses, 0, ','); # ignore first row
-        while (($row = fgetcsv($fileCourses, 0, ',')) !== false) {
-            $courses_category_id = DB::table('course_categories')->where('name', $row[2])->first()->id; 
-            $teacher_id = rand(1, 2);
+        $file = fopen(base_path().'/SeedSQL/courses.csv', 'r');
+        $row = fgetcsv($file, 0, ',');
+        
+        while (($row = fgetcsv($file, 0, ',')) !== false) {
+            $category_id = DB::table('course_categories')->where('name', $row[0])->first()->id;
+            $teacher_id = $category_id; # 6 category corresponding 6 teacher
             DB::table('courses')->insert([
                 'name' => $row[1], 
                 'overview' => 'edf', 
-                'courses_category_id' => $courses_category_id, 
+                'courses_category_id' => $category_id, 
                 'teacher_id' => $teacher_id,
             ]);
         }

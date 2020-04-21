@@ -12,7 +12,7 @@ class StudentSeeder extends Seeder
      */
     public function run()
     {
-        $users = DB::table('users')->where('id', '>', 4)->get();
+        $users = DB::table('users')->where('id', '>', 8)->get();
         foreach ($users as $user) {
             DB::table('students')->insert([
                 'school' => 'Đại học Bách Khoa Hà Nội',
