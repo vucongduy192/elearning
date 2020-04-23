@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Rule;
 use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
+use App\Models\Course;
 use App\Transformers\RuleTransformer;
 use App\Traits\TransformPaginatorTrait;
 
@@ -17,7 +18,7 @@ class RuleRepository {
      *
      * @param Category $category
      */
-    public function __construct(Rule $rule, RuleTransformer $ruleTransformer)
+    public function __construct(Rule $rule, RuleTransformer $ruleTransformer, CourseRepository $courseRepository)
     {
         $this->ruleTransformer = $ruleTransformer;
         $this->model = $rule;
@@ -55,5 +56,22 @@ class RuleRepository {
         ])->get();
         
         return $rule;
+    }
+
+    /**
+     * Find rule if existed
+     */
+    public function getWeight($c_i, $c_j)
+    {
+        $cat_id1 = Course::where('id', $c_i)->first()->courses_category_id;
+        $cat_id2 = Course::where('id', $c_j)->first()->courses_category_id;
+
+        $rule = $this->getRule($cat_id1, $cat_id2)->first();
+        $weight = $rule ? $rule->weight : 0;
+        if ($cat_id1 == $cat_id2) {
+            $weight = 1;
+        }
+
+        return $weight;
     }
 }

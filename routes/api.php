@@ -29,5 +29,10 @@ Route::group(['namespace' => 'Api\Admin', 'prefix' => 'v0'], function () {
         Route::resource('teachers', 'TeacherController');
         Route::resource('students', 'StudentController');
         Route::resource('courses', 'CourseController');
+        Route::resource('enrolls', 'EnrollController');
+        Route::post('enrolls/csv', 'EnrollController@dumpCSV');
+        Route::post('configs/update', 'MatrixController@updateCoefficient');
+        Route::post('configs/combine', 'MatrixController@combineMatrix');
+        Route::get('configs', 'MatrixController@getConfig');
     });
 });

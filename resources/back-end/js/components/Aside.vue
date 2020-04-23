@@ -28,6 +28,11 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu tree" data-widget="tree">
                 <li>
+                    <router-link :to="{ name: 'main.config' }">
+                        <i class="fa fa-cogs"></i> <span>Config</span>
+                    </router-link>
+                </li>
+                <li>
                     <router-link :to="{ name: 'main.category' }">
                         <i class="fa fa-list-alt"></i> <span>Category</span>
                     </router-link>
@@ -66,6 +71,11 @@
                 <li>
                     <router-link :to="{ name: 'main.course' }">
                         <i class="fa fa-mortar-board"></i> <span>Course</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ name: 'main.enroll' }">
+                        <i class="fa fa-registered"></i> <span>Enroll</span>
                     </router-link>
                 </li>
             </ul>

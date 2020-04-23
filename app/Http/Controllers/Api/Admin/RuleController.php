@@ -7,6 +7,7 @@ use App\Http\Requests\RuleRequest;
 use App\Repositories\RuleRepository;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Course;
 
 class RuleController extends Controller
 {
@@ -114,33 +115,53 @@ class RuleController extends Controller
 
     public function dumpCSV()
     {
-        $columns = Category::pluck("id")->toArray();  // array(["id" =>"name"])   
-        $matrix_csv = "category_id,".implode(",", $columns)."\n";
+        # --------------------------------------------------- #
+        # Export category matrix from SQL rule
+        $categories = Category::pluck("name", "id")->toArray();  // array(["id" =>"name"])
+        $category_matrix_csv = "category,".implode(",", array_values($categories))."\n";
 
-        foreach ($columns as $row_id => $category_id_i) {
+        foreach (array_keys($categories) as $cat_i) {
             $row = array();
-            foreach ($columns as $category_id_j) {
-                $rule = $this->entity->getRule($category_id_i, $category_id_j)
-                            ->first();
+            foreach (array_keys($categories) as $cat_j) {
+                $rule = $this->entity->getRule($cat_i, $cat_j)->first();
 
-                $row[$category_id_j] = $rule ? $rule->weight : 0;
-                if ($category_id_i == $category_id_j) {
-                    $row[$category_id_j] = 1;
+                $row[$cat_j] = $rule ? $rule->weight : 0;
+                if ($cat_i == $cat_j) {
+                    $row[$cat_j] = 1;
                 }
             }
-            $matrix_csv .= strval($category_id_i).",".implode(",", $row)."\n";
+            $category_matrix_csv .= $categories[$cat_i].",".implode(",", $row)."\n";
         }
 
-        $fileName = "category_matrix.csv";
-        $filePath = public_path("recommend/".$fileName);
+        $filePath = public_path("recommend/category_matrix.csv");
+        $this->saveCSV($filePath, $category_matrix_csv);
+
+        # --------------------------------------------------- #
+        # Export course matrix from category matrix values
+        $courses = Course::pluck("name", "id")->toArray();  // array(["id" =>"name"])   
+        $course_matrix_csv = "course,".implode(",", array_values($courses))."\n";
+        foreach (array_keys($courses) as $c_i) {
+            $row = array();
+            foreach (array_keys($courses) as $c_j) {
+                $row[$c_j] = $this->entity->getWeight($c_i, $c_j);
+            }
+            $course_matrix_csv .= $courses[$c_i].",".implode(",", $row)."\n";
+        }
+
+        $filePath = public_path("recommend/similarC_matrix.csv");
+        $this->saveCSV($filePath, $course_matrix_csv);
+
+        return $this->response();
+    }
+
+    public function saveCSV($filePath, $csv)
+    {
         if (file_exists($filePath)) {
             unlink($filePath);
         }
 
         $fp = fopen($filePath, "w+");
-        fwrite($fp, $matrix_csv);
+        fwrite($fp, $csv);
         fclose($fp);
-
-        return $this->response();
     }
 }

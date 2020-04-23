@@ -19,7 +19,6 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('overview');
             $table->integer('price')->default(0);
-            $table->integer('num_purchase')->default(0);
             $table->integer('level')->default(0);
             $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('courses_category_id');

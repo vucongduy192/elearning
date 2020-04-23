@@ -29,6 +29,16 @@ class Course extends Model
 
     public function lectures()
     {
-        return $this->hasMany('App\Models\Lecture')->select(['id', 'name', 'slide']);;
+        return $this->hasMany('App\Models\Lecture')->select(['id', 'name', 'slide']);
     }
+
+    public function courses_category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    // public function enrolls()
+    // {
+    //     return $this->hasMany('App\Models\Enroll');
+    // }
 }

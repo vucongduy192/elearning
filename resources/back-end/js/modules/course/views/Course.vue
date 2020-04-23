@@ -9,13 +9,11 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-sm-2">
-                            <router-link
-                                :to="{ name: 'main.course.add' }"
-                                class="btn btn-success"
-                            >
+                            <router-link :to="{ name: 'main.course.add' }" class="btn btn-success">
                                 Add new course
                             </router-link>
                         </div>
+
                         <div class="col-sm-3 pull-right">
                             <div class="form-group">
                                 <input
@@ -27,6 +25,27 @@
                                 />
                             </div>
                         </div>
+
+                        <div class="col-sm-3 pull-right">
+                            <div class="form-group">
+                                <select
+                                    v-model="courses_category_id"
+                                    class="form-control"
+                                    @change="getResults()"
+                                >
+                                    <option v-bind:value="-1" v-bind:key="-1">
+                                        All category</option
+                                    >
+                                    <option
+                                        v-for="category in categories"
+                                        v-bind:value="category.id"
+                                        v-bind:key="category.id"
+                                        >{{ category.name }}</option
+                                    >
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
@@ -36,11 +55,20 @@
                                         <th id="id" @click="clickSort('id')">
                                             ID <i class="sort fa fa-fw fa-sort-asc pull-right"></i>
                                         </th>
-                                        <th id="name" @click="clickSort('name')">Name <i class="sort"></i></th>
+                                        <th id="name" @click="clickSort('name')">
+                                            Name <i class="sort"></i>
+                                        </th>
                                         <th>Overview</th>
-                                        <th id="num_purchase" @click="clickSort('num_purchase')">Enrolls <i class="sort"></i></th>
-                                        <th id="level" @click="clickSort('level')">Level <i class="sort"></i></th>
-                                        <th id="teacher" @click="clickSort('teacher')">Teacher <i class="sort"></i></th>
+                                        <th id="enrolls" @click="clickSort('enrolls')">
+                                            Enrolls <i class="sort"></i>
+                                        </th>
+                                        <th id="level" @click="clickSort('level')">
+                                            Level <i class="sort"></i>
+                                        </th>
+                                        <th id="teacher" @click="clickSort('teacher')">
+                                            Teacher <i class="sort"></i>
+                                        </th>
+                                        <th>Category</th>
                                         <th>Thumbnail</th>
                                         <th>Action</th>
                                     </tr>
@@ -50,9 +78,10 @@
                                         <td>{{ course.id }}</td>
                                         <td>{{ course.name }}</td>
                                         <td>{{ course.overview }}</td>
-                                        <td>{{ course.num_purchase }}</td>
+                                        <td>{{ course.enrolls }}</td>
                                         <td>{{ levels[course.level] }}</td>
                                         <td>{{ course.teacher }}</td>
+                                        <td>{{ course.courses_category }}</td>
                                         <td>
                                             <img :src="course.thumbnail" alt="" />
                                         </td>
@@ -73,7 +102,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <pagination :data="listFetch" :limit="3" @pagination-change-page="getResults">
+                            <pagination
+                                :data="listFetch"
+                                :limit="3"
+                                @pagination-change-page="getResults"
+                            >
                                 <span slot="prev-nav">Previous</span>
                                 <span slot="next-nav">Next</span>
                             </pagination>
@@ -96,6 +129,7 @@ export default {
         Pagination,
     },
     mounted() {
+        this.$store.dispatch('actionFetchCategory', { vue: this, params: {} });
         this.getResults();
     },
     data() {
@@ -103,12 +137,16 @@ export default {
             sortColumn: 'id',
             sortType: 'asc',
             name: '',
+            courses_category_id: -1,
             levels: ['Easy', 'Medium', 'Hard'],
         };
     },
     computed: {
         listFetch() {
             return this.$store.state.storeCourse.listFetch;
+        },
+        categories() {
+            return this.$store.state.storeCategory.listFetch.data;
         },
     },
     methods: {
@@ -124,11 +162,12 @@ export default {
             this.getResults();
         },
         getResults(page = 1) {
-            this.$store.dispatch('actionFetchCourse', { 
-                vue: this, 
+            this.$store.dispatch('actionFetchCourse', {
+                vue: this,
                 params: {
                     page: page,
                     name: this.name,
+                    courses_category_id: this.courses_category_id,
                     sortColumn: this.sortColumn,
                     sortType: this.sortType,
                 },
@@ -138,20 +177,23 @@ export default {
             this.$router.push({ name: 'main.course.edit', params: { id: course.id } });
         },
         async clickDelete(course) {
-            return course.id
-                && await this.$swal({
+            return (
+                course.id &&
+                (await this.$swal({
                     title: this.$i18n.t('textConfirmDelete'),
                     icon: 'warning',
                     buttons: true,
                     dangerMode: true,
-                }) 
-                && this.$store.dispatch('actionCourseDelete', { vue: this, id: course.id });
+                })) &&
+                this.$store.dispatch('actionCourseDelete', { vue: this, id: course.id })
+            );
         },
     },
 };
 </script>
 <style scoped>
-    .matrix, .csv {
-        margin-right: 10px;
-    }
+.matrix,
+.csv {
+    margin-right: 10px;
+}
 </style>

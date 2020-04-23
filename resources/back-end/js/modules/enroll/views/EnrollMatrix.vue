@@ -3,26 +3,10 @@
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
-                    <h3 class="box-title">Rule Similar Matrix</h3>
+                    <h3 class="box-title">Enrollment Similar Matrix</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <button
-                                class="btn btn-success btn-flat csv"
-                                @click="loadMatrix('category')"
-                            >
-                                Category Matrix
-                            </button>
-                            <button
-                                class="btn btn-primary btn-flat csv"
-                                @click="loadMatrix('course')"
-                            >
-                                Course Matrix
-                            </button>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div style="display: inline-block; float: left;" id="container"></div>
@@ -40,26 +24,18 @@ import Matrix from '*/components/matrix.js';
 import * as d3 from 'd3';
 
 export default {
-    name: 'RuleMatrix',
+    name: 'EnrollMatrix',
     mounted() {
-        this.loadMatrix('category');    
-    },
-    data() {
-        return {
-            csv: {
-                category: 'category_matrix.csv',
-                course: 'similarC_matrix.csv'
-            }
-        }
+        this.loadMatrix();    
     },
     methods: {
-        loadMatrix(type) {
-            d3.csv(`/recommend/${this.csv[type]}`, (error, data) => {
+        loadMatrix() {
+            d3.csv('/recommend/similarE_matrix.csv', (error, data) => {
                 console.log(data);
                 var columns = [], rows = []
                 data.forEach(row => {
-                    columns.push(row[type]);
-                    delete row[type];
+                    columns.push(row.course);
+                    delete row.course;
                     rows.push(Object.values(row));
                 });
                 console.log(columns, rows);

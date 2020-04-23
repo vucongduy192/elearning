@@ -33,11 +33,11 @@ class StudentRepository {
 
         $studentsPaginator = $this->model
             ->join('users', 'students.user_id', '=', 'users.id')
+            ->where($searchColumn, 'like', '%'.$request->get($searchColumn).'%')
             ->select([
                 'students.id', 'students.school', 'students.major',  
                 'users.name', 'users.email', 'users.avatar',
             ])
-            ->where($searchColumn, 'like', '%'.$request->get($searchColumn).'%')
             ->orderBy($sortColumn, $sortType)
             ->paginate($number);
         

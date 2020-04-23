@@ -30,7 +30,8 @@ class LectureRepository {
     {
         $lecture['slide'] = $this->uploadSlide($lecture['slide'], $course_id);
         $lecture['course_id'] = $course_id;
-
+        # ko hieu sao cho nay ko dung $this->store dc
+        # neu dung thi no chi luu cai lecture cuoi (ko phai do transaction) 
         $this->model->create($lecture);
     }
 

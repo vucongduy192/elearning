@@ -7,6 +7,8 @@ import storeCategory from '*/modules/category/store';
 import storeRule from '*/modules/rule/store';
 import storeUser from '*/modules/user/store';
 import storeCourse from '*/modules/course/store';
+import storeEnroll from '*/modules/enroll/store';
+import storeConfig from '*/modules/config/store';
 
 Vue.use(Vuex);
 
@@ -23,5 +25,7 @@ export default new Vuex.Store({
         storeRule,
         storeUser,
         storeCourse,
+        storeEnroll,
+        storeConfig,
     },
 });

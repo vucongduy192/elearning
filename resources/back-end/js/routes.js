@@ -6,6 +6,9 @@ import store from '*/store';
 
 import Main from '*/components/Main';
 import Login from '*/modules/auth/views/Login';
+
+import Config from '*/modules/config/views/Config';
+
 import Category from '*/modules/category/views/Category';
 import CategoryAdd from '*/modules/category/views/CategoryAdd';
 import CategoryEdit from '*/modules/category/views/CategoryEdit';
@@ -25,6 +28,8 @@ import Course from '*/modules/course/views/Course';
 import CourseAdd from '*/modules/course/views/CourseAdd';
 import CourseEdit from '*/modules/course/views/CourseEdit';
 
+import Enroll from '*/modules/enroll/views/Enroll';
+import EnrollMatrix from '*/modules/enroll/views/EnrollMatrix';
 
 const router = new VueRouter({
     mode: 'history',
@@ -37,6 +42,11 @@ const router = new VueRouter({
             component: Main,
             meta: { requiresAuth: true },
             children: [
+                {
+                    path: 'configs',
+                    name: 'main.config',
+                    component: Config,
+                },
                 {
                     path: 'categories',
                     component: {
@@ -149,6 +159,26 @@ const router = new VueRouter({
                             path: 'edit/:id',
                             name: 'main.course.edit',
                             component: CourseEdit,
+                        },
+                    ],
+                },
+                {
+                    path: 'enrolls',
+                    component: {
+                        render(c) {
+                            return c('router-view');
+                        },
+                    },
+                    children: [
+                        {
+                            path: '',
+                            name: 'main.enroll',
+                            component: Enroll,
+                        },
+                        {
+                            path: 'matrix',
+                            name: 'main.enroll.matrix',
+                            component: EnrollMatrix,
                         },
                     ],
                 },

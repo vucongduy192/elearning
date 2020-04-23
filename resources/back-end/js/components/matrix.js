@@ -1,10 +1,10 @@
 import * as d3 from 'd3';
 
 export default function Matrix(options) {
-    var margin = { top: 50, right: 50, bottom: 100, left: 150 };
+    var margin = { top: 50, right: 50, bottom: 200, left: 200 };
 
-    var width = 300,
-        height = 300,
+    var width = 500,
+        height = 500,
         data = options.data,
         container = options.container,
         labelsData = options.labels,
@@ -34,6 +34,9 @@ export default function Matrix(options) {
 
     var numrows = data.length;
     var numcols = data[0].length;
+
+    d3.select('svg').remove();
+    d3.select('#legend').select('svg').remove();
 
     var svg = d3
         .select(container)
