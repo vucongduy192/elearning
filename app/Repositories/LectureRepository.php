@@ -31,7 +31,7 @@ class LectureRepository {
         $lecture['slide'] = $this->uploadSlide($lecture['slide'], $course_id);
         $lecture['course_id'] = $course_id;
 
-        $this->store($lecture);
+        $this->model->create($lecture);
     }
 
     /**
