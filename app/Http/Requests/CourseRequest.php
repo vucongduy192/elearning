@@ -30,6 +30,8 @@ class CourseRequest extends FormRequest
             'level' => 'required',
             'courses_category_id' => 'required',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'lectures.*.name' => 'required',
+            'lectures.*.slide' => 'required',
         ];
         $rules_update = [
             'name' => 'required|unique:courses,name,'.$this->route('course'),
@@ -37,6 +39,8 @@ class CourseRequest extends FormRequest
             'price' => 'required',
             'level' => 'required',
             'courses_category_id' => 'required',
+            'lectures.*.name' => 'required',
+            'lectures.*.slide' => 'required',
         ];
         
         return ($this->getMethod() == 'POST') ? $rules_store : $rules_update;

@@ -15,6 +15,12 @@ class TeacherSeeder extends Seeder
         DB::table('teachers')->insert([
             'workplace' => 'Đại học Bách Khoa Hà Nội',
             'expert' => 'Giảng viên',
+            'user_id' => 2
+        ]);
+        
+        DB::table('teachers')->insert([
+            'workplace' => 'Đại học Bách Khoa Hà Nội',
+            'expert' => 'Giảng viên',
             'user_id' => 3
         ]);
 

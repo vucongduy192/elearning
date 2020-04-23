@@ -12,7 +12,7 @@
                                 <alert-error :form="form"></alert-error>
                             </div>
                             <div class="col-sm-8">
-                                <input type="hidden" name="teacher_id" v-model="form.teacher_id">
+                                <input type="hidden" name="teacher_id" v-model="form.teacher_id" />
                                 <div class="form-group">
                                     <label for="">Name</label>
                                     <input
@@ -78,21 +78,68 @@
                                                     v-for="category in this.categories"
                                                     v-bind:value="category.id"
                                                     v-bind:key="category.id"
-                                                    :selected="form.courses_category_id == category.id"
+                                                    :selected="
+                                                        form.courses_category_id == category.id
+                                                    "
                                                     >{{ category.name }}</option
                                                 >
                                             </select>
                                             <has-error :form="form" field="courses_category_id" />
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Thumbnail</label>
                                     <input type="file" name="thumbnail" @change="selectThumbnail" />
-                                    <img :src="form.thumbnail" alt="" class="preview"/>
+                                    <img :src="form.thumbnail" alt="" class="preview" />
                                     <has-error :form="form" field="thumbnail"></has-error>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="">Lectures manager</label>
+                                    <button @click="addLecture" class="btn btn-success float-right">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div
+                                    class="lecture"
+                                    v-for="(lecture, counter) in form.lectures"
+                                    v-bind:key="counter"
+                                >
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input
+                                                type="text"
+                                                v-model="lecture.name"
+                                                class="form-control"
+                                                placeholder="Enter name"
+                                            />
+                                            <span class="input-group-btn">
+                                                <button
+                                                    @click="deleteLecture($event, counter)"
+                                                    class="btn btn-danger"
+                                                >
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <has-error :form="form" :field="`lectures.${counter}.name`" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="id[]" v-model="lecture.id" />
+                                        <input
+                                            type="file"
+                                            :name="`slide${counter}`"
+                                            @change="selectSlide($event, counter)"
+                                        />
+                                        <object type="application/pdf" :data="lecture.slide" :id="`preview_slide${counter}`">
+                                            <embed :id="`preview${counter}`" type="application/pdf">
+                                        </object>
+                                        <has-error :form="form" :field="`lectures.${counter}.slide`" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,6 +174,7 @@ export default {
         await this.$store.dispatch('actionCourseShow', { vue: this, id: this.$route.params.id });
 
         let course = this.$store.state.storeCourse.edit.data;
+
         Object.assign(this.form, course);
         if (this.$store.state.storeAuth.auth_user.teacher_id != course.teacher_id) {
             alert('Not owner this course');
@@ -142,6 +190,7 @@ export default {
                 teacher_id: '',
                 courses_category_id: '',
                 thumbnail: null,
+                lectures: [],
             }),
             levels: [
                 { name: 'Easy', value: 0 },
@@ -169,12 +218,19 @@ export default {
         async saveCourse() {
             this.$store.dispatch('setAdminMainLoading', { show: true });
             try {
-                if (this.form.thumbnail.constructor === File) {
+                let contains_file = false;
+                if (this.form.thumbnail.constructor === File) contains_file = true;
+
+                this.form.lectures.forEach((element) => {
+                    if (element.slide.constructor === File) contains_file = true;
+                });
+
+                if (contains_file) {
                     const { data } = await this.form.post(`/courses/${this.$route.params.id}`, {
                         transformRequest: [
                             function (data, headers) {
                                 data['_method'] = 'PUT';
-                                return objectToFormData(data);
+                                return objectToFormData(data, { indices: true });
                             },
                         ],
                     });
@@ -189,6 +245,29 @@ export default {
             this.$store.dispatch('setAdminLoading', { show: false });
             this.$router.push({ name: 'main.course' });
         },
+        selectSlide(e, counter) {
+            if (e.target.files && e.target.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(`#preview_slide${counter}`).attr('data',  e.target.result);
+                };
+                reader.readAsDataURL(e.target.files[0]);
+                this.form.lectures[counter].slide = e.target.files[0];
+            }
+        },
+        addLecture(e) {
+            e.preventDefault();
+            this.form.lectures.push({
+                id: -1,
+                name: '',
+                slide: '',
+            });
+        },
+        deleteLecture(e, counter) {
+            e.preventDefault();
+            this.form.lectures.splice(counter, 1);
+        },
     },
 };
 </script>
+<style scoped></style>

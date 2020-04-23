@@ -26,4 +26,9 @@ class Course extends Model
     {
         return $this->belongsTo('App\Models\Teacher');
     }
+
+    public function lectures()
+    {
+        return $this->hasMany('App\Models\Lecture')->select(['id', 'name', 'slide']);;
+    }
 }

@@ -70,7 +70,7 @@ class CategoryRepository
         $new_thumbnail = $this->uploadImage($request, $image_name = "thumbnail");
         if ($new_thumbnail != '') {
             $input['thumbnail'] = $new_thumbnail;
-            $this->removeImage($this->getById($id)->thumbnail);
+            $this->removeFile($this->getById($id)->thumbnail);
         }
 
         $this->update($id, $input);
@@ -84,7 +84,7 @@ class CategoryRepository
      */
     public function customDestroy($id)
     {
-        $this->removeImage($this->getById($id)->thumbnail);
+        $this->removeFile($this->getById($id)->thumbnail);
         $this->destroy($id);
     }
 }

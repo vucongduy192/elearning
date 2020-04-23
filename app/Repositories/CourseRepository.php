@@ -65,7 +65,7 @@ class CourseRepository {
             $input['teacher_id'] = Teacher::TEACHER_ADMIN_ID;
 
         $input['thumbnail'] = $this->uploadImage($request, $image_name = 'thumbnail', $folder='course');
-        $this->store($input);
+        return $this->store($input);
     }
 
     /**
@@ -80,10 +80,10 @@ class CourseRepository {
         $new_thumbnail = $this->uploadImage($request, $image_name = 'thumbnail', $folder='course');
         if ($new_thumbnail != '') {
             $input['thumbnail'] = $new_thumbnail;
-            $this->removeImage($this->getById($id)->thumbnail);
+            $this->removeFile($this->getById($id)->thumbnail);
         }
 
-        $this->update($id, $input);
+        return $this->update($id, $input);
     }
 
     /**
@@ -94,7 +94,7 @@ class CourseRepository {
      */
     public function customDestroy($id)
     {
-        $this->removeImage($this->getById($id)->thumbnail);
+        $this->removeFile($this->getById($id)->thumbnail);
         $this->destroy($id);
     }
 }

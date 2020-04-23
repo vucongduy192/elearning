@@ -73,7 +73,7 @@ class UserRepository {
         $new_avatar = $this->uploadImage($request, $image_name = 'avatar', $folder='avatar');
         if ($new_avatar != '') {
             $input['avatar'] = $new_avatar;
-            $this->removeImage($this->getById($id)->avatar);
+            $this->removeFile($this->getById($id)->avatar);
         }
 
         $this->update($id, $input);
@@ -87,7 +87,7 @@ class UserRepository {
      */
     public function customDestroy($id)
     {
-        $this->removeImage($this->getById($id)->avatar);
+        $this->removeFile($this->getById($id)->avatar);
         $this->destroy($id);
     }
 }

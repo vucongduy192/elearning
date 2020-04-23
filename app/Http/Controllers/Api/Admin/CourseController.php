@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Repositories\CourseRepository;
+use App\Repositories\LectureRepository;
 use App\Http\Controllers\Controller;
 use App\Transformers\CourseTransformer;
 use Illuminate\Http\Request;
@@ -10,11 +11,12 @@ use App\Http\Requests\CourseRequest;
 
 class CourseController extends Controller
 {
-    protected $entity;
+    protected $entity, $sub_entity;
     
-    public function __construct(CourseRepository $courseRepository)
+    public function __construct(CourseRepository $courseRepository, LectureRepository $lectureRepository)
     {
         $this->entity = $courseRepository;
+        $this->sub_entity = $lectureRepository;
     }
     /**
      * Display a listing of the resource.
@@ -44,8 +46,13 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
-        $this->entity->customStore($request);
-        return $this->response();
+        $course = $this->entity->customStore($request);
+
+        $request->lectures = isset($request->lectures) ? $request->lectures : [];
+        foreach ($request->lectures as $lecture) {
+            $this->sub_entity->customStore($lecture, $course->id);    
+        }   
+        return $this->response(); 
     }
 
     /**
@@ -81,8 +88,23 @@ class CourseController extends Controller
      */
     public function update(CourseRequest $request, $id)
     {
-        $this->entity->customUpdate($request, $id);
-        return $this->response();
+        $course = $this->entity->customUpdate($request, $id);
+        $new_lectures_request = isset($request->lectures) ? array_map(function ($arr) { return $arr['id']; }, $request->lectures) 
+                                                          : [];
+        # Remove old lectures
+        foreach ($course->lectures as $lecture) {
+            if (!in_array($lecture->id, $new_lectures_request)) {
+                $this->sub_entity->customDestroyOne($lecture->id);
+            }
+        }
+        # Add or update new lectures
+        foreach ($request->lectures as $lecture) {
+            if ($lecture['id'] == -1) {
+                $this->sub_entity->customStore($lecture, $course->id); // add new lecture
+            } else {
+                $this->sub_entity->customUpdate($lecture, $lecture['id'], $course->id);
+            }
+        }
     }
 
     /**
@@ -93,7 +115,8 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
+        $course = $this->entity->getById($id);
+        $this->sub_entity->customDestroyAll($course);
         $this->entity->customDestroy($id);
-        return $this->response();
     }
 }

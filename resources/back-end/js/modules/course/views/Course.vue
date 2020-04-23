@@ -41,7 +41,6 @@
                                         <th id="num_purchase" @click="clickSort('num_purchase')">Enrolls <i class="sort"></i></th>
                                         <th id="level" @click="clickSort('level')">Level <i class="sort"></i></th>
                                         <th id="teacher" @click="clickSort('teacher')">Teacher <i class="sort"></i></th>
-                                        <th>Teacher</th>
                                         <th>Thumbnail</th>
                                         <th>Action</th>
                                     </tr>

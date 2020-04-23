@@ -17,7 +17,7 @@ class CourseSeeder extends Seeder
         
         while (($row = fgetcsv($file, 0, ',')) !== false) {
             $category_id = DB::table('course_categories')->where('name', $row[0])->first()->id;
-            $teacher_id = $category_id; # 6 category corresponding 6 teacher
+            $teacher_id = $category_id + 1; # 6 category corresponding 6 teacher
             DB::table('courses')->insert([
                 'name' => $row[1], 
                 'overview' => 'edf', 

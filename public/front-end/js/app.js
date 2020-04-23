@@ -68910,9 +68910,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/duyvc/Documents/elearning/resources/front-end/js/app.js */"./resources/front-end/js/app.js");
-__webpack_require__(/*! /home/duyvc/Documents/elearning/resources/front-end/sass/app.scss */"./resources/front-end/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/duyvc/Documents/elearning/resources/back-end/sass/app.scss */"./resources/back-end/sass/app.scss");
+__webpack_require__(/*! /var/www/resources/front-end/js/app.js */"./resources/front-end/js/app.js");
+__webpack_require__(/*! /var/www/resources/front-end/sass/app.scss */"./resources/front-end/sass/app.scss");
+module.exports = __webpack_require__(/*! /var/www/resources/back-end/sass/app.scss */"./resources/back-end/sass/app.scss");
 
 
 /***/ })

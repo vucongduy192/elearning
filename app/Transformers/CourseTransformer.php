@@ -23,6 +23,7 @@ class CourseTransformer extends TransformerAbstract
             'thumbnail' =>  (file_exists($thumbnail) && $course->thumbnail) ? $course->thumbnail : $placeholder,
             'teacher' => $course->teacher,
             'teacher_id' => $course->teacher_id,
+            'lectures' => $course->lectures,
         ];
     }
 }

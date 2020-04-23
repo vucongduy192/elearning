@@ -12,7 +12,7 @@
                                 <alert-error :form="form"></alert-error>
                             </div>
                             <div class="col-sm-8">
-                                <input type="hidden" name="teacher_id" v-model="form.teacher_id">
+                                <input type="hidden" name="teacher_id" v-model="form.teacher_id" />
                                 <div class="form-group">
                                     <label for="">Name</label>
                                     <input
@@ -83,14 +83,58 @@
                                             <has-error :form="form" field="courses_category_id" />
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Thumbnail</label>
                                     <input type="file" name="thumbnail" @change="selectThumbnail" />
-                                    <img src="/images/image_placeholder.png" alt="" class="preview"/>
+                                    <img
+                                        src="/images/image_placeholder.png"
+                                        alt=""
+                                        class="preview"
+                                    />
                                     <has-error :form="form" field="thumbnail"></has-error>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="">Lectures manager</label>
+                                    <button @click="addLecture" class="btn btn-success float-right">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div
+                                    class="lecture"
+                                    v-for="(lecture, counter) in form.lectures"
+                                    v-bind:key="counter"
+                                >
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input
+                                                type="text"
+                                                v-model="lecture.name"
+                                                class="form-control"
+                                                placeholder="Enter name"
+                                            />
+                                            <span class="input-group-btn">
+                                                <button
+                                                    @click="deleteLecture($event, counter)"
+                                                    class="btn btn-danger"
+                                                >
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <has-error :form="form" :field="`lectures.${counter}.name`" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" @change="selectSlide($event, counter)"/>
+                                        <object type="application/pdf" :data="lecture.slide" :id="`preview_slide${counter}`">
+                                            <embed :id="`preview${counter}`" type="application/pdf">
+                                        </object>
+                                        <has-error :form="form" :field="`lectures.${counter}.name`"></has-error>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +178,12 @@ export default {
                 teacher_id: '',
                 courses_category_id: '',
                 thumbnail: null,
+                lectures: [
+                    {
+                        name: '',
+                        slide: '',
+                    },
+                ],
             }),
             levels: [
                 { name: 'Easy', value: 0 },
@@ -145,7 +195,7 @@ export default {
     computed: {
         categories() {
             return this.$store.state.storeCategory.listFetch.data;
-        }
+        },
     },
     methods: {
         selectThumbnail(e) {
@@ -166,7 +216,7 @@ export default {
                     // Transform form data to FormData
                     transformRequest: [
                         function (data, headers) {
-                            return objectToFormData(data);
+                            return objectToFormData(data, {indices: true});
                         },
                     ],
                 });
@@ -177,6 +227,29 @@ export default {
             this.$store.dispatch('setAdminLoading', { show: false });
             this.$router.push({ name: 'main.course' });
         },
+        selectSlide(e, counter) {
+            if (e.target.files && e.target.files[0]) {
+                var reader = new FileReader();
+                reader.readAsDataURL(e.target.files[0]);
+                reader.onload = function (e) {
+                    $(`#preview_slide${counter}`).attr('data',  e.target.result);
+                };
+                this.form.lectures[counter].slide = e.target.files[0];
+            }
+        },
+        addLecture(e) {
+            e.preventDefault();
+            this.form.lectures.push({
+                name: '',
+                slide: '',
+            });
+        },
+        deleteLecture(e, counter) {
+            e.preventDefault();
+            this.form.lectures.splice(counter, 1);
+        },
     },
 };
 </script>
+<style scoped>
+</style>

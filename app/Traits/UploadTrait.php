@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Storage;
 trait UploadTrait {
     /**
      * Generic file upload method.
+     */
+    public function uploadSlide($file, $course_id, $folder='slide')
+    {
+        if (!is_file($file)) {
+            return '';
+        }
+        $path = Storage::putFileAs('public/'.$folder.'/'.$course_id, $file, time().$file->getClientOriginalName());
+        return '/storage/'.str_replace('public/', '', $path);
+    }
+
+    /**
+     * Generic file upload method.
      * 
      * @param  ImageRequest $request
      *
@@ -37,16 +49,22 @@ trait UploadTrait {
     /**
      * Delete the file.
      * 
-     * @param  Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function removeImage($path)
+    public function removeFile($path)
     {
         # Check exist in storage location
         # '/storage/app/public/category/computer_science.png'
         $file = storage_path(str_replace('/storage/', 'app/public/', $path));
         if ($path && file_exists($file))
             unlink($file);
+    }
+
+    /**
+     * Delete the folder.
+     * 
+     */
+    public function removeFolder($dir)
+    {
+        Storage::deleteDirectory($dir);
     }
 }

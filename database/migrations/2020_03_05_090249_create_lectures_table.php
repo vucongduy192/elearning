@@ -15,8 +15,11 @@ class CreateLecturesTable extends Migration
     {
         Schema::create('lectures', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->string('video')->nullable();
-            $table->string('content')->nullable();
+            $table->string('slide')->nullable();
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('courses');
             $table->timestamps();
         });
     }

@@ -4,27 +4,31 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h3 class="box-title">Rule List</h3>
-                    <router-link
-                        :to="{ name: 'main.rule.add' }"
-                        class="btn btn-success pull-right"
-                    >
-                        Add new rule
-                    </router-link>
-                    <button
-                        class="btn btn-info btn-flat pull-right csv"
-                        @click="clickCSV()"
-                    >
-                        Apply rules
-                    </button>
-                    <router-link
-                        :to="{ name: 'main.rule.matrix' }"
-                        class="btn btn-primary pull-right matrix"
-                    >
-                        See Matrix
-                    </router-link>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <router-link
+                                :to="{ name: 'main.rule.add' }"
+                                class="btn btn-success"
+                            >
+                                Add new rule
+                            </router-link>
+                            <button
+                                class="btn btn-info btn-flat csv"
+                                @click="clickCSV()"
+                            >
+                                Apply rules
+                            </button>
+                            <router-link
+                                :to="{ name: 'main.rule.matrix' }"
+                                class="btn btn-primary matrix"
+                            >
+                                See Matrix
+                            </router-link>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered table-hover no-padding">
