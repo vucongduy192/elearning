@@ -14,14 +14,15 @@ class CourseSeeder extends Seeder
     {
         $file = fopen(base_path().'/SeedSQL/courses.csv', 'r');
         $row = fgetcsv($file, 0, ',');
-        
+
         while (($row = fgetcsv($file, 0, ',')) !== false) {
             $category_id = DB::table('course_categories')->where('name', $row[0])->first()->id;
             $teacher_id = $category_id + 1; # 6 category corresponding 6 teacher
             DB::table('courses')->insert([
-                'name' => $row[1], 
-                'overview' => 'edf', 
-                'courses_category_id' => $category_id, 
+                'name' => $row[1],
+                'overview' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla.',
+                'rate' => rand(1, 5),
+                'courses_category_id' => $category_id,
                 'teacher_id' => $teacher_id,
             ]);
         }

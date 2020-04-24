@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->string('overview');
             $table->integer('price')->default(0);
             $table->integer('level')->default(0);
+            $table->integer('rate')->default(0);
             $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('courses_category_id');
             $table->foreign('courses_category_id')->references('id')->on('course_categories');

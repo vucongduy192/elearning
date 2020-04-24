@@ -25,16 +25,23 @@ class JwtMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // dd($request);
         try {
             $user = $this->jwtAuth->parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof TokenInvalidException) {
-                return response()->json(['errors' => ['message' => trans('auth.jwt_token.invalid')]], 400);
+                return response()->json([
+                    'errors' => ['message' => trans('auth.jwt_token.invalid')]
+                ], 400);
+
             } else if ($e instanceof TokenExpiredException) {
-                return response()->json(['errors' => ['message' => trans('auth.jwt_token.expired')]], 400);
+                return response()->json([
+                    'errors' => ['message' => trans('auth.jwt_token.expired')]
+                ], 400);
+
             } else {
-                return response()->json(['errors' => ['message' => trans('auth.jwt_token.empty')]], 400);
+                return response()->json([
+                    'errors' => ['message' => trans('auth.jwt_token.empty')]
+                ], 400);
             }
         }
         return $next($request);

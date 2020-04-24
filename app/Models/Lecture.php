@@ -11,4 +11,9 @@ class Lecture extends Model
     protected $fillable = [
         'name', 'slide', 'course_id'
     ];
+
+    public function course()
+    {
+        return $this->belongsTo('App\Models\Course');
+    }
 }

@@ -7,21 +7,21 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use Notifiable;
 
     const ADMIN = 2;
     const TEACHER = 1;
     const STUDENT = 0;
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'role',
+        'name', 'email', 'password', 'avatar', 'role_id',
     ];
 
     /**
@@ -46,7 +46,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->getKey();
     }
-    
+
     public function getJWTCustomClaims()
     {
         return [];
@@ -55,11 +55,16 @@ class User extends Authenticatable implements JWTSubject
     public function getRole()
     {
         $roles = ['student', 'teacher', 'admin'];
-        return $roles[$this->role];
+        return $roles[$this->role_id];
     }
 
     public function teacher()
     {
         return $this->hasOne('App\Models\Teacher');
+    }
+
+    public function student()
+    {
+        return $this->hasOne('App\Models\Student');
     }
 }

@@ -12,7 +12,7 @@ use App\Http\Requests\CourseRequest;
 class CourseController extends Controller
 {
     protected $entity, $sub_entity;
-    
+
     public function __construct(CourseRepository $courseRepository, LectureRepository $lectureRepository)
     {
         $this->entity = $courseRepository;
@@ -50,9 +50,9 @@ class CourseController extends Controller
 
         $request->lectures = isset($request->lectures) ? $request->lectures : [];
         foreach ($request->lectures as $lecture) {
-            $this->sub_entity->customStore($lecture, $course->id);    
-        }   
-        return $this->response(); 
+            $this->sub_entity->customStore($lecture, $course->id);
+        }
+        return $this->response();
     }
 
     /**
@@ -89,7 +89,7 @@ class CourseController extends Controller
     public function update(CourseRequest $request, $id)
     {
         $course = $this->entity->customUpdate($request, $id);
-        $new_lectures_request = isset($request->lectures) ? array_map(function ($arr) { return $arr['id']; }, $request->lectures) 
+        $new_lectures_request = isset($request->lectures) ? array_map(function ($arr) { return $arr['id']; }, $request->lectures)
                                                           : [];
         # Remove old lectures
         foreach ($course->lectures as $lecture) {
@@ -97,14 +97,18 @@ class CourseController extends Controller
                 $this->sub_entity->customDestroyOne($lecture->id);
             }
         }
+
         # Add or update new lectures
-        foreach ($request->lectures as $lecture) {
-            if ($lecture['id'] == -1) {
-                $this->sub_entity->customStore($lecture, $course->id); // add new lecture
-            } else {
-                $this->sub_entity->customUpdate($lecture, $lecture['id'], $course->id);
+        if ($request->lectures)
+            foreach ($request->lectures as $lecture) {
+                if ($lecture['id'] == -1) {
+                    $this->sub_entity->customStore($lecture, $course->id); // add new lecture
+                } else {
+                    $this->sub_entity->customUpdate($lecture, $lecture['id'], $course->id);
+                }
             }
-        }
+
+        return $this->response();
     }
 
     /**

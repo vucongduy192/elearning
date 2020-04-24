@@ -18,14 +18,16 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
-            'role' => 2,
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 2,
         ]);
 
         DB::table('users')->insert([
             'name' => 'Admin teacher',
             'email' => 'admin_teacher@gmail.com',
             'password' => Hash::make('admin'),
-            'role' => 1,
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
         ]);
 
         # Teacher []
@@ -33,42 +35,48 @@ class UserSeeder extends Seeder
             'name' => 'Thang Nguyen',
             'email' => 'thang123@gmail.com',
             'password' => Hash::make('thang123'),
-            'role' => 1,
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
         ]);
 
         DB::table('users')->insert([
             'name' => 'Trung Nguyen',
             'email' => 'trung123@gmail.com',
             'password' => Hash::make('trung123'),
-            'role' => 1,
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
         ]);
 
         DB::table('users')->insert([
             'name' => 'Duc Nguyen',
             'email' => 'duc123@gmail.com',
             'password' => Hash::make('duc123'),
-            'role' => 1,
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
         ]);
 
         DB::table('users')->insert([
             'name' => 'Dat Nguyen',
             'email' => 'dat123@gmail.com',
             'password' => Hash::make('dat123'),
-            'role' => 1,
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
         ]);
 
         DB::table('users')->insert([
             'name' => 'Quang Nguyen',
             'email' => 'quang123@gmail.com',
             'password' => Hash::make('quang123'),
-            'role' => 1,
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
         ]);
 
         DB::table('users')->insert([
             'name' => 'Giang Nguyen',
             'email' => 'giang123@gmail.com',
             'password' => Hash::make('giang123'),
-            'role' => 1,
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
         ]);
 
         # Users
@@ -81,8 +89,9 @@ class UserSeeder extends Seeder
                 'first_name' => explode(' ', $row[1])[0],
                 'last_name' => explode(' ', $row[1])[1],
                 'password' => Hash::make($row[0]),
-                'role' => 0,
+                'email_verified_at' => date("Y-m-d H:i:s"),
+                'role_id' => 0,
             ]);
-        }    
+        }
     }
 }

@@ -6,7 +6,7 @@ use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 trait TransformPaginatorTrait {
     /**
-     * 
+     *
      */
     public function buildTransformPaginator($entityPaginator, $entityTransform)
     {
@@ -18,7 +18,7 @@ trait TransformPaginatorTrait {
         $entity = new Collection($entityPaginator->items(), $entityTransform);
         $transform = $fractal->createData($entity)->toArray();
         $transform_paginator = array_merge($transform, $paginator);
-        
+
         return $transform_paginator;
     }
 }

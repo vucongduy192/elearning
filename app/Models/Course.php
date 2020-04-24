@@ -12,6 +12,9 @@ class Course extends Model
     const MEDIUM = 1;
     const HARD = 2;
 
+    const THUMBNAIL_WIDTH = 360;
+    const THUMBNAIL_HEIGHT = 180;
+
     protected $fillable = [
         'name', 'overview', 'price', 'level', 'thumbnail', 'courses_category_id', 'teacher_id',
     ];
@@ -37,8 +40,8 @@ class Course extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
-    // public function enrolls()
-    // {
-    //     return $this->hasMany('App\Models\Enroll');
-    // }
+     public function num_enrolls()
+     {
+         return $this->hasMany('App\Models\Enroll', 'course_id', 'id');
+     }
 }

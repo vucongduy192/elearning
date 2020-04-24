@@ -1,0 +1,126 @@
+.auth {
+    width: 100%;
+    background: #f8f8f8;
+    padding-top: 29px;
+    padding-bottom: 150px;
+    min-height: 450px;
+}
+.auth_row
+{
+    margin-top: 44px;
+}
+.header_padding
+{
+    width: 100%;
+    height: 179px;
+    background: #f8f8f8;
+}
+.user i {
+    line-height: 25px !important;
+}
+.dropdown-item {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.45);
+}
+.dropdown-item:active {
+    background: #2e21df;
+}
+.e-btn {
+    background: #2e21df;
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.e-btn:hover
+{
+    cursor: pointer;
+    box-shadow: 0px 10px 40px rgba(0,0,0,0.3);
+    background: #2e21df;
+}
+
+.btn-link, .btn-link:hover {
+    color: #2e21df;
+    font-size: 14px;
+}
+.form-control:focus {
+    border-color: #2e21df;
+    box-shadow: 0 0 0 0.2rem rgba(11, 50, 255, 0.25);;
+}
+.course_image {
+    height: 180px;
+}
+
+.form-control {
+    color: rgba(0,0,0,0.4) !important;
+    font-size: 14px !important;
+}
+.preview-avatar {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+.pagination li a, .pagination li span{
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination .active{
+    background-color: #006bdf;
+}
+.pagination .active span {
+    color: #fff;
+}
+.pagination li a:hover:not(.active) {background-color: #ddd;}
+
+.courses {
+    min-height: 450px;
+}
+.intro_image img {
+    max-width: 100%;
+}
+.nav-tabs .nav-link {
+    height: 60px;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.075em;
+    cursor: pointer;
+    padding-left: 21px;
+    padding-right: 20px;
+    border-bottom: solid 3px transparent;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
+    border: none;
+    border-bottom: solid 3px #2e21df !important;
+    background-color: #f1f1f1 !important;
+}
+.instructor_name {
+    padding-left: 40px;
+}
+.lecture_link {
+    color: gray;
+}
+.lecture_link .active {
+    font-weight: bold;
+}
+.lecture_title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+object {
+    height: 600px;
+    width: 100%;
+}

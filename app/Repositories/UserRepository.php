@@ -36,13 +36,13 @@ class UserRepository {
         $usersPaginator = $this->model
             ->where([
                 [$searchColumn, 'like', '%'.$request->get($searchColumn).'%'],
-                ['role', '=', User::ADMIN]
+                ['role_id', '=', User::ADMIN]
             ])
             ->orderBy($sortColumn, $sortType)
             ->paginate($number);
-        
+
         return $this->buildTransformPaginator(
-            $usersPaginator, 
+            $usersPaginator,
             $this->userTransformer
         );
     }
@@ -51,12 +51,12 @@ class UserRepository {
      * Store a new category.
      *
      * @param  $input
-     * @return 
+     * @return
      */
     public function customStore(UserRequest $request)
     {
         $input = $request->only(['name', 'email', 'password', 'password_confirmation']);
-        $input['role'] = User::ADMIN;
+        $input['role_id'] = User::ADMIN;
         $input['avatar'] = $this->uploadImage($request, $image_name = 'avatar', $folder='avatar');
         $this->store($input);
     }
@@ -65,7 +65,7 @@ class UserRepository {
      * Update a new category.
      *
      * @param  $input
-     * @return 
+     * @return
      */
     public function customUpdate(UserRequest $request, $id)
     {
@@ -83,7 +83,7 @@ class UserRepository {
      * Destroy a new category.
      *
      * @param  $input
-     * @return 
+     * @return
      */
     public function customDestroy($id)
     {

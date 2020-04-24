@@ -21,8 +21,7 @@ mix.webpackConfig({
  |
  */
 
-mix.js('resources/front-end/js/app.js', 'public/front-end/js')
-    .js('resources/back-end/js/app.js', 'public/back-end/js')
+mix.js('resources/back-end/js/app.js', 'public/back-end/js')
     .styles(
         [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -39,6 +38,7 @@ mix.js('resources/front-end/js/app.js', 'public/front-end/js')
         'public/back-end/js/lib.min.js'
     );
 
-mix.sass('resources/front-end/sass/app.scss', 'public/front-end/css')
-    .sass('resources/back-end/sass/app.scss', 'public/back-end/css')
-    .copyDirectory('resources/back-end/dist/img', 'public/dist/img');
+mix.sass('resources/back-end/sass/app.scss', 'public/back-end/css').copyDirectory(
+    'resources/back-end/dist/img',
+    'public/dist/img'
+);

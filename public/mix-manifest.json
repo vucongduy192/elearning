@@ -1,7 +1,5 @@
 {
     "/back-end/js/app.js": "/back-end/js/app.js",
-    "/front-end/js/app.js": "/front-end/js/app.js",
-    "/front-end/css/app.css": "/front-end/css/app.css",
     "/back-end/css/app.css": "/back-end/css/app.css",
     "/back-end/css/lib.min.css": "/back-end/css/lib.min.css",
     "/back-end/js/lib.min.js": "/back-end/js/lib.min.js"
