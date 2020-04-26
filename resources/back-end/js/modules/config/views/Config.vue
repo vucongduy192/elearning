@@ -76,7 +76,11 @@ export default {
                 data.forEach((row) => {
                     columns.push(row.course);
                     delete row.course;
-                    rows.push(Object.values(row));
+                    var row_round = Object.values(row).map((val) => {
+                        return val.slice(0, 4);
+                    });
+
+                    rows.push(row_round);
                 });
                 console.log(columns, rows);
 
@@ -100,7 +104,7 @@ export default {
 </script>
 <style scoped>
 #container {
-    margin-left: 25%;
+    margin-left: 5%;
 }
 .axis text {
     font: 10px sans-serif;

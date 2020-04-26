@@ -31,8 +31,8 @@
                     <div class="course_image"><img src="{{ asset($course->thumbnail ? $course->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL) }}" alt=""></div>
                     <div class="course_body">
                         <div class="course_title">
-                            <a href="course.html">{{ mb_substr($course->name, 0, 21, "utf-8") }}
-
+                            <a href="{{ route('courses.show', ['id' => $course->id ]) }}">
+                                {{ mb_substr($course->name, 0, 21, "utf-8") }}
                             </a>
                         </div>
                         <div class="course_info">

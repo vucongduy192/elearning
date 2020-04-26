@@ -18,6 +18,7 @@ class UserTransformer extends TransformerAbstract
             'email' => $user->email, 
             'avatar' =>  (file_exists($avatar) && $user->avatar) ? $user->avatar : $placeholder,
             'role' => $user->getRole(),
+            'role_id' => $user->role_id,
             'teacher_id' => $user->teacher ? $user->teacher->id : null,
         ];
     }

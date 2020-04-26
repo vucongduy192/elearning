@@ -2,17 +2,24 @@
 
 @section('content')
     <div class="header_padding" style="height: 120px;"></div>
-    <div class="auth">
+    <div class="auth" style="min-height: 550px;">
         <div class="container">
             <div class="row auth_row justify-content-center">
                 <div class="col-md-8">
+                    @if(count($enrolled) == 0)
+                        <div class="card">
+                            <div class="card-body">
+                                You don't have any enrollment history data. Make survey now
+                            </div>
+                        </div>
+                    @endif
                     @foreach($enrolled as $enroll)
                         <div class="course_body">
                             <div class="course_title">
                                 <a href="#"> {{ $enroll->course->name }}</a>
                             </div>
                             <div>
-                                <a href="#" class="btn btn-primary e-btn pull-right">
+                                <a href="{{ route('courses.show', ['id' => $enroll->course->id]) }}" class="btn btn-primary e-btn pull-right">
                                     Go to course
                                 </a>
                             </div>

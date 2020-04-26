@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         $popular_courses = Course::join('enrolls', 'courses.id', '=', 'enrolls.course_id')
             ->groupby('courses.id')
-            ->select([ 'name', 'overview', 'level', 'thumbnail', 'teacher_id', DB::raw('count(*) as enrolls')])
+            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'teacher_id', DB::raw('count(*) as enrolls')])
             ->orderBy('enrolls', 'desc')
             ->limit(3)->get();
 
@@ -30,5 +30,12 @@ class HomeController extends Controller
             ->limit(3)->get();
 
         return view('pages.home', compact('popular_courses', 'best_teachers'));
+    }
+
+    public function errors(Request $request)
+    {
+        $error = $request->error;
+        $message = $request->message;
+        return view('pages.errors', compact('error', 'message'));
     }
 }

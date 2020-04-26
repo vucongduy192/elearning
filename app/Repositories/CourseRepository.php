@@ -10,6 +10,7 @@ use App\Repositories\BaseRepository;
 use App\Traits\TransformPaginatorTrait;
 use App\Traits\UploadTrait;
 use App\Transformers\CourseTransformer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CourseRepository
@@ -33,11 +34,13 @@ class CourseRepository
      */
     public function pageWithRequest(Request $request, $number=5)
     {
-        $searchColumn = ['name', 'courses_category_id'];
+        $searchColumn = ['name', 'courses_category_id', 'teacher_id'];
+
         $sortType = $request->get('sortType') ? $request->get('sortType') : 'desc';
         $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';
         $courses_category_id = $request->get($searchColumn[1]);
-
+        $teacher_id = (Auth::user()->role_id == 2) ? -1 : Auth::user()->teacher->id;
+        
         $coursesPaginator = $this->model
             ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
             ->join('users', 'teachers.user_id', '=', 'users.id')
@@ -49,8 +52,11 @@ class CourseRepository
             ])
             ->groupby('courses.id')
             ->where('courses.' . $searchColumn[0], 'like', '%' . $request->get($searchColumn[0]) . '%')
-            ->when($courses_category_id != -1, function ($query, $courses_category_id) {
+            ->when($courses_category_id != -1, function ($query) use ($courses_category_id) {
                 return $query->where('courses_category_id', $courses_category_id);
+            })
+            ->when($teacher_id != -1, function ($query) use ($teacher_id) {
+                return $query->where('teacher_id', $teacher_id);
             })
             ->orderBy($sortColumn, $sortType)
             ->paginate($number);

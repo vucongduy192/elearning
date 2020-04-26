@@ -3,8 +3,8 @@ import * as d3 from 'd3';
 export default function Matrix(options) {
     var margin = { top: 50, right: 50, bottom: 200, left: 200 };
 
-    var width = 500,
-        height = 500,
+    var width = 600,
+        height = 600,
         data = options.data,
         container = options.container,
         labelsData = options.labels,
@@ -113,7 +113,7 @@ export default function Matrix(options) {
         .append('g')
         .attr('class', 'column-label')
         .attr('transform', function (d, i) {
-            return 'translate(' + x(i) + ',' + height + ')';
+            return 'translate(' + x(i) + ',' + (height + 20) + ')';
         });
 
     columnLabels
@@ -131,7 +131,7 @@ export default function Matrix(options) {
         .attr('y', y.rangeBand() / 2)
         .attr('dy', '.22em')
         .attr('text-anchor', 'end')
-        .attr('transform', 'rotate(-60)')
+        .attr('transform', 'rotate(-70)')
         .text(function (d, i) {
             return d;
         });

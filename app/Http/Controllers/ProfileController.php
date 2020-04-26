@@ -29,12 +29,11 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $input = $request->only(['first_name', 'last_name']);
-        $new_avatar = $this->entity->uploadImage($request, $image_name = 'avatar', $folder='avatar');
+        $new_avatar = $this->entity->uploadImage($request, $image_name = 'avatar', $folder = 'avatar');
         if ($new_avatar != '') {
             $input['avatar'] = $new_avatar;
         }
         User::where('id', $request->id)->update($input);
-
 
         if (Auth::user()->role_id == User::TEACHER) {
             Teacher::where('user_id', $request->id)
@@ -51,7 +50,8 @@ class ProfileController extends Controller
     public function enrolled()
     {
         $user = Auth::user();
-        $enrolled = Enroll::where('student_id', $user->student->id)->get();
+        $enrolled = Enroll::where('student_id', $user->student->id)
+            ->orderBy('created_at', 'desc')->get();
 
         return view('pages.enrolled_courses', compact('enrolled'));
     }
@@ -74,8 +74,8 @@ class ProfileController extends Controller
         $non_enrolled = array_diff($courses, $enrolled);
 
         $scores = array_fill_keys(array_keys($non_enrolled), 0);
-        foreach ($non_enrolled as $c_i => $str_i)
-        {
+        foreach ($non_enrolled as $c_i => $str_i) {
+            # Find until get vector $c_i
             while ($row[0] != $str_i) {
                 $row = fgetcsv($file, 0, ',');
             }
@@ -90,7 +90,11 @@ class ProfileController extends Controller
         }
 
         arsort($scores);
-        $top_id = array_keys(array_slice($scores, 0, 3, true));
+        if (sizeof($scores) >= 3)
+            $top_id = array_keys(array_slice($scores, 0, 3, true));
+        else {
+            $top_id = array_keys($scores);
+        }
 
         $recommend_courses = Course::whereIn('id', $top_id)->get();
 

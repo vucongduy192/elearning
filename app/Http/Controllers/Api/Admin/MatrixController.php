@@ -26,16 +26,16 @@ class MatrixController extends Controller
         $config->save();
 
         $this->combineMatrix($config->c);
-    }   
-    
+    }
+
     public function combineMatrix($c)
     {
-        $courses = Course::pluck("name", "id")->toArray();  // array(["id" =>"name"])   
+        $courses = Course::pluck("name", "id")->toArray();  // array(["id" =>"name"])
         $similar_matrix_csv = "course,".implode(",", array_values($courses))."\n";
 
         $simC_csv_path = public_path("recommend/similarC_matrix.csv");
         $simE_csv_path = public_path("recommend/similarE_matrix.csv");
-        
+
         $fileC = fopen($simC_csv_path, 'r');
         $fileE = fopen($simE_csv_path, 'r');
 
@@ -44,7 +44,7 @@ class MatrixController extends Controller
         while (($rowC = fgetcsv($fileC, 0, ',')) !== false && ($rowE = fgetcsv($fileE, 0, ',')) !== false) {
             $row = array();
             foreach (array_keys($courses) as $c_j) {
-                $row[$c_j] = round($c * $rowC[$c_j] + (1 - $c) * $rowE[$c_j], 1);
+                $row[$c_j] = $c * $rowC[$c_j] + (1 - $c) * $rowE[$c_j];
             }
             $similar_matrix_csv .= $rowC[0].",".implode(",", $row)."\n";
         }

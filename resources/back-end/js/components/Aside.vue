@@ -27,22 +27,22 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu tree" data-widget="tree">
-                <li>
+                <li v-if="auth_user.role_id >= 2">
                     <router-link :to="{ name: 'main.config' }">
                         <i class="fa fa-cogs"></i> <span>Config</span>
                     </router-link>
                 </li>
-                <li>
+                <li v-if="auth_user.role_id >= 2">
                     <router-link :to="{ name: 'main.category' }">
                         <i class="fa fa-list-alt"></i> <span>Category</span>
                     </router-link>
                 </li>
-                <li>
+                <li v-if="auth_user.role_id >= 2">
                     <router-link :to="{ name: 'main.rule' }">
                         <i class="fa fa-gavel"></i> <span>Rule</span>
                     </router-link>
                 </li>
-                <li class="treeview">
+                <li class="treeview" v-if="auth_user.role_id >= 2">
                     <a href="#">
                         <i class="fa fa-user"></i>
                         <span>User</span>
@@ -68,12 +68,12 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li v-if="auth_user.role_id >= 1">
                     <router-link :to="{ name: 'main.course' }">
                         <i class="fa fa-mortar-board"></i> <span>Course</span>
                     </router-link>
                 </li>
-                <li>
+                <li v-if="auth_user.role_id >= 1">
                     <router-link :to="{ name: 'main.enroll' }">
                         <i class="fa fa-registered"></i> <span>Enroll</span>
                     </router-link>
@@ -88,7 +88,7 @@
 export default {
     name: 'AppAside',
     mounted() {
-        $('.sidebar-menu').tree({})
+        $('.sidebar-menu').tree({});
     },
     computed: {
         auth_user() {

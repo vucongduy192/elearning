@@ -6,7 +6,7 @@ axios.defaults.baseURL = '/api/v0/';
 import Vue from 'vue';
 
 import App from '*/App.vue';
-import router from '*/routes';
+import router from '*/router/router';
 import store from '*/store';
 
 import VueI18n from 'vue-i18n';

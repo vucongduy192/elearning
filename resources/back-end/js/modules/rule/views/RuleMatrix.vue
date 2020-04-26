@@ -42,7 +42,7 @@ import * as d3 from 'd3';
 export default {
     name: 'RuleMatrix',
     mounted() {
-        this.loadMatrix('category');    
+        this.loadMatrix('category');
     },
     data() {
         return {
@@ -63,7 +63,7 @@ export default {
                     rows.push(Object.values(row));
                 });
                 console.log(columns, rows);
-                
+
                 // Clear half of matrix (symmetric matrix)
                 var num = columns.length;
                 var i, j;
@@ -84,7 +84,7 @@ export default {
 </script>
 <style scoped>
 #container {
-    margin-left: 25%;
+    margin-left: 5%;
 }
 .axis text {
     font: 10px sans-serif;

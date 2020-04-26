@@ -12,7 +12,7 @@ use App\Models\Enroll;
 class EnrollController extends Controller
 {
     protected $entity;
-    
+
     public function __construct(EnrollRepository $enrollRepository)
     {
         $this->entity = $enrollRepository;
@@ -105,7 +105,7 @@ class EnrollController extends Controller
         # Save csv enrollment data
         $enroll_matrix_csv = "student,".implode(",", array_values($courses))."\n";
         $courses_vector = array();
-        
+
         foreach (array_keys($students) as $student_id) {
             # Assign row[enrolled items] to 1
             $row = array(); // vector users (1, 0, ...)
@@ -113,7 +113,7 @@ class EnrollController extends Controller
                 $enroll = Enroll::where(['student_id' => $student_id, 'course_id' => $course_id,])->first();
                 $row[$course_id] = $enroll ? 1 : 0;
             }
-            
+
             # Normalize by magnitude
             $magnitude = sqrt(array_sum($row));
             $row = array_map(function ($element) use ($magnitude) {
@@ -126,7 +126,7 @@ class EnrollController extends Controller
         }
         $filePath = public_path("recommend/enroll_matrix.csv");
         $this->saveCSV($filePath, $enroll_matrix_csv);
-        
+
         # ----------------------------------------------------------------- #
         # Save csv course similar matrix by enrollment data
         $similarE_matrix_csv = "course,".implode(",", array_values($courses))."\n";
@@ -167,11 +167,11 @@ class EnrollController extends Controller
             }, $v, $v))
         );
 
-        return round($dot_product / ($u_val * $v_val), 1);
+        return $dot_product / ($u_val * $v_val);
     }
 
     /**
-     * 
+     *
      */
     public function saveCSV($filePath, $csv)
     {

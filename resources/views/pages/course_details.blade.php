@@ -284,11 +284,19 @@
                         <div class="sidebar_background"></div>
                         <div class="sidebar_top">
                             @if($has_enrolled)
-                                <a href="#">
+                                @if(($lecture = $course->lectures->first()))
+                                    <a style="background: gray" href="{{ route('lectures.show', [$lecture->id]) }}">Continue</a>
+                                @else
+                                    <a style="background: gray" href="{{ route('errors', [
+                                        'error' => 'Course content error',
+                                        'message' => 'Current course you seeing don\'t has any lectures',
+                                    ]) }}">
+                                        Continue</a>
+                                @endif
+                            @else
+                                <a href="{{ route('courses.enroll', [$course->id]) }}">
                                     enroll course
                                 </a>
-                            @else
-                                <a style="background: gray" href="#">Continue</a>
                             @endif
 
                         </div>

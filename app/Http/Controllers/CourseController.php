@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Enroll;
 use App\Models\Student;
+use App\Models\User;
 use App\Repositories\CourseRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,14 +55,28 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        $user = Auth::user();
-        $enroll = Enroll::where([
-            'student_id' => $user->student->id,
-            'course_id' => $id
-        ])->first();
-        $has_enrolled = $enroll ? true : false;
+        if (($user = Auth::user()) && $user->role_id == User::STUDENT) {
+            $enroll = Enroll::where([
+                'student_id' => $user->student->id,
+                'course_id' => $id
+            ])->first();
+            $has_enrolled = $enroll ? true : false;
+        } else {
+            $has_enrolled = false;
+        }
 
         $course = $this->entity->getById($id);
         return view('pages.course_details', compact('course', 'has_enrolled'));
+    }
+
+    public function enroll($id)
+    {
+        $course = $this->entity->getById($id);
+        Enroll::create([
+            'student_id' => Auth::user()->student->id,
+            'course_id' => $course->id,
+        ]);
+
+        return redirect(route('courses.show', [ 'id' => $course->id ]));
     }
 }

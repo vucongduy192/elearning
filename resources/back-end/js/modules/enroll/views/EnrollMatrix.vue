@@ -26,7 +26,7 @@ import * as d3 from 'd3';
 export default {
     name: 'EnrollMatrix',
     mounted() {
-        this.loadMatrix();    
+        this.loadMatrix();
     },
     methods: {
         loadMatrix() {
@@ -36,10 +36,14 @@ export default {
                 data.forEach(row => {
                     columns.push(row.course);
                     delete row.course;
-                    rows.push(Object.values(row));
+                    var row_round = Object.values(row).map((val) => {
+                        return val.slice(0, 4);
+                    });
+                    console.log(row_round);
+                    rows.push(row_round)
                 });
-                console.log(columns, rows);
-                
+                // console.log(columns, rows);
+
                 // Clear half of matrix (symmetric matrix)
                 var num = columns.length;
                 var i, j;
@@ -60,7 +64,7 @@ export default {
 </script>
 <style scoped>
 #container {
-    margin-left: 25%;
+    margin-left: 5%;
 }
 .axis text {
     font: 10px sans-serif;
