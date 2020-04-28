@@ -23,30 +23,32 @@
                 <br>
                 <div class="course_body">
                     @foreach($allLectures as $key => $lecture)
-                        <div class="row">
-                            <p class="lecture_title">
-                                {{ $lecture->name }}
-                            </p>
+                    <div class="row">
+                        <p class="lecture_title">
+                            {{ $lecture->name }}
+                        </p>
+                    </div>
+                    <div class="cur_item_content">
+                        <div class="cur_contents">
+                            <ul>
+                                <li>
+                                    <i class="fa fa-video-camera" aria-hidden="true"></i>
+                                    <span>
+                                        <a class="lecture_link"
+                                            href="{{ route('lectures.show', ['id' => $lecture->id]) }}">Video</a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-file" aria-hidden="true"></i>
+                                    <span>
+                                        <a class="lecture_link"
+                                            href="{{ route('lectures.show', ['id' => $lecture->id]) }}">Reading</a>
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="cur_item_content">
-                            <div class="cur_contents">
-                                <ul>
-                                    <li>
-                                        <i class="fa fa-video-camera" aria-hidden="true"></i>
-                                        <span>
-                                            <a class="lecture_link" href="{{ route('lectures.show', ['id' => $lecture->id]) }}">Video</a>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-file" aria-hidden="true"></i>
-                                        <span>
-                                            <a class="lecture_link" href="{{ route('lectures.show', ['id' => $lecture->id]) }}">Reading</a>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <br>
+                    </div>
+                    <br>
                     @endforeach
                 </div>
             </div>

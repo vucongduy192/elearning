@@ -38,9 +38,9 @@ class CategoryRepository
             ->where($searchColumn, 'like', '%'.$request->get($searchColumn).'%')
             ->orderBy($sortColumn, $sortType)
             ->paginate($number);
-        
+
         return $this->buildTransformPaginator(
-            $categoriesPaginator, 
+            $categoriesPaginator,
             $this->categoryTransformer
         );
     }
@@ -49,7 +49,7 @@ class CategoryRepository
      * Store a new category.
      *
      * @param  $input
-     * @return 
+     * @return
      */
     public function customStore(CategoryRequest $request)
     {
@@ -62,7 +62,7 @@ class CategoryRepository
      * Update a new category.
      *
      * @param  $input
-     * @return 
+     * @return
      */
     public function customUpdate(CategoryRequest $request, $id)
     {
@@ -80,11 +80,13 @@ class CategoryRepository
      * Destroy a new category.
      *
      * @param  $input
-     * @return 
+     * @return
      */
     public function customDestroy($id)
     {
         $this->removeFile($this->getById($id)->thumbnail);
         $this->destroy($id);
     }
+
+
 }

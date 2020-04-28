@@ -2,6 +2,14 @@
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/courses.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/courses_responsive.css") }}">
+    <style>
+        .header_padding {
+            height: 150px;
+        }
+        .form-search .form-group {
+            margin-bottom: 0px;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="header_padding"></div>
@@ -14,10 +22,10 @@
                             Không tìm thấy khóa học!
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('courses.search') }}">
+                    <form method="POST" action="{{ route('courses.search') }}" class="form-search">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-6 offset-md-1 form-group">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter course name">
                             </div>
                             <div class="col-md-3 form-group">

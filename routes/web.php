@@ -29,12 +29,18 @@ Route::post('courses', 'CourseController@search')->name('courses.search');
 
 
 Route::group(['middleware' => ['verified']], function () {
-    Route::get('profile', 'ProfileController@show')->name('profile');
+    Route::get('profile', 'ProfileController@show')->name('profile.show');
     Route::post('profile', 'ProfileController@update')->name('profile.update');
-    Route::get('profile/enrolled', 'ProfileController@enrolled')->name('profile.enrolled');
-    Route::get('profile/recommend', 'ProfileController@recommend')->name('profile.recommend');
+
+    Route::group(['middleware' => ['can_recommend']], function () {
+        Route::get('profile/enrolled', 'ProfileController@enrolled')->name('profile.enrolled');
+        Route::get('profile/recommend', 'ProfileController@recommend')->name('profile.recommend');
+    });
 
     Route::group(['middleware' => ['student']], function () {
+        Route::get('survey', 'SurveyController@show')->name('survey.show');
+         Route::post('survey', 'SurveyController@update')->name('survey.update');
+
         Route::get('lectures/{lecture}', 'LectureController@show')->name('lectures.show');
         Route::get('courses/enroll/{course}', 'CourseController@enroll')->name('courses.enroll');
     });

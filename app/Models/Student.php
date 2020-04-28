@@ -16,4 +16,14 @@ class Student extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
+
+    public function enrolled()
+    {
+        return $this->hasMany('App\Models\Enroll', 'student_id', 'id')->select(['id', 'course_id', 'student_id']);
+    }
+
+    public function survey()
+    {
+        return $this->hasMany('App\Models\Survey', 'student_id', 'id')->select(['id', 'courses_category_id', 'student_id']);
+    }
 }

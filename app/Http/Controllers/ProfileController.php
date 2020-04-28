@@ -44,7 +44,7 @@ class ProfileController extends Controller
                 ->update($request->only(['major', 'school']));
         }
 
-        return redirect(route('profile'))->with('message', 'Update profile success');
+        return redirect(route('profile.show'))->with('message', 'Update profile success');
     }
 
     public function enrolled()
@@ -56,19 +56,49 @@ class ProfileController extends Controller
         return view('pages.enrolled_courses', compact('enrolled'));
     }
 
-    public function recommend()
+    public function recommend(Request $request)
+    {
+        $student = Auth::user()->student;
+        $recommend_courses = (count($student->enrolled) == 0)
+            ? $this->recommend_by_survey()
+            : $this->recommend_by_enrollment();
+
+        return view('pages.recommend', compact('recommend_courses'));
+    }
+
+    public function recommend_by_survey()
+    {
+        $student  = Auth::user()->student;
+        $categories_id = $student->survey->pluck('courses_category_id')->toArray();
+        $courses = Course::join('course_categories', 'courses.courses_category_id', 'course_categories.id')
+            ->whereIn('course_categories.id', $categories_id)
+            ->orderBy('courses.rate')
+            ->select(['courses.*'])
+            ->get();
+        $recommend_courses = array();
+        foreach ($courses as $c) {
+            if (in_array($c->courses_category_id, $categories_id)) {
+                array_push($recommend_courses, $c);
+                $categories_id = array_diff($categories_id, [$c->courses_category_id]);
+            }
+        }
+
+        return $recommend_courses;
+    }
+
+    public function recommend_by_enrollment()
     {
         $sim_csv_path = public_path("recommend/similar_matrix.csv");
         $file = fopen($sim_csv_path, 'r');
         $row = fgetcsv($file, 0, ',');
 
-        $user = Auth::user();
+        $student = Auth::user()->student;
         $index_2_id = Course::pluck("id")->toArray();
         $id_2_index = array_flip($index_2_id);
 
         $courses = Course::pluck("name", "id")->toArray();  // array(["id" =>"name"])
         $enrolled = Enroll::join('courses', 'enrolls.course_id', '=', 'courses.id')
-            ->where('student_id', $user->student->id)
+            ->where('student_id', $student->id)
             ->pluck("courses.name", "courses.id")
             ->toArray();
         $non_enrolled = array_diff($courses, $enrolled);
@@ -96,8 +126,6 @@ class ProfileController extends Controller
             $top_id = array_keys($scores);
         }
 
-        $recommend_courses = Course::whereIn('id', $top_id)->get();
-
-        return view('pages.recommend', compact('recommend_courses'));
+        return Course::whereIn('id', $top_id)->get();
     }
 }

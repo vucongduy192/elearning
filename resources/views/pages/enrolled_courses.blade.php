@@ -9,7 +9,7 @@
                     @if(count($enrolled) == 0)
                         <div class="card">
                             <div class="card-body">
-                                You don't have any enrollment history data. Make survey now
+                                You don't have any enrollment history data.
                             </div>
                         </div>
                     @endif

@@ -11,39 +11,48 @@
     </div>
     <nav class="menu_nav">
         <ul class="menu_mm">
-            <li class="menu_mm"><a href="{{ route('home') }}">Home</a></li>
-            <li class="menu_mm"><a href="courses.html">Courses</a></li>
-            <li class="menu_mm"><a href="instructors.html">Instructors</a></li>
+            <li class="menu_mm">
+                <a href="{{ route('home') }}">Home</a>
+            </li>
+            <li class="menu_mm">
+                <a href="{{ route('courses.index') }}">Courses</a>
+            </li>
+            <li class="menu_mm"><a href="#">Professors</a>
+            </li>
             @guest
                 <li class="menu_mm">
                     <a href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
-                @if (Route::has('register'))
+                <li class="menu_mm">
+                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
+            @else
+                <li class="menu_mm">
+                    <a href="{{ route('profile.show') }}">Profile</a>
+                </li>
+                @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STUDENT)
                     <li class="menu_mm">
-                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <a href="{{ route('profile.enrolled') }}">My Courses</a>
+                    </li>
+                    <li class="menu_mm">
+                        <a href="{{ route('profile.recommend') }}">Recommend</a>
+                    </li>
+                @elseif(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::TEACHER)
+                    <li class="menu_mm">
+                        <a href="{{ route('admin') }}">Courses Manager</a>
                     </li>
                 @endif
-            @else
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }} <span class="caret"></span>
+                <li class="menu_mm">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                         document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
                     </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                        <a class="dropdown-item" href="{{ route('profile') }}">
-                            Profile
-                        </a>
-                    </div>
                 </li>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                      style="display: none;">
+                    @csrf
+                </form>
             @endguest
         </ul>
     </nav>
@@ -59,3 +68,4 @@
         </div>
     </div>
 </div>
+

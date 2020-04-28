@@ -10,7 +10,7 @@
                         <div class="card-header">{{ $error }}</div>
 
                         <div class="card-body">
-                            {{ $message }}
+                            {!! $message !!}
                         </div>
                     </div>
                 </div>

@@ -48,16 +48,13 @@
                                 </li>
                                 <li><a href="#">Professors</a>
                                 </li>
-                                <li><a href="contact.html">Contact</a></li>
                                 @guest
                                 <li>
                                     <a href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
-                                @if (Route::has('register'))
                                 <li>
                                     <a href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                                @endif
                                 @endguest
                             </ul>
                         </nav>
@@ -76,6 +73,9 @@
                                 </div>
                             </div>
 
+                            <div class="hamburger menu_mm">
+                                <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
+                            </div>
 
                             @guest
                             @else
@@ -88,57 +88,22 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('profile') }}">
+                                            <a class="dropdown-item" href="{{ route('profile.show') }}">
                                                 Profile
                                             </a>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->role_id ==
-                                            \App\Models\User::STUDENT)
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STUDENT)
                                             <a class="dropdown-item" href="{{ route('profile.enrolled') }}">
                                                 My Courses
                                             </a>
                                             <a class="dropdown-item" href="{{ route('profile.recommend') }}">
                                                 Recommend
                                             </a>
-                                            @elseif(\Illuminate\Support\Facades\Auth::user()->role_id ==
-                                            \App\Models\User::TEACHER)
+                                            @elseif(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::TEACHER)
                                             <a class="dropdown-item" href="{{ route('admin') }}">
                                                 Courses Manager
                                             </a>
                                             @endif
 
-                                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                 document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="hamburger menu_mm">
-                                <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
-                            </div>
-
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <!-- Left Side Of Navbar -->
-                                <ul class="navbar-nav mr-auto"></ul>
-                                <!-- Right Side Of Navbar -->
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item dropdown">
-                                        <a class="dropdown-item" href="{{ route('profile') }}">
-                                            Profile
-                                        </a>
-
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->name }} <span class="caret"></span>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                                  document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}

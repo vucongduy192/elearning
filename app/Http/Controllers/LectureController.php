@@ -11,7 +11,6 @@ class LectureController extends Controller
     {
         $lecture = Lecture::where('id', $id)->first();
         $allLectures = Lecture::where('course_id', $lecture->course_id)->get();
-//        dd($allLectures);
         return view('pages.lecture_details', compact('lecture', 'allLectures'));
     }
 }
