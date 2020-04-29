@@ -41,10 +41,11 @@ class MatrixController extends Controller
 
         $rowC = fgetcsv($fileC, 0, ',');
         $rowE = fgetcsv($fileE, 0, ',');
+
         while (($rowC = fgetcsv($fileC, 0, ',')) !== false && ($rowE = fgetcsv($fileE, 0, ',')) !== false) {
             $row = array();
-            foreach (array_keys($courses) as $c_j) {
-                $row[$c_j] = $c * $rowC[$c_j] + (1 - $c) * $rowE[$c_j];
+            foreach (range(1, count($courses)) as $key) {
+                $row[$key] = $c * $rowC[$key] + (1 - $c) * $rowE[$key];
             }
             $similar_matrix_csv .= $rowC[0].",".implode(",", $row)."\n";
         }

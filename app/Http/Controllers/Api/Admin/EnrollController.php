@@ -117,6 +117,8 @@ class EnrollController extends Controller
             # Normalize by magnitude
             $magnitude = sqrt(array_sum($row));
             $row = array_map(function ($element) use ($magnitude) {
+                if ($magnitude == 0)
+                    return 0;
                 return $element / $magnitude;
             }, $row);
 
@@ -136,7 +138,9 @@ class EnrollController extends Controller
             foreach (array_keys($courses) as $c_j) {
                 $c_i_vector = array_column($courses_vector, $c_i);
                 $c_j_vector = array_column($courses_vector, $c_j);
-                $row[$c_j] = $this->calCosineSimilar($c_i_vector, $c_j_vector);
+                if ($c_i == $c_j)
+                    $row[$c_j] = 1;
+                else $row[$c_j] = $this->calCosineSimilar($c_i_vector, $c_j_vector);
             }
             $similarE_matrix_csv .= $courses[$c_i].",".implode(",", $row)."\n";
         }
@@ -167,9 +171,8 @@ class EnrollController extends Controller
                 return $v_i * $v_I;
             }, $v, $v))
         );
-        if ($u_val == 0 && $v_val == 0)
-            return 1;
-        elseif($u_val == 0 || $v_val == 0)
+
+        if($u_val == 0 || $v_val == 0)
             return 0;
 
         return $dot_product / ($u_val * $v_val);

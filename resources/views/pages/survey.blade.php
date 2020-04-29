@@ -18,15 +18,17 @@
                             <form method="POST" action="{{ route('survey.update') }}" enctype="multipart/form-data" class="survey-form">
                                 @csrf
                                 <input type="hidden" name="student_id" value="{{ $student->id }}">
-                                @foreach($survey as $category)
-                                    <div class="form-group survey-group">
-                                        <input type="checkbox" name="category_id[]" id="{{ $category->name }}" {{ $category->interest != null ? "checked" : "" }}
-                                            value="{{ $category->id }}">
-                                        <label for="{{ $category->name }}">{{ $category->name }}</label>
-                                    </div>
-                                @endforeach
+                                <div class="row">
+                                    @foreach($survey as $category)
+                                        <div class="form-group survey-group col-md-6">
+                                            <input type="checkbox" name="category_id[]" id="{{ $category->name }}" {{ $category->interest != null ? "checked" : "" }}
+                                                value="{{ $category->id }}">
+                                            <label for="{{ $category->name }}">{{ $category->name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
                                 <div class="form-group row mb-0">
-                                    <div class="col-md-6 offset-md-2">
+                                    <div class="col-md-6">
                                         <button type="submit" class="btn btn-primary e-btn">
                                             Save
                                         </button>
