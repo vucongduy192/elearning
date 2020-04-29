@@ -39,7 +39,7 @@ Route::group(['middleware' => ['verified']], function () {
 
     Route::group(['middleware' => ['student']], function () {
         Route::get('survey', 'SurveyController@show')->name('survey.show');
-         Route::post('survey', 'SurveyController@update')->name('survey.update');
+        Route::post('survey', 'SurveyController@update')->name('survey.update');
 
         Route::get('lectures/{lecture}', 'LectureController@show')->name('lectures.show');
         Route::get('courses/enroll/{course}', 'CourseController@enroll')->name('courses.enroll');

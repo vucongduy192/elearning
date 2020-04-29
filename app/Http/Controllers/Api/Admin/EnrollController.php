@@ -130,6 +130,7 @@ class EnrollController extends Controller
         # ----------------------------------------------------------------- #
         # Save csv course similar matrix by enrollment data
         $similarE_matrix_csv = "course,".implode(",", array_values($courses))."\n";
+        // dd($similarE_matrix_csv, array_keys($courses));
         foreach (array_keys($courses) as $c_i) {
             $row = array();
             foreach (array_keys($courses) as $c_j) {
@@ -166,6 +167,10 @@ class EnrollController extends Controller
                 return $v_i * $v_I;
             }, $v, $v))
         );
+        if ($u_val == 0 && $v_val == 0)
+            return 1;
+        elseif($u_val == 0 || $v_val == 0)
+            return 0;
 
         return $dot_product / ($u_val * $v_val);
     }
