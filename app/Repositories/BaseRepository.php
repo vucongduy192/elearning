@@ -77,6 +77,16 @@ trait BaseRepository
     }
 
     /**
+     * Store in foreach loop not working, replace by create
+     * @param $module
+     * @return mixed
+     */
+    public function create($module)
+    {
+        return $this->model->create($module);
+    }
+
+    /**
      * Store a new record.
      *
      * @param  $input

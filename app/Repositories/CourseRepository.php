@@ -40,17 +40,18 @@ class CourseRepository
         $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';
         $courses_category_id = $request->get($searchColumn[1]);
         $teacher_id = (Auth::user()->role_id == 2) ? -1 : Auth::user()->teacher->id;
-        
+
         $coursesPaginator = $this->model
             ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
             ->join('users', 'teachers.user_id', '=', 'users.id')
-            ->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
+            ->leftJoin('enrolls', 'courses.id', '=', 'enrolls.course_id')
+            ->groupby('courses.id')
             ->select([
                 'courses.id', 'courses.name', 'courses.overview', 'level', 'courses.thumbnail', 'courses_category_id',
                 'teachers.id as teacher_id',
-                'users.name as teacher', DB::raw('count(*) as enrolls')
+                'users.name as teacher', 
+                DB::raw('count(*) as enrolls')
             ])
-            ->groupby('courses.id')
             ->where('courses.' . $searchColumn[0], 'like', '%' . $request->get($searchColumn[0]) . '%')
             ->when($courses_category_id != -1, function ($query) use ($courses_category_id) {
                 return $query->where('courses_category_id', $courses_category_id);

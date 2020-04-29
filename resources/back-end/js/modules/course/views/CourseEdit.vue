@@ -99,46 +99,56 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label for="">Lectures manager</label>
-                                    <button @click="addLecture" class="btn btn-success float-right">
+                                    <label for="">Module manager</label>
+                                    <button @click="addModule" class="btn btn-success float-right">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                                 <div
-                                    class="lecture"
-                                    v-for="(lecture, counter) in form.lectures"
+                                    class="module"
+                                    v-for="(m, counter) in form.modules"
                                     v-bind:key="counter"
                                 >
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input
                                                 type="text"
-                                                v-model="lecture.name"
+                                                v-model="m.name"
                                                 class="form-control"
                                                 placeholder="Enter name"
                                             />
                                             <span class="input-group-btn">
                                                 <button
-                                                    @click="deleteLecture($event, counter)"
+                                                    @click="editModule($event, m.id)"
+                                                    class="btn btn-info"
+                                                >
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                            </span>
+                                            <span class="input-group-btn">
+                                                <button
+                                                    @click="deleteModule($event, counter)"
                                                     class="btn btn-danger"
                                                 >
                                                     <i class="fa fa-minus"></i>
                                                 </button>
                                             </span>
                                         </div>
-                                        <has-error :form="form" :field="`lectures.${counter}.name`" />
+                                        <has-error
+                                            :form="form"
+                                            :field="`modules.${counter}.name`"
+                                        />
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="id[]" v-model="lecture.id" />
-                                        <input
-                                            type="file"
-                                            :name="`slide${counter}`"
-                                            @change="selectSlide($event, counter)"
+                                        <textarea
+                                            v-model="m.overview"
+                                            rows="3"
+                                            class="form-control"
+                                        ></textarea>
+                                        <has-error
+                                            :form="form"
+                                            :field="`modules.${counter}.overview`"
                                         />
-                                        <object type="application/pdf" :data="lecture.slide" :id="`preview_slide${counter}`">
-                                            <embed :id="`preview${counter}`" type="application/pdf">
-                                        </object>
-                                        <has-error :form="form" :field="`lectures.${counter}.slide`" />
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +173,7 @@ import { Form, HasError, AlertError } from 'vform';
 import { objectToFormData } from 'object-to-formdata';
 
 export default {
-    name: 'CategoryEdit',
+    name: 'CourseEdit',
     components: {
         Form,
         HasError,
@@ -176,9 +186,9 @@ export default {
         let course = this.$store.state.storeCourse.edit.data;
 
         Object.assign(this.form, course);
-        if (this.$store.state.storeAuth.auth_user.teacher_id != course.teacher_id) {
-            alert('Not owner this course');
-        }
+        // if (this.$store.state.storeAuth.auth_user.teacher_id != course.teacher_id) {
+        //     alert('Not owner this course');
+        // }
     },
     data() {
         return {
@@ -190,7 +200,7 @@ export default {
                 teacher_id: '',
                 courses_category_id: '',
                 thumbnail: null,
-                lectures: [],
+                modules: [],
             }),
             levels: [
                 { name: 'Easy', value: 0 },
@@ -218,14 +228,7 @@ export default {
         async saveCourse() {
             this.$store.dispatch('setAdminMainLoading', { show: true });
             try {
-                let contains_file = false;
-                if (this.form.thumbnail.constructor === File) contains_file = true;
-
-                this.form.lectures.forEach((element) => {
-                    if (element.slide.constructor === File) contains_file = true;
-                });
-
-                if (contains_file) {
+                if (this.form.thumbnail.constructor === File) {
                     const { data } = await this.form.post(`/courses/${this.$route.params.id}`, {
                         transformRequest: [
                             function (data, headers) {
@@ -245,27 +248,28 @@ export default {
             this.$store.dispatch('setAdminLoading', { show: false });
             this.$router.push({ name: 'main.course' });
         },
-        selectSlide(e, counter) {
-            if (e.target.files && e.target.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $(`#preview_slide${counter}`).attr('data',  e.target.result);
-                };
-                reader.readAsDataURL(e.target.files[0]);
-                this.form.lectures[counter].slide = e.target.files[0];
-            }
-        },
-        addLecture(e) {
+        addModule(e) {
             e.preventDefault();
-            this.form.lectures.push({
+            this.form.modules.push({
                 id: -1,
                 name: '',
-                slide: '',
+                overview: '',
             });
         },
-        deleteLecture(e, counter) {
+        editModule(e, module_id) {
+            // console.log(module_id);
+            if (module_id == -1) {
+                e.preventDefault();
+                this.$swal({
+                    title: this.$i18n.t('textEditModuleWarning'),
+                    icon: 'warning',
+                });
+            }
+            else window.location.href = `/admin/modules/edit/${module_id}`;
+        },
+        deleteModule(e, counter) {
             e.preventDefault();
-            this.form.lectures.splice(counter, 1);
+            this.form.modules.splice(counter, 1);
         },
     },
 };

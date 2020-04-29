@@ -26,10 +26,10 @@ class LectureRepository {
      * @param  $input
      * @return 
      */
-    public function customStore($lecture, $course_id)
+    public function customStore($lecture, $course_id, $module_id)
     {
-        $lecture['slide'] = $this->uploadSlide($lecture['slide'], $course_id);
-        $lecture['course_id'] = $course_id;
+        $lecture['slide'] = $this->uploadSlide($lecture['slide'], $course_id, $module_id);
+        $lecture['module_id'] = $module_id;
         # ko hieu sao cho nay ko dung $this->store dc
         # neu dung thi no chi luu cai lecture cuoi (ko phai do transaction) 
         $this->model->create($lecture);
@@ -41,14 +41,14 @@ class LectureRepository {
      * @param  $input
      * @return 
      */
-    public function customUpdate($lecture, $id, $course_id)
+    public function customUpdate($lecture, $id, $course_id, $module_id)
     {
-        $new_slide = $this->uploadSlide($lecture['slide'], $course_id);
+        $new_slide = $this->uploadSlide($lecture['slide'], $course_id, $module_id);
         if ($new_slide != '') {
             $lecture['slide'] = $new_slide;
             $this->removeFile($this->getById($id)->slide);
         }
-        $lecture['course_id'] = $course_id;
+        $lecture['module_id'] = $module_id;
         $this->update($id, $lecture);
     }
 

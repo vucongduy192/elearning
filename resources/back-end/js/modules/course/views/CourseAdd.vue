@@ -99,41 +99,44 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label for="">Lectures manager</label>
-                                    <button @click="addLecture" class="btn btn-success float-right">
+                                    <label for="">Modules manager</label>
+                                    <button @click="addModule" class="btn btn-success float-right">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                                 <div
-                                    class="lecture"
-                                    v-for="(lecture, counter) in form.lectures"
+                                    class="module"
+                                    v-for="(m, counter) in form.modules"
                                     v-bind:key="counter"
                                 >
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input
                                                 type="text"
-                                                v-model="lecture.name"
+                                                v-model="m.name"
                                                 class="form-control"
                                                 placeholder="Enter name"
                                             />
                                             <span class="input-group-btn">
                                                 <button
-                                                    @click="deleteLecture($event, counter)"
+                                                    @click="deleteModule($event, counter)"
                                                     class="btn btn-danger"
                                                 >
                                                     <i class="fa fa-minus"></i>
                                                 </button>
                                             </span>
                                         </div>
-                                        <has-error :form="form" :field="`lectures.${counter}.name`" />
+                                        <has-error
+                                            :form="form"
+                                            :field="`modules.${counter}.name`"
+                                        />
                                     </div>
                                     <div class="form-group">
-                                        <input type="file" @change="selectSlide($event, counter)"/>
-                                        <object type="application/pdf" :data="lecture.slide" :id="`preview_slide${counter}`">
-                                            <embed :id="`preview${counter}`" type="application/pdf">
-                                        </object>
-                                        <has-error :form="form" :field="`lectures.${counter}.name`"></has-error>
+                                        <textarea
+                                            v-model="m.overview"
+                                            rows="3"
+                                            class="form-control"
+                                        ></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -178,10 +181,10 @@ export default {
                 teacher_id: '',
                 courses_category_id: '',
                 thumbnail: null,
-                lectures: [
+                modules: [
                     {
                         name: '',
-                        slide: '',
+                        overview: '',
                     },
                 ],
             }),
@@ -216,7 +219,7 @@ export default {
                     // Transform form data to FormData
                     transformRequest: [
                         function (data, headers) {
-                            return objectToFormData(data, {indices: true});
+                            return objectToFormData(data, { indices: true });
                         },
                     ],
                 });
@@ -227,29 +230,17 @@ export default {
             this.$store.dispatch('setAdminLoading', { show: false });
             this.$router.push({ name: 'main.course' });
         },
-        selectSlide(e, counter) {
-            if (e.target.files && e.target.files[0]) {
-                var reader = new FileReader();
-                reader.readAsDataURL(e.target.files[0]);
-                reader.onload = function (e) {
-                    $(`#preview_slide${counter}`).attr('data',  e.target.result);
-                };
-                this.form.lectures[counter].slide = e.target.files[0];
-            }
-        },
-        addLecture(e) {
+        addModule(e) {
             e.preventDefault();
-            this.form.lectures.push({
+            this.form.modules.push({
                 name: '',
-                slide: '',
+                overview: '',
             });
         },
-        deleteLecture(e, counter) {
+        deleteModule(e, counter) {
             e.preventDefault();
             this.form.lectures.splice(counter, 1);
         },
     },
 };
 </script>
-<style scoped>
-</style>

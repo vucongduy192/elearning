@@ -30,9 +30,9 @@ class Course extends Model
         return $this->belongsTo('App\Models\Teacher');
     }
 
-    public function lectures()
+    public function modules()
     {
-        return $this->hasMany('App\Models\Lecture')->select(['id', 'name', 'slide']);
+        return $this->hasMany('App\Models\Module')->select(['id', 'name', 'overview']);
     }
 
     public function courses_category()
@@ -42,6 +42,6 @@ class Course extends Model
 
      public function num_enrolls()
      {
-         return $this->hasMany('App\Models\Enroll', 'course_id', 'id');
+         return $this->hasMany('App\Models\Module', 'course_id', 'id');
      }
 }

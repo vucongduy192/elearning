@@ -28,6 +28,8 @@ import Course from '*/modules/course/views/Course';
 import CourseAdd from '*/modules/course/views/CourseAdd';
 import CourseEdit from '*/modules/course/views/CourseEdit';
 
+import ModuleEdit from '*/modules/module/views/ModuleEdit';
+
 import Enroll from '*/modules/enroll/views/Enroll';
 import EnrollMatrix from '*/modules/enroll/views/EnrollMatrix';
 
@@ -159,6 +161,21 @@ const router = new VueRouter({
                             path: 'edit/:id',
                             name: 'main.course.edit',
                             component: CourseEdit,
+                        },
+                    ],
+                },
+                {
+                    path: 'modules',
+                    component: {
+                        render(c) {
+                            return c('router-view');
+                        },
+                    },
+                    children: [
+                        {
+                            path: 'edit/:id',
+                            name: 'main.module.edit',
+                            component: ModuleEdit,
                         },
                     ],
                 },

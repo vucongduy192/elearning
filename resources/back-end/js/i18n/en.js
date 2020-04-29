@@ -116,6 +116,7 @@ const en = {
     textCourse: 'Course',
     textCreatedAt: 'Created at',
     textManageBanner: 'Manage Banner',
+    textEditModuleWarning: 'Module must be saving before edit',
 }
 
 export default en;

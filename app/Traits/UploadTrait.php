@@ -9,12 +9,12 @@ trait UploadTrait {
     /**
      * Generic file upload method.
      */
-    public function uploadSlide($file, $course_id, $folder='slide')
+    public function uploadSlide($file, $course_id, $module_id, $folder='slide')
     {
         if (!is_file($file)) {
             return '';
         }
-        $path = Storage::putFileAs('public/'.$folder.'/'.$course_id, $file, time().$file->getClientOriginalName());
+        $path = Storage::putFileAs('public/'.$folder.'/'.$course_id.'/'.$module_id, $file, time().$file->getClientOriginalName());
         return '/storage/'.str_replace('public/', '', $path);
     }
 

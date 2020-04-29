@@ -14,8 +14,8 @@ class CourseTransformer extends TransformerAbstract
 
         return [
             'id' => $course->id,
-            'name' => $course->name, 
-            'overview' => $course->overview, 
+            'name' => $course->name,
+            'overview' => $course->overview,
             'price' => $course->price,
             'enrolls' => $course->enrolls,
             'courses_category_id' => $course->courses_category_id,
@@ -24,7 +24,7 @@ class CourseTransformer extends TransformerAbstract
             'thumbnail' =>  (file_exists($thumbnail) && $course->thumbnail) ? $course->thumbnail : $placeholder,
             'teacher' => $course->teacher,
             'teacher_id' => $course->teacher_id,
-            'lectures' => $course->lectures,
+            'modules' => $course->modules,
         ];
     }
 }

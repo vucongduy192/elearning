@@ -9,11 +9,11 @@ class Lecture extends Model
     protected $table = 'lectures';
 
     protected $fillable = [
-        'name', 'slide', 'course_id'
+        'name', 'slide', 'module_id'
     ];
 
-    public function course()
+    public function module()
     {
-        return $this->belongsTo('App\Models\Course');
+        return $this->belongsTo('App\Models\Module');
     }
 }
