@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Repositories\CourseRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -27,7 +28,10 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $number = 6;
-        $courses = Course::orderBy('created_at', 'desc')->paginate($number);
+        $courses = Course::join('enrolls', 'courses.id', '=', 'enrolls.course_id')
+            ->groupby('courses.id')
+            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'rate', 'teacher_id', DB::raw('count(*) as enrolls')])
+            ->orderBy('courses.created_at', 'desc')->paginate($number);
 
         $categories = Category::all();
         return view('pages.courses', compact('courses', 'categories'));

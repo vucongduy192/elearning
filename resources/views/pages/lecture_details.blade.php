@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="header_padding" style="height: 100px;"></div>
+<div class="header_padding" style="height: 20px;"></div>
 <div class="auth" style="padding-bottom: 60px;">
     <div class="container-fluid">
         <div class="row auth_row">
@@ -32,11 +32,15 @@
                         <div class="cur_contents">
                             <ul>
                                 @foreach($module->lectures as $lecture)
+                                <?php $urls = explode('/', Request::url()); ?>
                                 <li>
                                     <i class="fa fa-file" aria-hidden="true"></i>
                                     <span>
                                         <a class="lecture_link"
-                                            href="{{ route('lectures.show', ['id' => $lecture->id]) }}">Reading: {{ $lecture->name }}</a>
+                                            style="font-weight: {{ end($urls)==$lecture->id ? 'bold' : '' }}"
+                                            href="{{ route('lectures.show', ['id' => $lecture->id]) }}">
+                                            Reading: {{ $lecture->name }}
+                                        </a>
                                     </span>
                                 </li>
                                 @endforeach
@@ -51,6 +55,11 @@
                 <object type="application/pdf" data="{{ $lecture->slide }}">
                     <embed type="application/pdf">
                 </object>
+                <div class="course_footer d-flex flex-row align-items-center justify-content-start">
+                    <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>86</span></div>
+                    <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4.5</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -121,7 +121,7 @@
     color: #000;
 }
 object {
-    height: 600px;
+    height: 500px;
     width: 100%;
 }
 
@@ -165,4 +165,7 @@ object {
     border: solid #2e21df;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+}
+.card-header {
+    background: #d3d3d3;
 }

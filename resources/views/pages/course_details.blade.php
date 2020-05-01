@@ -281,7 +281,7 @@
                     <div class="sidebar_background"></div>
                     <div class="sidebar_top">
                         @if($has_enrolled)
-                            @if(($module = $course->modules->first()))
+                            @if(($module = $course->modules->first()) && $module->lectures->first())
                                 <a style="background: gray" href="{{ route('lectures.show', [$module->lectures->first()->id]) }}">Continue</a>
                             @else
                                 <a style="background: gray" href="{{ route('errors', [

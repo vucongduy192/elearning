@@ -33,9 +33,14 @@
     ```
 
 3. Apply all setup to current laravel project
-   `bash docker-compose exec app composer install docker-compose exec app npm install docker-compose exec app php artisan key:generate docker-compose exec app php artisan migrate`
-   Finally because in this project using VueJS, let run final bash to listening and
-   re-compile Vue Component if have any change!
+```bash 
+    docker-compose exec app composer install 
+    docker-compose exec app npm install 
+    docker-compose exec app php artisan key:generate 
+    docker-compose exec app php artisan migrate
+```
+Finally because in this project using VueJS, let run final bash to listening and
+re-compile Vue Component if have any change!
 
 ```bash
 docker-compose exec app npm run watch

@@ -1,4 +1,6 @@
 <header class="header">
+@if (strpos(Request::url(), 'lectures'))  
+@else
     <!-- Top Bar -->
     <div class="top_bar">
         <div class="top_bar_container">
@@ -25,7 +27,7 @@
             </div>
         </div>
     </div>
-
+@endif
     <!-- Header Content -->
     <div class="header_container">
         <div class="container">

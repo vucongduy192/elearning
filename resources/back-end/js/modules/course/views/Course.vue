@@ -58,7 +58,6 @@
                                         <th id="name" @click="clickSort('name')">
                                             Name <i class="sort"></i>
                                         </th>
-                                        <th>Overview</th>
                                         <th id="enrolls" @click="clickSort('enrolls')">
                                             Enrolls <i class="sort"></i>
                                         </th>
@@ -77,7 +76,6 @@
                                     <tr v-for="course in listFetch.data" :key="course.id">
                                         <td>{{ course.id }}</td>
                                         <td>{{ course.name }}</td>
-                                        <td>{{ course.overview }}</td>
                                         <td>{{ course.enrolls }}</td>
                                         <td>{{ levels[course.level] }}</td>
                                         <td>{{ course.teacher }}</td>

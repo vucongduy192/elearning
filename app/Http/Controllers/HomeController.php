@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         $popular_courses = Course::join('enrolls', 'courses.id', '=', 'enrolls.course_id')
             ->groupby('courses.id')
-            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'teacher_id', DB::raw('count(*) as enrolls')])
+            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'rate', 'teacher_id', DB::raw('count(*) as enrolls')])
             ->orderBy('enrolls', 'desc')
             ->limit(3)->get();
 
