@@ -21,6 +21,10 @@ class ModuleRepository {
         $this->lecture = $lectureRepository;
     }
 
+    /**
+     * Delete module and each lectures in module
+     * @param $id
+     */
     public function customDestroy($id)
     {
         $module = $this->getById($id);
@@ -28,5 +32,10 @@ class ModuleRepository {
             $this->lecture->customDestroyOne($lecture->id);
         }
         $this->destroy($id);
+    }
+
+    public function allModules($course_id)
+    {
+        return $this->model->where('course_id', $course_id)->get();
     }
 }

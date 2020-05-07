@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
-use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Repositories\CourseRepository;
+use App\Repositories\TeacherRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    public function __construct(CourseRepository $courseRepository, TeacherRepository $teacherRepository)
+    {
+        $this->course = $courseRepository;
+        $this->teacher = $teacherRepository;
+    }
     /**
      * Show the application dashboard.
      *
@@ -16,18 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $popular_courses = Course::join('enrolls', 'courses.id', '=', 'enrolls.course_id')
-            ->groupby('courses.id')
-            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'rate', 'teacher_id', DB::raw('count(*) as enrolls')])
-            ->orderBy('enrolls', 'desc')
-            ->limit(3)->get();
-
-        $best_teachers = Teacher::join('courses', 'teachers.id', '=', 'courses.teacher_id')
-            ->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
-            ->groupby('teachers.id')
-            ->select(['teachers.id as id', 'teachers.expert', 'teachers.workplace', 'teachers.user_id', DB::raw('count(*) as enrolls')])
-            ->orderBy('enrolls', 'desc')
-            ->limit(3)->get();
+        $popular_courses = $this->course->popularCourse();
+        $best_teachers = $this->teacher->bestTeacher();
 
         return view('pages.home', compact('popular_courses', 'best_teachers'));
     }

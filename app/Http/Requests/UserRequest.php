@@ -27,13 +27,15 @@ class UserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role_id' => 'required',
         ];
         $rules_update = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$this->route('user'),
             'password' => 'required|string|min:6|confirmed',
+            'role_id' => 'required',
         ];
-        
+
         return ($this->getMethod() == 'POST') ? $rules_store : $rules_update;
     }
 }

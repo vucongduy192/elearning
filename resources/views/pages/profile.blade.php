@@ -10,11 +10,6 @@
                     <div class="card-header">Profile</div>
 
                     <div class="card-body">
-                        @if (session('message'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('message') }}
-                        </div>
-                        @endif
                         <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ $user->id }}">
@@ -135,6 +130,11 @@
                                 </div>
                             </div>
                             @endif
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-2">
+                                    Change your interest category now. Do new <a href="{{ route('survey.show') }}">survey</a>.
+                                </div>
+                            </div>
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-2">
                                     <button type="submit" class="btn btn-primary e-btn">
@@ -153,19 +153,23 @@
 @section('scripts')
 <script>
     function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-                reader.onload = function(e) {
-                    $('.preview-avatar').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            reader.onload = function(e) {
+                $('.preview-avatar').attr('src', e.target.result);
             }
-        }
 
-        $("#avatar").change(function() {
-            readURL(this);
-        });
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#avatar").change(function() {
+        readURL(this);
+    });
+
+    @if (session('message'))
+        toastr.success("{{ session('message') }}");
+    @endif
 </script>
 @endsection

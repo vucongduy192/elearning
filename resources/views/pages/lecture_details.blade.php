@@ -8,7 +8,7 @@
             <div class="col-md-3">
                 <div class="course_body">
                     <div class="course_title">
-                        <a href="#">Course: {{ $lecture->module->course->name }}</a>
+                        <a href="#">{{ $lecture->module->course->name }}</a>
                     </div>
                     <div class="course_info">
                         <ul>
@@ -24,22 +24,41 @@
                 <div class="course_body">
                     @foreach($allModules as $key => $module)
                     <div class="row">
-                        <p class="lecture_title">
+                        <div class="col-md-10 lecture_title">
+                            <span class="cur_item_title_before">{{ $key + 1 }}</span>
                             {{ $module->name }}
-                        </p>
+                        </div>
+                        <div class="col-md-2 pull-right">
+                            <form action="#" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group template-checkbox">
+                                    <input class="process" type="checkbox"
+                                           name="module{{ $module->id }}" id="module{{ $module->id }}"
+                                           {{ in_array($module->id, $module_processed) ? 'checked' : ''}}
+                                           data-course_id="{{ $lecture->module->course->id }}" data-module_id="{{ $module->id }}"
+                                           data-student_id="{{ \Illuminate\Support\Facades\Auth::user()->student->id }}">
+                                    <label for="module{{ $module->id }}"></label>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="cur_item_content">
-                        <div class="cur_contents">
+                        <div class="cur_contents sidebar_cur_contents">
                             <ul>
-                                @foreach($module->lectures as $lecture)
+                                @foreach($module->lectures as $l)
                                 <?php $urls = explode('/', Request::url()); ?>
                                 <li>
-                                    <i class="fa fa-file" aria-hidden="true"></i>
+                                    <?php $filetype = explode(".", $l->slide); ?>
+                                    @if(end($filetype) == 'pdf')
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                    @else
+                                        <i class="fa fa-video-camera" aria-hidden="true"></i>
+                                    @endif
                                     <span>
                                         <a class="lecture_link"
-                                            style="font-weight: {{ end($urls)==$lecture->id ? 'bold' : '' }}"
-                                            href="{{ route('lectures.show', ['id' => $lecture->id]) }}">
-                                            Reading: {{ $lecture->name }}
+                                            style="font-weight: {{ end($urls)==$l->id ? 'bold' : '' }}"
+                                            href="{{ route('lectures.show', ['id' => $l->id]) }}">
+                                            {{ $l->name }}
                                         </a>
                                     </span>
                                 </li>
@@ -64,4 +83,29 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script>
+        $('.process').click(function () {
+            console.log();
+            var url = "{{ route('processes.store') }}", method = "POST";
+            if (!$(this).is(':checked')) {
+                url = "{{ route('processes.destroy') }}";
+                method = "DELETE";
+            }
+            $.ajax({
+                url: url,
+                method: method,
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    course_id: $(this).data("course_id"),
+                    module_id: $(this).data("module_id"),
+                    student_id: $(this).data("student_id"),
+                },
+                success: function (data) {
+                    toastr.success(data.message);
+                }
+            });
+        });
+    </script>
 @endsection

@@ -25,7 +25,7 @@
                     <form method="POST" action="{{ route('courses.search') }}" class="form-search">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6 offset-md-1 form-group">
+                            <div class="col-md-8 form-group">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter course name">
                             </div>
                             <div class="col-md-3 form-group">
@@ -41,7 +41,9 @@
                                     Search
                                 </button>
                             </div>
-
+                        <?php
+                            session()->forget('_old_input');
+                            ?>
                         </div>
                     </form>
                 </div>

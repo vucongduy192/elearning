@@ -110,11 +110,16 @@
     padding-left: 40px;
 }
 .lecture_link {
+    color: rgba(0,0,0,0.5);
+}
+.lecture_link:hover {
     color: gray;
 }
+
 .lecture_link .active {
     font-weight: bold;
 }
+
 .lecture_title {
     font-size: 16px;
     font-weight: bold;
@@ -126,7 +131,7 @@ object {
 }
 
 
-.survey-group input {
+.template-checkbox input {
     padding: 0;
     height: initial;
     width: initial;
@@ -135,12 +140,12 @@ object {
     cursor: pointer;
 }
 
-.survey-group label {
+.template-checkbox label {
     position: relative;
     cursor: pointer;
 }
 
-.survey-group label:before {
+.template-checkbox label:before {
     content:'';
     -webkit-appearance: none;
     background-color: transparent;
@@ -154,7 +159,7 @@ object {
     margin-right: 5px;
 }
 
-.survey-group input:checked + label:after {
+.template-checkbox input:checked + label:after {
     content: '';
     display: block;
     position: absolute;
@@ -168,4 +173,34 @@ object {
 }
 .card-header {
     background: #d3d3d3;
+}
+
+.cur_item_title_before {
+    background-color: #2e21df;
+    border-radius: 50%;
+    color: #fff;
+    font-size: .8667rem;
+    height: 23px;
+    width: 23px;
+    display: inline-block;
+    text-align: center;
+}
+.cur_item_title {
+    display: inline-block;
+}
+.cur_contents ul li i {
+    color: #2e21df !important;
+}
+.cur_contents ul li ul {
+    padding-left: 10px !important;
+}
+.cur_contents ul li ul li {
+    border-bottom: none !important;
+    padding-left: 10px;
+}
+.sidebar_cur_contents ul li{
+    padding: 5px 20px;
+}
+.sidebar_cur_contents ul li a {
+    padding-left: 10px;
 }

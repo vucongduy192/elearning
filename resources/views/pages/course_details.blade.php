@@ -10,13 +10,8 @@
     .instructor_title {
         margin-left: 40px;
     }
-
-    .cur_contents {
-        margin-top: 0px;
-    }
-
-    .cur_item_content {
-        margin-top: 10px;
+    .cur_reviews {
+        margin-top: 30px;
     }
 </style>
 @endsection
@@ -94,7 +89,7 @@
                                         </div>
                                         <div class="instructor_content">
                                             <div class="instructor_name"><a
-                                                    href="instructors.html">{{ $course->teacher->user->name }}</a>
+                                                    href="#">{{ $course->teacher->user->name }}</a>
                                             </div>
                                             <div class="instructor_title">{{ $course->teacher->expert }}</div>
                                         </div>
@@ -108,33 +103,46 @@
                             <div class="curriculum_items">
                                 @foreach($course->modules as $key => $module)
                                 <div class="cur_item">
-                                    <div
-                                        class="cur_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div class="cur_title">{{ $module->name }}</div>
-                                        <div class="cur_num ml-auto"><i class="fa fa-flag-checkered"></i></div>
-                                    </div>
                                     <div class="cur_item_content">
+                                        <span class="cur_item_title_before">{{ $key + 1 }}</span>
+                                        @if($has_enrolled)
+                                            <div class="pull-right">
+                                                <div class="form-group template-checkbox">
+                                                    <input class="process" type="checkbox"
+                                                           name="module{{ $module->id }}" id="module{{ $module->id }}"
+                                                           {{ in_array($module->id, $module_processed) ? 'checked' : ''}}
+                                                           data-course_id="{{ $course->id }}" data-module_id="{{ $module->id }}"
+                                                           data-student_id="{{ \Illuminate\Support\Facades\Auth::user()->student->id }}">
+                                                    <label for="module{{ $module->id }}"></label>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="cur_item_title">{{ $module->name }}</div>
+                                        <div class="cur_item_text">
+                                            <p>{{ $module->overview }}</p>
+                                        </div>
+
                                         <div class="cur_contents">
                                             <ul>
                                                 <li>
-                                                    <i class="fa fa-folder" aria-hidden="true"></i><span>1 video, 1
-                                                        audio, 1 reading</span>
                                                     <ul>
                                                         @foreach($module->lectures as $lecture)
-                                                        <li
-                                                            class="d-flex flex-row align-items-center justify-content-start">
-                                                            <i class="fa fa-file" aria-hidden="true"></i>
-                                                            <span>Reading:
-                                                                <a
-                                                                    href="{{ route('lectures.show', ['id' => $lecture->id]) }}">{{ $lecture->name }}</a>
-                                                            </span>
-{{--                                                            <div class="cur_time ml-auto">--}}
-{{--                                                                <i class="fa fa-clock-o" aria-hidden="true"></i><span>15--}}
-{{--                                                                    minutes</span>--}}
-{{--                                                            </div>--}}
-                                                        </li>
+                                                            <li class="d-flex flex-row align-items-center justify-content-start">
+                                                                <?php $filetype = explode(".", $lecture->slide); ?>
+                                                                @if(end($filetype) == 'pdf')
+                                                                    <i class="fa fa-file" aria-hidden="true"></i>
+                                                                @else
+                                                                    <i class="fa fa-video-camera" aria-hidden="true"></i>
+                                                                @endif
+                                                                <span>
+                                                                    <a class="lecture_link" href="{{ route('lectures.show', ['id' => $lecture->id]) }}">
+                                                                        {{ $lecture->name }}
+                                                                    </a>
+                                                                </span>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
+
                                                 </li>
                                             </ul>
                                         </div>
@@ -147,125 +155,20 @@
                         <!-- Reviews -->
                         <div id="reviews" class="tab-pane tab_panel reviews fade">
                             <div class="panel_title">Reviews</div>
-                            <div class="panel_text">
-                                <p>Lorem ipsum dolor sit amet, te eros consulatu pro, quem labores petentium no sea,
-                                    atqui posidonium interpretaris pri eu. At soleat maiorum platonem vix, no mei
-                                    case fierent. Primis quidam ancillae te mei.</p>
-                            </div>
-                            <div class="cur_ratings_container clearfix">
-                                <div class="cur_rating d-flex flex-column align-items-center justify-content-center">
-                                    <div class="cur_rating_num">4,5</div>
-                                    <div class="rating_r rating_r_4 cur_stars"><i></i><i></i><i></i><i></i><i></i>
-                                    </div>
-                                    <div class="cur_rating_text">Rated 5 out of 3 Ratings</div>
-                                </div>
-                                <div
-                                    class="cur_rating_progress d-flex flex-column align-items-center justify-content-center">
-                                    <div
-                                        class="cur_progress d-flex flex-row align-items-center justify-content-between">
-                                        <span>5 stars</span>
-                                        <div id="cur_pbar_1" class="cur_pbar" data-perc="0.80"></div>
-                                    </div>
-                                    <div
-                                        class="cur_progress d-flex flex-row align-items-center justify-content-between">
-                                        <span>5 stars</span>
-                                        <div id="cur_pbar_2" class="cur_pbar" data-perc="0.20"></div>
-                                    </div>
-                                    <div
-                                        class="cur_progress d-flex flex-row align-items-center justify-content-between">
-                                        <span>5 stars</span>
-                                        <div id="cur_pbar_3" class="cur_pbar" data-perc="0.0"></div>
-                                    </div>
-                                    <div
-                                        class="cur_progress d-flex flex-row align-items-center justify-content-between">
-                                        <span>5 stars</span>
-                                        <div id="cur_pbar_4" class="cur_pbar" data-perc="0.0"></div>
-                                    </div>
-                                    <div
-                                        class="cur_progress d-flex flex-row align-items-center justify-content-between">
-                                        <span>5 stars</span>
-                                        <div id="cur_pbar_5" class="cur_pbar" data-perc="0.0"></div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="cur_reviews">
-
-                                <!-- Review -->
                                 <div class="review">
-                                    <div
-                                        class="review_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div
-                                            class="review_title d-flex flex-row align-items-center justify-content-center">
-                                            <div class="review_author_image">
-                                                <div><img src="images/review_1.jpg" alt=""></div>
-                                            </div>
+                                    <div class="review_title_container d-flex flex-row align-items-start justify-content-start">
+                                        <div class="review_title d-flex flex-row align-items-center justify-content-center">
+                                            <div class="review_author_image"><div><img src="images/review_1.jpg" alt=""></div></div>
                                             <div class="review_author">
                                                 <div class="review_author_name"><a href="#">Sarah Parker</a></div>
                                                 <div class="review_date">Sep 29, 2017 at 9:48 am</div>
                                             </div>
                                         </div>
-                                        <div class="review_stars ml-auto">
-                                            <div class="rating_r rating_r_4 review_rating">
-                                                <i></i><i></i><i></i><i></i><i></i></div>
-                                        </div>
+                                        <div class="review_stars ml-auto"><div class="rating_r rating_r_4 review_rating"><i></i><i></i><i></i><i></i><i></i></div></div>
                                     </div>
                                     <div class="review_text">
-                                        <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse
-                                            commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed
-                                            commodo nisi lectus id ipsum. Sed nec elit vehicula.</p>
-                                    </div>
-                                </div>
-
-                                <!-- Review -->
-                                <div class="review">
-                                    <div
-                                        class="review_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div
-                                            class="review_title d-flex flex-row align-items-center justify-content-center">
-                                            <div class="review_author_image">
-                                                <div><i class="fa fa-user" aria-hidden="true"></i></div>
-                                            </div>
-                                            <div class="review_author">
-                                                <div class="review_author_name"><a href="#">Sarah Parker</a></div>
-                                                <div class="review_date">Sep 29, 2017 at 9:48 am</div>
-                                            </div>
-                                        </div>
-                                        <div class="review_stars ml-auto">
-                                            <div class="rating_r rating_r_4 review_rating">
-                                                <i></i><i></i><i></i><i></i><i></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="review_text">
-                                        <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse
-                                            commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed
-                                            commodo nisi lectus id ipsum. Sed nec elit vehicula.</p>
-                                    </div>
-                                </div>
-
-                                <!-- Review -->
-                                <div class="review">
-                                    <div
-                                        class="review_title_container d-flex flex-row align-items-start justify-content-start">
-                                        <div
-                                            class="review_title d-flex flex-row align-items-center justify-content-center">
-                                            <div class="review_author_image">
-                                                <div><i class="fa fa-user" aria-hidden="true"></i></div>
-                                            </div>
-                                            <div class="review_author">
-                                                <div class="review_author_name"><a href="#">Sarah Parker</a></div>
-                                                <div class="review_date">Sep 29, 2017 at 9:48 am</div>
-                                            </div>
-                                        </div>
-                                        <div class="review_stars ml-auto">
-                                            <div class="rating_r rating_r_4 review_rating">
-                                                <i></i><i></i><i></i><i></i><i></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="review_text">
-                                        <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse
-                                            commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed
-                                            commodo nisi lectus id ipsum. Sed nec elit vehicula.</p>
+                                        <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed commodo nisi lectus id ipsum. Sed nec elit vehicula.</p>
                                     </div>
                                 </div>
                             </div>
@@ -336,46 +239,60 @@
                         <div class="sidebar_section like">
                             <div class="sidebar_title">You may like</div>
                             <div class="like_items">
-
+                                @foreach($recommend_courses as $r_c)
                                 <!-- Like Item -->
                                 <div class="like_item d-flex flex-row align-items-end justify-content-start">
                                     <div class="like_title_container">
-                                        <div class="like_title">Vocabulary</div>
-                                        <div class="like_subtitle">Spanish</div>
+                                        <div class="like_title">{{ $r_c->name }}</div>
+                                        <div class="like_subtitle">{{ $r_c->teacher->user->name }}</div>
                                     </div>
                                     <div class="like_price ml-auto">Free</div>
                                 </div>
-                                <!-- Like Item -->
-                                <div class="like_item d-flex flex-row align-items-end justify-content-start">
-                                    <div class="like_title_container">
-                                        <div class="like_title">Vocabulary</div>
-                                        <div class="like_subtitle">Spanish</div>
-                                    </div>
-                                    <div class="like_price ml-auto">Free</div>
-                                </div>
-                                <!-- Like Item -->
-                                <div class="like_item d-flex flex-row align-items-end justify-content-start">
-                                    <div class="like_title_container">
-                                        <div class="like_title">Vocabulary</div>
-                                        <div class="like_subtitle">Spanish</div>
-                                    </div>
-                                    <div class="like_price ml-auto">Free</div>
-                                </div>
-                                <!-- Like Item -->
-                                <div class="like_item d-flex flex-row align-items-end justify-content-start">
-                                    <div class="like_title_container">
-                                        <div class="like_title">Vocabulary</div>
-                                        <div class="like_subtitle">Spanish</div>
-                                    </div>
-                                    <div class="like_price ml-auto">Free</div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        var has_enrolled = {{ json_encode($has_enrolled) }};
+        $('.lecture_link').click(function (e) {
+            if (has_enrolled == false) {
+                e.preventDefault();
+                toastr.warning('Enroll course before access any lectures');
+            }
+        });
+
+        $('.process').click(function () {
+            console.log();
+            var url = "{{ route('processes.store') }}", method = "POST";
+            if (!$(this).is(':checked')) {
+                url = "{{ route('processes.destroy') }}";
+                method = "DELETE";
+            }
+            $.ajax({
+                url: url,
+                method: method,
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    course_id: $(this).data("course_id"),
+                    module_id: $(this).data("module_id"),
+                    student_id: $(this).data("student_id"),
+                },
+                success: function (data) {
+                    toastr.success(data.message);
+                }
+            });
+        });
+
+        @if (session('message'))
+            toastr.success("{{ session('message') }}");
+        @endif
+    </script>
 @endsection

@@ -1,5 +1,5 @@
 <header class="header">
-@if (strpos(Request::url(), 'lectures'))  
+@if (strpos(Request::url(), 'lectures'))
 @else
     <!-- Top Bar -->
     <div class="top_bar">

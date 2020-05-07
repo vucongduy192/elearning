@@ -36,7 +36,7 @@ class UserRepository {
         $usersPaginator = $this->model
             ->where([
                 [$searchColumn, 'like', '%'.$request->get($searchColumn).'%'],
-                ['role_id', '=', User::ADMIN]
+                // ['role_id', '=', User::ADMIN]
             ])
             ->orderBy($sortColumn, $sortType)
             ->paginate($number);
@@ -55,8 +55,8 @@ class UserRepository {
      */
     public function customStore(UserRequest $request)
     {
-        $input = $request->only(['name', 'email', 'password', 'password_confirmation']);
-        $input['role_id'] = User::ADMIN;
+        $input = $request->only(['name', 'email', 'role_id', 'password', 'password_confirmation']);
+        // $input['role_id'] = User::ADMIN;
         $input['avatar'] = $this->uploadImage($request, $image_name = 'avatar', $folder='avatar');
         $this->store($input);
     }
@@ -69,7 +69,7 @@ class UserRepository {
      */
     public function customUpdate(UserRequest $request, $id)
     {
-        $input = $request->only(['name', 'email', 'password', 'password_confirmation']);
+        $input = $request->only(['name', 'email', 'password', 'password_confirmation', 'role_id']);
         $new_avatar = $this->uploadImage($request, $image_name = 'avatar', $folder='avatar');
         if ($new_avatar != '') {
             $input['avatar'] = $new_avatar;

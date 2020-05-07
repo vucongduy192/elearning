@@ -53,7 +53,7 @@
                     <ul class="treeview-menu">
                         <li>
                             <router-link :to="{ name: 'main.user' }">
-                                <i class="fa fa-circle-o"></i> <span>Admin</span>
+                                <i class="fa fa-circle-o"></i> <span>User</span>
                             </router-link>
                         </li>
                         <li>

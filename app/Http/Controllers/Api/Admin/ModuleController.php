@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Http\Requests\ModuleRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\ModuleRepository;
@@ -17,7 +18,7 @@ class ModuleController extends Controller
         $this->entity = $moduleRepository;
         $this->sub_entity = $lectureRepository;
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -28,7 +29,7 @@ class ModuleController extends Controller
     {
         $module = $this->entity->getById($id);
         $transformer = new ModuleTransformer();
-        return $this->response($transformer->transform($module));    
+        return $this->response($transformer->transform($module));
     }
 
     /**
@@ -38,7 +39,7 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ModuleRequest $request, $id)
     {
         $input = $request->only(['name', 'overview']);
         $module = $this->entity->update($id, $input);

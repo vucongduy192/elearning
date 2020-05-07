@@ -4,21 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
-use App\Models\Enroll;
-use App\Models\Student;
 use App\Models\User;
+use App\Repositories\CategoryRepository;
 use App\Repositories\CourseRepository;
+use App\Repositories\EnrollRepository;
+use App\Repositories\ProcessRepository;
+use App\Repositories\SurveyRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
-    protected $entity;
+    protected $course, $survey, $enroll, $process, $category;
 
-    public function __construct(CourseRepository $courseRepository)
+    public function __construct(CourseRepository $courseRepository, EnrollRepository $enrollRepository,
+                                SurveyRepository $surveyRepository, ProcessRepository $processRepository,
+                                CategoryRepository $categoryRepository)
     {
-        $this->entity = $courseRepository;
+        $this->course = $courseRepository;
+        $this->enroll = $enrollRepository;
+        $this->survey = $surveyRepository;
+        $this->process = $processRepository;
+        $this->category = $categoryRepository;
     }
     /**
      * Display a listing of the resource.
@@ -28,12 +36,9 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $number = 6;
-        $courses = Course::join('enrolls', 'courses.id', '=', 'enrolls.course_id')
-            ->groupby('courses.id')
-            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'rate', 'teacher_id', DB::raw('count(*) as enrolls')])
-            ->orderBy('courses.created_at', 'desc')->paginate($number);
+        $courses = $this->course->filterCourse($number);
+        $categories = $this->category->all();
 
-        $categories = Category::all();
         return view('pages.courses', compact('courses', 'categories'));
     }
 
@@ -43,44 +48,51 @@ class CourseController extends Controller
         $courses_category_id = $request->courses_category_id;
         $name = $request->name;
 
-        $courses = Course::when($courses_category_id, function ($query, $courses_category_id) {
-            return $query->where('courses_category_id', $courses_category_id);
-        })
-            ->when($name, function ($query, $name) {
-                return $query->where('name', 'like', '%'.$name.'%');
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate($number);
+        $courses = $this->course->filterCourse($number, $name, $courses_category_id);
+        $categories = $this->category->all();
 
-        $categories = Category::all();
         session()->flashInput($request->input());
         return view('pages.courses', compact('courses', 'categories'));
     }
 
+    /**
+     * Course details include: syllabus + overview + reviews ...
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($id)
     {
+        $has_enrolled = false;  // check if current user has enrolled this course
+        $recommend_courses = $this->course->popularCourse();
+
         if (($user = Auth::user()) && $user->role_id == User::STUDENT) {
-            $enroll = Enroll::where([
-                'student_id' => $user->student->id,
-                'course_id' => $id
-            ])->first();
+            $enroll = $this->enroll->getByCondition($id, $user->student->id);
             $has_enrolled = $enroll ? true : false;
-        } else {
-            $has_enrolled = false;
+
+            $recommend_courses = (count($user->student->enrolled) == 0)
+                ? $this->survey->recommend()
+                : $this->enroll->recommend();
         }
 
-        $course = $this->entity->getById($id);
-        return view('pages.course_details', compact('course', 'has_enrolled'));
+        $module_processed = $this->process->getModuleProcessed($user->student->id);
+        $course = $this->course->getById($id);
+        return view('pages.course_details', compact('course', 'has_enrolled', 'recommend_courses', 'module_processed'));
     }
 
+    /**
+     * Student enroll a course
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function enroll($id)
     {
-        $course = $this->entity->getById($id);
-        Enroll::create([
+        $course = $this->course->getById($id);
+        $this->enroll->store([
             'student_id' => Auth::user()->student->id,
             'course_id' => $course->id,
         ]);
 
-        return redirect(route('courses.show', [ 'id' => $course->id ]));
+        return redirect(route('courses.show', [ 'id' => $course->id ]))
+            ->with('message', 'Enroll course success');
     }
 }

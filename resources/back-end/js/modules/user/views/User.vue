@@ -3,7 +3,7 @@
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
-                    <h3 class="box-title">Admin List</h3>
+                    <h3 class="box-title">User List</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -13,7 +13,7 @@
                                 :to="{ name: 'main.user.add' }"
                                 class="btn btn-success"
                             >
-                                Add new admin
+                                Add new user
                             </router-link>
                         </div>
                         <div class="col-sm-3 pull-right">
@@ -119,8 +119,8 @@ export default {
             this.getResults();
         },
         getResults(page = 1) {
-            this.$store.dispatch('actionFetchUser', { 
-                vue: this, 
+            this.$store.dispatch('actionFetchUser', {
+                vue: this,
                 params: {
                     page: page,
                     name: this.name,
@@ -139,7 +139,7 @@ export default {
                     icon: 'warning',
                     buttons: true,
                     dangerMode: true,
-                }) 
+                })
                 && this.$store.dispatch('actionUserDelete', { vue: this, id: user.id });
         },
     },

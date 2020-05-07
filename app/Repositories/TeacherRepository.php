@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use App\Transformers\TeacherTransformer;
 use App\Traits\TransformPaginatorTrait;
+use Illuminate\Support\Facades\DB;
 
 class TeacherRepository {
     use BaseRepository, TransformPaginatorTrait;
@@ -35,15 +36,25 @@ class TeacherRepository {
             ->join('users', 'teachers.user_id', '=', 'users.id')
             ->where($searchColumn, 'like', '%'.$request->get($searchColumn).'%')
             ->select([
-                'teachers.id', 'teachers.workplace', 'teachers.expert',  
+                'teachers.id', 'teachers.workplace', 'teachers.expert',
                 'users.name', 'users.email', 'users.avatar',
             ])
             ->orderBy($sortColumn, $sortType)
             ->paginate($number);
-        
+
         return $this->buildTransformPaginator(
-            $teachersPaginator, 
+            $teachersPaginator,
             $this->teacherTransformer
         );
+    }
+
+    public function bestTeacher()
+    {
+        return $this->model->join('courses', 'teachers.id', '=', 'courses.teacher_id')
+            ->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
+            ->groupby('teachers.id')
+            ->select(['teachers.id as id', 'teachers.expert', 'teachers.workplace', 'teachers.user_id', DB::raw('count(*) as enrolls')])
+            ->orderBy('enrolls', 'desc')
+            ->limit(3)->get();
     }
 }

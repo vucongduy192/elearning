@@ -10,24 +10,23 @@ use App\Repositories\CategoryRepository;
 
 class SurveyController extends Controller
 {
-    protected $survey, $surveyRepository;
+    protected $survey;
 
-    public function __construct(Survey $survey, SurveyRepository $surveyRepository)
+    public function __construct(SurveyRepository $surveyRepository)
     {
-        $this->survey = $survey;
-        $this->surveyRepository = $surveyRepository;
+        $this->survey = $surveyRepository;
     }
 
     public function show()
     {
         $student = Auth::user()->student;
-        $survey = $this->surveyRepository->studentSurvey($student->id);
+        $survey = $this->survey->studentSurvey($student->id);
         return view('pages.survey', compact('student', 'survey'));
     }
 
     public function update(Request $request)
     {
-        $this->surveyRepository->destroyByStudentId($request->student_id);
+        $this->survey->destroyByStudentId($request->student_id);
         if ($request->category_id) {
             foreach ($request->category_id as $category_id) {
                 $this->survey->create([

@@ -38,10 +38,15 @@ Route::group(['middleware' => ['verified']], function () {
     });
 
     Route::group(['middleware' => ['student']], function () {
+        # ---------------- Survey for new student  -------------------
         Route::get('survey', 'SurveyController@show')->name('survey.show');
         Route::post('survey', 'SurveyController@update')->name('survey.update');
 
         Route::get('lectures/{lecture}', 'LectureController@show')->name('lectures.show');
         Route::get('courses/enroll/{course}', 'CourseController@enroll')->name('courses.enroll');
+
+        # ---------------- Student's process -------------------
+        Route::post('processes', 'ProcessController@store')->name('processes.store');
+        Route::delete('processes', 'ProcessController@destroy')->name('processes.destroy');
     });
 });

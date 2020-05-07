@@ -20,7 +20,7 @@
                                 <input type="hidden" name="student_id" value="{{ $student->id }}">
                                 <div class="row">
                                     @foreach($survey as $category)
-                                        <div class="form-group survey-group col-md-6">
+                                        <div class="form-group template-checkbox col-md-6">
                                             <input type="checkbox" name="category_id[]" id="{{ $category->name }}" {{ $category->interest != null ? "checked" : "" }}
                                                 value="{{ $category->id }}">
                                             <label for="{{ $category->name }}">{{ $category->name }}</label>

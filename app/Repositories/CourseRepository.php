@@ -49,7 +49,7 @@ class CourseRepository
             ->select([
                 'courses.id', 'courses.name', 'courses.overview', 'level', 'courses.thumbnail', 'courses_category_id',
                 'teachers.id as teacher_id',
-                'users.name as teacher', 
+                'users.name as teacher',
                 DB::raw('count(*) as enrolls')
             ])
             ->where('courses.' . $searchColumn[0], 'like', '%' . $request->get($searchColumn[0]) . '%')
@@ -118,5 +118,34 @@ class CourseRepository
     {
         $this->removeFile($this->getById($id)->thumbnail);
         $this->destroy($id);
+    }
+
+    /**
+     * Get courses in top enrolled
+     *
+     * @return mixed
+     */
+    public function popularCourse()
+    {
+        return $this->model->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
+            ->groupby('courses.id')
+            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'rate', 'teacher_id', DB::raw('count(*) as enrolls')])
+            ->orderBy('enrolls', 'desc')
+            ->limit(3)->get();
+    }
+
+    public function filterCourse($number, $name=null, $courses_category_id=null)
+    {
+        return $this->model->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
+            ->groupby('courses.id')
+            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'rate', 'teacher_id', DB::raw('count(*) as enrolls')])
+            ->when($courses_category_id, function ($query, $courses_category_id) {
+                return $query->where('courses_category_id', $courses_category_id);
+            })
+            ->when($name, function ($query, $name) {
+                return $query->where('name', 'like', '%'.$name.'%');
+            })
+            ->orderBy('courses.created_at', 'desc')
+            ->paginate($number);
     }
 }

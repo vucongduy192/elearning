@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css"
           href="{{ asset("front-end/plugins/OwlCarousel2-2.2.1/owl.theme.default.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/plugins/OwlCarousel2-2.2.1/animate.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/plugins/toastr/toastr.min.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/main_styles.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/responsive.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/custom.css") }}">
@@ -43,6 +44,7 @@ _________________________________________________________ -->
 <script src="{{ asset("front-end/styles/bootstrap4/popper.js") }}"></script>
 <script src="{{ asset("front-end/styles/bootstrap4/bootstrap.min.js") }}"></script>
 <script src="{{ asset("front-end/plugins/OwlCarousel2-2.2.1/owl.carousel.js") }}"></script>
+<script src="{{ asset("front-end/plugins/toastr/toastr.min.js") }}"></script>
 <script src="{{ asset("front-end/plugins/easing/easing.js") }}"></script>
 <script src="{{ asset("front-end/js/custom.js") }}"></script>
 

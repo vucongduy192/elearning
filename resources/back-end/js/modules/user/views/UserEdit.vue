@@ -3,7 +3,7 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit admin</h3>
+                    <h3 class="box-title">Edit user</h3>
                 </div>
                 <form @submit.prevent="saveAdmin" @keydown="form.onKeydown($event)">
                     <div class="box-body">
@@ -34,27 +34,50 @@
                                     />
                                     <has-error :form="form" field="email"></has-error>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Password</label>
-                                    <input
-                                        v-model="form.password"
-                                        type="password"
-                                        name="password"
-                                        class="form-control"
-                                        placeholder="Enter name"
-                                    />
-                                    <has-error :form="form" field="password"></has-error>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Password Confimation</label>
-                                    <input
-                                        v-model="form.password_confirmation"
-                                        type="password"
-                                        name="password_confirmation"
-                                        class="form-control"
-                                        placeholder="Enter name"
-                                    />
-                                    <has-error :form="form" field="password_confirmation"></has-error>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label for="">Password</label>
+                                            <input
+                                                v-model="form.password"
+                                                type="password"
+                                                name="password"
+                                                class="form-control"
+                                                placeholder="Enter name"
+                                            />
+                                            <has-error :form="form" field="password"></has-error>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Password Confimation</label>
+                                            <input
+                                                v-model="form.password_confirmation"
+                                                type="password"
+                                                name="password_confirmation"
+                                                class="form-control"
+                                                placeholder="Enter name"
+                                            />
+                                            <has-error :form="form" field="password_confirmation"></has-error>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="">Role</label>
+                                            <select
+                                                v-model="form.role_id"
+                                                name="role_id"
+                                                class="form-control"
+                                            >
+                                                <option
+                                                    v-for="(role, index) in roles"
+                                                    v-bind:value="index"
+                                                    v-bind:key="index"
+                                                    :selected="form.role_id == index"
+                                                >{{ role }}</option
+                                                >
+                                            </select>
+                                            <has-error :form="form" field="role_id" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -97,6 +120,7 @@ export default {
         let user = this.$store.state.storeUser.edit.data;
         this.form.name = user.name;
         this.form.email = user.email;
+        this.form.role_id = user.role_id;
         this.form.avatar = user.avatar;
     },
     data() {
@@ -107,7 +131,9 @@ export default {
                 password: '',
                 password_confirmation: '',
                 avatar: null,
+                role_id: null
             }),
+            roles: ['Student', 'Teacher', 'Admin',]
         };
     },
     methods: {
