@@ -64,7 +64,8 @@ class CourseController extends Controller
     {
         $has_enrolled = false;  // check if current user has enrolled this course
         $recommend_courses = $this->course->popularCourse();
-
+        $module_processed = array();
+        
         if (($user = Auth::user()) && $user->role_id == User::STUDENT) {
             $enroll = $this->enroll->getByCondition($id, $user->student->id);
             $has_enrolled = $enroll ? true : false;
@@ -72,9 +73,10 @@ class CourseController extends Controller
             $recommend_courses = (count($user->student->enrolled) == 0)
                 ? $this->survey->recommend()
                 : $this->enroll->recommend();
+
+            $module_processed = $this->process->getModuleProcessed($user->student->id);
         }
 
-        $module_processed = $this->process->getModuleProcessed($user->student->id);
         $course = $this->course->getById($id);
         return view('pages.course_details', compact('course', 'has_enrolled', 'recommend_courses', 'module_processed'));
     }

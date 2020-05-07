@@ -48,5 +48,9 @@ Route::group(['middleware' => ['verified']], function () {
         # ---------------- Student's process -------------------
         Route::post('processes', 'ProcessController@store')->name('processes.store');
         Route::delete('processes', 'ProcessController@destroy')->name('processes.destroy');
+
+        # ---------------- Student's reviews -------------------
+        Route::get('reviews/{course}', 'ReviewController@index')->name('reviews.index');
+        Route::post('reviews', 'ReviewController@store')->name('reviews.store');
     });
 });

@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Lingua project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/bootstrap4/bootstrap.min.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/bootstrap4/bootstrap.min.css") }}"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <link href="{{ asset("front-end/plugins/font-awesome-4.7.0/css/font-awesome.min.css") }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/plugins/OwlCarousel2-2.2.1/owl.carousel.css") }}">
     <link rel="stylesheet" type="text/css"

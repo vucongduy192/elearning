@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class CourseRepository
 {
     use BaseRepository, UploadTrait, TransformPaginatorTrait;
-    protected $model;
+    protected $model, $courseTransformer;
 
     /**
      * Constructor
