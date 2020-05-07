@@ -80,7 +80,7 @@
                                 src="{{ asset($teacher->user->avatar ? $teacher->user->avatar : \App\Models\Config::PLACEHOLDER_AVATAR) }}"
                                 alt=""></div>
                     </div>
-                    <div class="instructor_name"><a href="instructors.html">{{ $teacher->user->name }}</a></div>
+                    <div class="instructor_name"><a href="#">{{ $teacher->user->name }}</a></div>
                     <div class="instructor_title">{{ $teacher->expert }}</div>
                     <div class="instructor_text">
                         <p>{{ $teacher->workplace }}</p>
@@ -184,7 +184,7 @@
             </div>
 
             <!-- Register Timer -->
-            
+
             <div class="col-lg-6">
                 <div class="register_timer_container">
                     <div class="register_timer_title">Register Now</div>

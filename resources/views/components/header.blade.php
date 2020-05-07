@@ -48,7 +48,7 @@
                                 <li>
                                     <a href="{{ route('courses.index') }}">Courses</a>
                                 </li>
-                                <li><a href="#">Professors</a>
+                                <li><a href="{{ route('professors.index') }}">Professors</a>
                                 </li>
                                 @guest
                                 <li>

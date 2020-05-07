@@ -26,6 +26,7 @@ Route::get('courses', 'CourseController@index')->name('courses.index');
 Route::get('courses/{course}', 'CourseController@show')->name('courses.show');
 Route::post('courses', 'CourseController@search')->name('courses.search');
 
+Route::get('professors', 'ProfessorController@index')->name('professors.index');
 
 
 Route::group(['middleware' => ['verified']], function () {
@@ -52,5 +53,6 @@ Route::group(['middleware' => ['verified']], function () {
         # ---------------- Student's reviews -------------------
         Route::get('reviews/{course}', 'ReviewController@index')->name('reviews.index');
         Route::post('reviews', 'ReviewController@store')->name('reviews.store');
+
     });
 });
