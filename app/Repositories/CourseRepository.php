@@ -134,16 +134,24 @@ class CourseRepository
             ->limit(3)->get();
     }
 
-    public function filterCourse($number, $name=null, $courses_category_id=null)
+    public function filterCourse($number, $name=null, $teacher=null, $courses_category_id=null)
     {
         return $this->model->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
+            ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
+            ->join('users', 'teachers.user_id', '=', 'users.id')
             ->groupby('courses.id')
-            ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'rate', 'teacher_id', DB::raw('count(*) as enrolls')])
+            ->select([ 'courses.id', 'courses.name', 'courses.overview', 'courses.level', 'courses.thumbnail',
+                       'courses.rate', 'courses.teacher_id', DB::raw('count(*) as enrolls'),
+                       'users.name as teacher_name'
+            ])
             ->when($courses_category_id, function ($query, $courses_category_id) {
                 return $query->where('courses_category_id', $courses_category_id);
             })
             ->when($name, function ($query, $name) {
-                return $query->where('name', 'like', '%'.$name.'%');
+                return $query->where('courses.name', 'like', '%'.$name.'%');
+            })
+            ->when($teacher, function ($query, $teacher) {
+                return $query->where('users.name', 'like', '%'.$teacher.'%');
             })
             ->orderBy('courses.created_at', 'desc')
             ->paginate($number);

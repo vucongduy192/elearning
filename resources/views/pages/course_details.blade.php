@@ -327,6 +327,26 @@
             });
         });
 
+        // ---------------------------------------------
+        // ------------ Fetch student reviews -----------
+        function fetch_reviews (url="{{ route('reviews.index', ['course_id' => $course->id]) }}") {
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    $('.cur_reviews').html(data.html);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            fetch_reviews();
+
+            $('body').on('click', '.pagination li',  function (e) {
+                e.preventDefault();
+                fetch_reviews(url=$(this).find("a").attr('href'));
+            });
+        });
+
         // ----------------------------------------------
         // ------------ Student rating course -----------
         $('.rating i')
@@ -353,14 +373,19 @@
                 method: "POST",
                 dataType: 'json',
                 data: $('.review-form').serialize(),
+                beforeSend: function () {
+                    $('.review-form').waitMe({effect: 'bounce', text: '', bg: 'rgba(255,255,255,0.7)', color: '#000'});
+                },
                 success: function (data) {
                     toastr.success(data.message);
-                    setTimeout(function () {
-                        location.reload();
-                    }, 2000);
+                    $('.review-form').waitMe('hide');
+                    $('.review-form')[0].reset();
+                    $('.rating i').removeClass('selected');
+                    fetch_reviews();
                 },
                 error: function (reject) {
                     if( reject.status === 422 ) {
+                        $('.review-form').waitMe('hide');
                         var errors = $.parseJSON(reject.responseText);
                         $.each(errors.errors, function (key, val) {
                             $("." + key + "-error strong").text(val[0]);
@@ -370,27 +395,5 @@
                 }
             });
         });
-
-        // ---------------------------------------------
-        // ------------ Fetch student reviews -----------
-        $(document).ready(function () {
-            $.ajax({
-                url: "{{ route('reviews.index', ['course_id' => $course->id]) }}",
-                success: function (data) {
-                    $('.cur_reviews').html(data.html);
-                }
-            });
-
-            $('body').on('click', '.pagination li',  function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: $(this).find("a").attr('href'),
-                    success: function (data) {
-                        $('.cur_reviews').html(data.html);
-                    }
-                });
-            })
-        })
-
     </script>
 @endsection

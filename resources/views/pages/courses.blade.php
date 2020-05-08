@@ -17,17 +17,17 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    @if (count($courses) == 0)
-                        <div class="alert alert-success" role="alert">
-                            Không tìm thấy khóa học!
-                        </div>
-                    @endif
-                    <form method="POST" action="{{ route('courses.search') }}" class="form-search">
+                    <form method="POST" action="{{ route('courses.search') }}" class="search-form">
                         @csrf
                         <div class="row">
-                            <div class="col-md-8 form-group">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter course name">
+                            <div class="col-md-5 form-group">
+                                <input id="name" type="text" class="form-control" name="name" placeholder="Course name">
                             </div>
+
+                            <div class="col-md-3 form-group">
+                                <input id="teacher" type="text" class="form-control" name="teacher" placeholder="Professor name">
+                            </div>
+
                             <div class="col-md-3 form-group">
                                 <select class="form-control" name="courses_category_id" id="">
                                     <option value="" {{ !old('courses_category_id') ? "selected" : "" }}>All categories</option>
@@ -37,51 +37,48 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary e-btn">
+                                <button type="submit" class="btn btn-primary e-btn search-btn">
                                     Search
                                 </button>
                             </div>
-                        <?php
-                            session()->forget('_old_input');
-                            ?>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="row courses_row">
-                @foreach($courses as $course)
-                    <div class="col-lg-4 course_col">
-                        <div class="course">
-                            <div class="course_image"><img src="{{ $course->teacher->avatar ? $course->teacher->avatar : \App\Models\Config::PLACEHOLDER_THUMBNAIL }}" alt=""></div>
-                            <div class="course_body">
-                                <div class="course_title">
-                                    <a href="{{ route('courses.show', ['id' => $course->id]) }}">{{ mb_substr($course->name, 0, 21, "utf-8") }}
-                                    </a>
-                                </div>
-                                <div class="course_info">
-                                    <ul>
-                                        <li><a href="instructors.html">{{ $course->teacher->user->name }}</a></li>
-                                        <li><a href="#">English</a></li>
-                                    </ul>
-                                </div>
-                                <div class="course_text">
-                                    <p>{{ $course->overview }}</p>
-                                </div>
-                            </div>
-                            <div class="course_footer d-flex flex-row align-items-center justify-content-start">
-                                <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>{{ $course->enrolls }}</span></div>
-                                <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>{{ $course->rate }}</span>
-                                </div>
-                                <div class="course_mark course_free trans_200"><a href="#">Free</a></div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <div class="pull-right">
-                {{ $courses->links('components.pagination') }}
+            <div class="courses_list" style="min-height: 295px;">
+
             </div>
         </div>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        function filter_courses(url="{{ route('courses.search') }}") {
+            $.ajax({
+                url: url,
+                method: "POST",
+                dataType: 'json',
+                data: $('.search-form').serialize(),
+                beforeSend: function () {
+                    $('.courses_list').waitMe({effect: 'bounce', text: '', bg: 'rgba(255,255,255,0.7)', color: '#000'});
+                },
+                success: function (data) {
+                    $('.courses_list').waitMe('hide').html(data.html);
+                }
+            });
+        }
+        $(document).ready(function () {
+            filter_courses();
 
+            $('.search-btn').click(function (e) {
+                e.preventDefault();
+                filter_courses();
+            });
+
+            $('body').on('click', '.pagination li',  function (e) {
+                e.preventDefault();
+                filter_courses(url=$(this).find("a").attr('href'));
+            });
+        })
+    </script>
+@endsection

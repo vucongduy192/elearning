@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Course;
 use App\Models\User;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CourseRepository;
@@ -12,7 +10,7 @@ use App\Repositories\ProcessRepository;
 use App\Repositories\SurveyRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 
 class CourseController extends Controller
 {
@@ -28,6 +26,7 @@ class CourseController extends Controller
         $this->process = $processRepository;
         $this->category = $categoryRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,11 +34,10 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        $number = 6;
-        $courses = $this->course->filterCourse($number);
+        // $number = 6;
+        // $courses = $this->course->filterCourse($number);
         $categories = $this->category->all();
-
-        return view('pages.courses', compact('courses', 'categories'));
+        return view('pages.courses', compact('categories'));
     }
 
     public function search(Request $request)
@@ -47,12 +45,12 @@ class CourseController extends Controller
         $number = 6;
         $courses_category_id = $request->courses_category_id;
         $name = $request->name;
+        $teacher = $request->teacher;
 
-        $courses = $this->course->filterCourse($number, $name, $courses_category_id);
-        $categories = $this->category->all();
-
-        session()->flashInput($request->input());
-        return view('pages.courses', compact('courses', 'categories'));
+        $courses = $this->course->filterCourse($number, $name, $teacher, $courses_category_id);
+        return $this->response([
+            'html' => View::make('components.courses_list')->with(['courses' => $courses])->render()
+        ]);
     }
 
     /**
@@ -65,7 +63,7 @@ class CourseController extends Controller
         $has_enrolled = false;  // check if current user has enrolled this course
         $recommend_courses = $this->course->popularCourse();
         $module_processed = array();
-        
+
         if (($user = Auth::user()) && $user->role_id == User::STUDENT) {
             $enroll = $this->enroll->getByCondition($id, $user->student->id);
             $has_enrolled = $enroll ? true : false;
