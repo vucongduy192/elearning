@@ -16,17 +16,20 @@ use Illuminate\Support\Facades\DB;
 class CourseRepository
 {
     use BaseRepository, UploadTrait, TransformPaginatorTrait;
-    protected $model, $courseTransformer;
+    protected $model, $courseTransformer, $process, $enroll;
 
     /**
      * Constructor
      *
      * @param Course $category
      */
-    public function __construct(Course $course, CourseTransformer $courseTransformer)
+    public function __construct(Course $course, CourseTransformer $courseTransformer,
+                                ProcessRepository $processRepository, EnrollRepository $enrollRepository)
     {
         $this->courseTransformer = $courseTransformer;
         $this->model = $course;
+        $this->process = $processRepository;
+        $this->enroll = $enrollRepository;
     }
 
     /**
@@ -134,21 +137,22 @@ class CourseRepository
             ->limit(3)->get();
     }
 
-    public function filterCourse($number, $name=null, $teacher=null, $courses_category_id=null)
+    public function filterCourse($number, $course_name=null, $teacher=null, $courses_category_id=null)
     {
-        return $this->model->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
+        return $this->model
             ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
             ->join('users', 'teachers.user_id', '=', 'users.id')
+            ->leftJoin('enrolls', 'courses.id', '=', 'enrolls.course_id')
             ->groupby('courses.id')
             ->select([ 'courses.id', 'courses.name', 'courses.overview', 'courses.level', 'courses.thumbnail',
-                       'courses.rate', 'courses.teacher_id', DB::raw('count(*) as enrolls'),
-                       'users.name as teacher_name'
+                'courses.rate', 'courses.teacher_id', DB::raw('count(*) as enrolls'),
+                'users.name as teacher_name'
             ])
             ->when($courses_category_id, function ($query, $courses_category_id) {
                 return $query->where('courses_category_id', $courses_category_id);
             })
-            ->when($name, function ($query, $name) {
-                return $query->where('courses.name', 'like', '%'.$name.'%');
+            ->when($course_name, function ($query, $course_name) {
+                return $query->where('courses.name', 'like', '%'.$course_name.'%');
             })
             ->when($teacher, function ($query, $teacher) {
                 return $query->where('users.name', 'like', '%'.$teacher.'%');

@@ -34,7 +34,8 @@ Route::group(['middleware' => ['verified']], function () {
     Route::post('profile', 'ProfileController@update')->name('profile.update');
 
     Route::group(['middleware' => ['can_recommend']], function () {
-        Route::get('profile/enrolled', 'ProfileController@enrolled')->name('profile.enrolled');
+        Route::get('profile/enrolled', 'ProfileController@enrolled_page')->name('profile.enrolled_page');
+        Route::post('profile/enrolled_courses', 'ProfileController@enrolled_courses')->name('profile.enrolled_courses');
         Route::get('profile/recommend', 'ProfileController@recommend')->name('profile.recommend');
     });
 

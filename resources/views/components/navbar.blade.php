@@ -32,7 +32,7 @@
                 </li>
                 @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STUDENT)
                     <li class="menu_mm">
-                        <a href="{{ route('profile.enrolled') }}">My Courses</a>
+                        <a href="{{ route('profile.enrolled_page') }}">My Courses</a>
                     </li>
                     <li class="menu_mm">
                         <a href="{{ route('profile.recommend') }}">Recommend</a>

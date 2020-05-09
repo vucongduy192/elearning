@@ -10,11 +10,6 @@
                         <div class="card-header">Survey interested category</div>
 
                         <div class="card-body">
-                            @if (session('message'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('message') }}
-                                </div>
-                            @endif
                             <form method="POST" action="{{ route('survey.update') }}" enctype="multipart/form-data" class="survey-form">
                                 @csrf
                                 <input type="hidden" name="student_id" value="{{ $student->id }}">
@@ -41,4 +36,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        @if (session('message'))
+        toastr.success("{{ session('message') }}");
+        @endif
+    </script>
 @endsection

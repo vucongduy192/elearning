@@ -6,21 +6,28 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Repositories\CourseRepository;
+use App\Repositories\ProcessRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\EnrollRepository;
 use App\Repositories\SurveyRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class ProfileController extends Controller
 {
-    protected $entity, $enroll, $survey;
+    protected $entity, $enroll, $survey, $course, $process;
 
-    public function __construct(UserRepository $userRepository, EnrollRepository $enrollRepository, SurveyRepository $surveyRepository)
+    public function __construct(UserRepository $userRepository, EnrollRepository $enrollRepository,
+                                SurveyRepository $surveyRepository, CourseRepository $courseRepository,
+                                ProcessRepository $processRepository)
     {
         $this->entity = $userRepository;
         $this->enroll = $enrollRepository;
         $this->survey = $surveyRepository;
+        $this->course = $courseRepository;
+        $this->process = $processRepository;
     }
 
     /**
@@ -63,12 +70,18 @@ class ProfileController extends Controller
      * Show history enrolled of current user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function enrolled()
+    public function enrolled_page(Request $request)
+    {
+        return view('pages.enrolled_courses');
+    }
+
+    public function enrolled_courses(Request $request)
     {
         $user = Auth::user();
-        $enrolled = $this->enroll->getByStudentId($user->student->id);
-
-        return view('pages.enrolled_courses', compact('enrolled'));
+        $enrolled = $this->process->getEnrolledWithProcess($user->student->id, $request->completed);
+        return $this->response([
+            'html' => View::make('components.enrolled_list')->with(['enrolled' => $enrolled])->render()
+        ]);
     }
 
     /**

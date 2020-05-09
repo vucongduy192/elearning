@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col text-center">
                     <h1 class="home_title">E-Learning Easily</h1>
-                    <div class="home_button trans_200"><a href="#">get started</a></div>
+                    <div class="home_button trans_200"><a href="{{ route('courses.index') }}">get started</a></div>
                 </div>
             </div>
         </div>

@@ -66,7 +66,8 @@ class EnrollRepository {
      */
     public function getByStudentId($student_id)
     {
-        return $this->model->where('student_id', $student_id)
+        return $this->model
+            ->where('student_id', $student_id)
             ->orderBy('created_at', 'desc')->get();
     }
 

@@ -94,7 +94,7 @@
                                                 Profile
                                             </a>
                                             @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STUDENT)
-                                            <a class="dropdown-item" href="{{ route('profile.enrolled') }}">
+                                            <a class="dropdown-item" href="{{ route('profile.enrolled_page') }}">
                                                 My Courses
                                             </a>
                                             <a class="dropdown-item" href="{{ route('profile.recommend') }}">
