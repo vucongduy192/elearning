@@ -33,6 +33,8 @@
     ```
 
 3. Apply all setup to current laravel project
+From here, all bash should be run in app container by 'docker-compose exec app'. Don't forget this.
+
 ```bash 
     docker-compose exec app composer install 
     docker-compose exec app npm install 
@@ -53,3 +55,10 @@ sudo chmod 775 storage/app/public/
 ```
 
 Storage link to public folder: remember that link must be created when logged in docker container
+
+4. Specific packages
+Admin authenication use Tymon/JWT package, it also requires some bash:
+```
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+php artisan jwt:secret
+```
