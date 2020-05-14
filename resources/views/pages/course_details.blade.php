@@ -3,16 +3,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/course.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/course_responsive.css") }}">
     <style>
-        .instructor {
-            padding: 0px;
-        }
-
-        .instructor_title {
-            margin-left: 40px;
-        }
-
-        .cur_reviews {
-            margin-top: 30px;
+        .cur_contents {
+            margin-top: 5px;
         }
     </style>
 @endsection
@@ -64,9 +56,8 @@
                                         <div
                                             class="tabs nav nav-tabs d-flex flex-row align-items-center justify-content-start"
                                             role="tablist">
-                                            <a class="nav-link active" data-toggle="tab"
-                                               href="#description">description</a>
-                                            <a class="nav-link" data-toggle="tab" href="#syllabus">Syllabus</a>
+                                            <a class="nav-link active" data-toggle="tab" href="#description">description</a>
+                                            <a class="nav-link" data-toggle="tab" href="#syllabus">syllabus</a>
                                             <a class="nav-link" data-toggle="tab" href="#reviews">reviews</a>
                                         </div>
                                     </div>
@@ -111,20 +102,23 @@
                                         <div class="cur_item">
                                             <div class="cur_item_content">
                                                 <span class="cur_item_title_before">{{ $key + 1 }}</span>
-                                                @if($has_enrolled)
-                                                    <div class="pull-right">
-                                                        <div class="form-group template-checkbox">
-                                                            <input class="process" type="checkbox"
-                                                                   name="module{{ $module->id }}"
-                                                                   id="module{{ $module->id }}"
-                                                                   {{ in_array($module->id, $module_processed) ? 'checked' : ''}}
-                                                                   data-course_id="{{ $course->id }}"
-                                                                   data-module_id="{{ $module->id }}"
-                                                                   data-student_id="{{ \Illuminate\Support\Facades\Auth::user()->student->id }}">
-                                                            <label for="module{{ $module->id }}"></label>
-                                                        </div>
+                                                <div class="pull-right">
+                                                    <div class="form-group template-checkbox">
+                                                        @if($has_enrolled)
+                                                        <input class="process" type="checkbox"
+                                                               name="module{{ $module->id }}"
+                                                               id="module{{ $module->id }}"
+                                                               {{ in_array($module->id, $module_processed) ? 'checked' : ''}}
+                                                               data-course_id="{{ $course->id }}"
+                                                               data-module_id="{{ $module->id }}"
+                                                               data-student_id="{{ \Illuminate\Support\Facades\Auth::user()->student->id }}">
+                                                        <label for="module{{ $module->id }}"></label>
+                                                        @else
+                                                            <input class="process" type="checkbox" id="module-none">
+                                                            <label for="module-none"></label>
+                                                        @endif
                                                     </div>
-                                                @endif
+                                                </div>
                                                 <div class="cur_item_title">{{ $module->name }}</div>
                                                 <div class="cur_item_text">
                                                     <p>{{ $module->overview }}</p>
@@ -299,12 +293,16 @@
         @endif
 
         var has_enrolled = {{ json_encode($has_enrolled) }};
-        $('.lecture_link').click(function (e) {
-            if (has_enrolled == false) {
-                e.preventDefault();
-                toastr.warning('Enroll course before access any lectures');
-            }
-        });
+        function wanring_msg(selector, msg) {
+            $(selector).click(function (e) {
+                if (has_enrolled == false) {
+                    e.preventDefault();
+                    toastr.warning(msg);
+                }
+            });
+        }
+        wanring_msg('.lecture_link', 'Enroll course before access any lectures');
+        wanring_msg('.process', 'Enroll course before update any process');
 
         $('.process').click(function () {
             var url = "{{ route('processes.store') }}", method = "POST";

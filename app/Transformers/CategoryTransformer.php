@@ -14,8 +14,8 @@ class CategoryTransformer extends TransformerAbstract
 
         return [
             'id' => $category->id,
-            'name' => $category->name, 
-            'overview' => $category->overview, 
+            'name' => $category->name,
+            'overview' => $category->overview,
             'thumbnail' =>  (file_exists($thumbnail) && $category->thumbnail) ? $category->thumbnail : $placeholder,
         ];
     }

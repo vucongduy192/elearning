@@ -33,6 +33,10 @@ import ModuleEdit from '*/modules/module/views/ModuleEdit';
 import Enroll from '*/modules/enroll/views/Enroll';
 import EnrollMatrix from '*/modules/enroll/views/EnrollMatrix';
 
+import Blog from '*/modules/blog/views/Blog';
+import BlogAdd from '*/modules/blog/views/BlogAdd';
+import BlogEdit from '*/modules/blog/views/BlogEdit';
+
 const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'active',
@@ -196,6 +200,31 @@ const router = new VueRouter({
                             path: 'matrix',
                             name: 'main.enroll.matrix',
                             component: EnrollMatrix,
+                        },
+                    ],
+                },
+                {
+                    path: 'blogs',
+                    component: {
+                        render(c) {
+                            return c('router-view');
+                        },
+                    },
+                    children: [
+                        {
+                            path: '',
+                            name: 'main.blog',
+                            component: Blog,
+                        },
+                        {
+                            path: 'add',
+                            name: 'main.blog.add',
+                            component: BlogAdd,
+                        },
+                        {
+                            path: 'edit/:id',
+                            name: 'main.blog.edit',
+                            component: BlogEdit,
                         },
                     ],
                 },

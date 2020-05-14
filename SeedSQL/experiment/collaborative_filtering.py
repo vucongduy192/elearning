@@ -120,7 +120,7 @@ class CF(object):
 
         precision /= r_users
         recall /= r_users
-        print(precision, recall)
+        print('Precision: {}'.format(precision), '-------Recall: {}'.format(recall))
 
 
 if __name__ == '__main__':

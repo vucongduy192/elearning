@@ -78,6 +78,11 @@
                         <i class="fa fa-registered"></i> <span>Enroll</span>
                     </router-link>
                 </li>
+                <li v-if="auth_user.role_id >= 1">
+                    <router-link :to="{ name: 'main.blog' }">
+                        <i class="fa fa-newspaper-o"></i> <span>Blog</span>
+                    </router-link>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->

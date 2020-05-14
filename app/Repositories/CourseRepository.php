@@ -137,7 +137,7 @@ class CourseRepository
             ->limit(3)->get();
     }
 
-    public function filterCourse($number, $course_name=null, $teacher=null, $courses_category_id=null)
+    public function filterCourse($number, $course_name=null, $teacher=null, $courses_category_id=null, $teacher_id=null)
     {
         return $this->model
             ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
@@ -156,6 +156,9 @@ class CourseRepository
             })
             ->when($teacher, function ($query, $teacher) {
                 return $query->where('users.name', 'like', '%'.$teacher.'%');
+            })
+            ->when($teacher_id, function ($query, $teacher_id) {
+                return $query->where('courses.teacher_id', $teacher_id);
             })
             ->orderBy('courses.created_at', 'desc')
             ->paginate($number);

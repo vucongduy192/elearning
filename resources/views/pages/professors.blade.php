@@ -42,19 +42,20 @@
                 </div>
             </div>
             <div class="row instructors_row">
-            @foreach($best_teachers as $teacher)
+            @foreach($best_teachers as $professor)
                 <!-- Instructor -->
                     <div class="col-lg-4 instructor_col">
                         <div class="instructor text-center">
                             <div class="instructor_image_container">
                                 <div class="instructor_image"><img
-                                        src="{{ asset($teacher->user->avatar ? $teacher->user->avatar : \App\Models\Config::PLACEHOLDER_AVATAR) }}"
+                                        src="{{ asset($professor->user->avatar ? $professor->user->avatar : \App\Models\Config::PLACEHOLDER_AVATAR) }}"
                                         alt=""></div>
                             </div>
-                            <div class="instructor_name"><a href="#">{{ $teacher->user->name }}</a></div>
-                            <div class="instructor_title">{{ $teacher->expert }}</div>
+                            <div class="instructor_name"><a href="{{ route('professors.show', ['id' => $professor->id]) }}">
+                                    {{ $professor->user->name }}</a></div>
+                            <div class="instructor_title">{{ $professor->expert }}</div>
                             <div class="instructor_text">
-                                <p>{{ $teacher->workplace }}</p>
+                                <p>{{ $professor->workplace }}</p>
                             </div>
                             <div class="instructor_social">
                                 <ul>
@@ -79,16 +80,20 @@
                 </div>
             </div>
             <div class="row teachers_row">
-                @foreach($best_teacher_in_fields as $category => $teacher)
+                @foreach($best_teacher_in_fields as $category => $professor)
                     <div class="col-lg-4 col-md-6">
                         <div class="teacher d-flex flex-row align-items-center justify-content-start">
                             <div class="teacher_image">
-                                <div><img src="{{ asset($teacher->user->avatar ? $teacher->user->avatar : \App\Models\Config::PLACEHOLDER_AVATAR) }}"
+                                <div><img src="{{ asset($professor->user->avatar ? $professor->user->avatar : \App\Models\Config::PLACEHOLDER_AVATAR) }}"
                                           alt=""></div>
                             </div>
                             <div class="teacher_content">
-                                <div class="teacher_name"><a href="#">{{ $teacher->user->name }}</a></div>
-                                <div class="teacher_title">{{ $teacher->expert }}</div>
+                                <div class="teacher_name">
+                                    <a href="{{ route('professors.show', ['id' => $professor->id]) }}">
+                                        {{ $professor->user->name }}
+                                    </a>
+                                </div>
+                                <div class="teacher_title">{{ $professor->expert }}</div>
                                 <div class="teacher_title">{{ $category }}</div>
                             </div>
                         </div>

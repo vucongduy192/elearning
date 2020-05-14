@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/courses_responsive.css") }}">
     <style>
         .header_padding {
-            height: 150px;
+            height: 130px;
         }
         .form-search .form-group {
             margin-bottom: 0px;
@@ -15,11 +15,11 @@
     <div class="header_padding"></div>
     <div class="courses">
         <div class="container">
-            <div class="card">
+            <div class="card" style="margin-bottom: 20px;">
                 <div class="card-body">
                     <form method="POST" action="{{ route('courses.search') }}" class="search-form">
                         @csrf
-                        <div class="row">
+                        <div class="row" style="margin-bottom: -20px;">
                             <div class="col-md-5 form-group">
                                 <input id="name" type="text" class="form-control" name="name" placeholder="Course name">
                             </div>

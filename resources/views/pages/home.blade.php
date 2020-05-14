@@ -1,5 +1,8 @@
 @extends('layouts.master')
-
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/main_styles.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/responsive.css") }}">
+@endsection
 @section('content')
 <div class="home">
     <div class="home_background" style="background-image: url({{ asset('front-end/images/index_background.jpg') }});">
@@ -80,7 +83,13 @@
                                 src="{{ asset($teacher->user->avatar ? $teacher->user->avatar : \App\Models\Config::PLACEHOLDER_AVATAR) }}"
                                 alt=""></div>
                     </div>
-                    <div class="instructor_name"><a href="#">{{ $teacher->user->name }}</a></div>
+
+                    <div class="instructor_name">
+                        <a href="{{ route('professors.show', ['id' => $teacher->id]) }}">
+                            {{ $teacher->user->name }}
+                        </a>
+                    </div>
+
                     <div class="instructor_title">{{ $teacher->expert }}</div>
                     <div class="instructor_text">
                         <p>{{ $teacher->workplace }}</p>

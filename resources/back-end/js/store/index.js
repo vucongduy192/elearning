@@ -10,6 +10,7 @@ import storeCourse from '*/modules/course/store';
 import storeModule from '*/modules/module/store';
 import storeEnroll from '*/modules/enroll/store';
 import storeConfig from '*/modules/config/store';
+import storeBlog from '*/modules/blog/store';
 
 Vue.use(Vuex);
 
@@ -29,5 +30,6 @@ export default new Vuex.Store({
         storeModule,
         storeEnroll,
         storeConfig,
+        storeBlog,
     },
 });
