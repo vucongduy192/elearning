@@ -104,9 +104,9 @@ class BlogRepository
             ->paginate($number);
     }
 
-    public function newestBlog()
+    public function newestBlog($number)
     {
         return $this->model->orderBy('created_at', 'desc')
-            ->limit(2)->get();
+            ->limit($number)->get();
     }
 }

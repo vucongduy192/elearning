@@ -22,7 +22,7 @@
                                     type="text"
                                     class="form-control"
                                     placeholder="Search"
-                                    v-model="name"
+                                    v-model="title"
                                     v-on:keyup.enter="getResults()"
                                 />
                             </div>
@@ -95,7 +95,7 @@ export default {
         return {
             sortColumn: 'id',
             sortType: 'desc',
-            name: '',
+            title: '',
         };
     },
     computed: {

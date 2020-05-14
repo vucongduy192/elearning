@@ -44,7 +44,8 @@ class BlogController extends Controller
 
     public function show($id)
     {
-        $newest_blogs = $this->blog->newestBlog();
+        $number = 2;
+        $newest_blogs = $this->blog->newestBlog($number);
         $blog = $this->blog->getById($id);
         return view('pages.blog_details', compact('blog', 'newest_blogs'));
     }

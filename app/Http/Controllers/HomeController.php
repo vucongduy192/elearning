@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
-use App\Models\Course;
+use App\Repositories\BlogRepository;
 use App\Repositories\CourseRepository;
 use App\Repositories\TeacherRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function __construct(CourseRepository $courseRepository, TeacherRepository $teacherRepository)
+    protected $course, $teacher, $blog;
+
+    public function __construct(CourseRepository $courseRepository, TeacherRepository $teacherRepository,
+                                BlogRepository $blogRepository)
     {
         $this->course = $courseRepository;
         $this->teacher = $teacherRepository;
+        $this->blog = $blogRepository;
     }
     /**
      * Show the application dashboard.
@@ -25,8 +27,9 @@ class HomeController extends Controller
     {
         $popular_courses = $this->course->popularCourse();
         $best_teachers = $this->teacher->bestTeacher();
+        $newest_blogs = $this->blog->newestBlog(3);
 
-        return view('pages.home', compact('popular_courses', 'best_teachers'));
+        return view('pages.home', compact('popular_courses', 'best_teachers', 'newest_blogs'));
     }
 
     public function errors(Request $request)

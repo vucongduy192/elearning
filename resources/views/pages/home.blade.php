@@ -227,4 +227,30 @@
     </div>
 </div>
 @endguest
+
+<div class="events">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="section_title text-center">New Blogs</h2>
+            </div>
+        </div>
+        <div class="row events_row">
+            @foreach($newest_blogs as $blog)
+                <div class="col-lg-4 event_col">
+                <div class="event">
+                    <div class="event_image">
+                        <img src="{{ $blog->thumbnail ? $blog->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL }}" alt="">
+                    </div>
+                    <div class="event_body d-flex flex-row align-items-center justify-content-start">
+                        <div class="event_title">
+                            <a href="{{ route('blogs.show', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
 @endsection

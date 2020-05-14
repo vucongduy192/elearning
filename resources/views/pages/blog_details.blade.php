@@ -50,8 +50,8 @@
         </div>
 
         <!-- Similar Posts -->
-
-        <div class="row similar_posts">
+        <h3 class="section_title" style="margin-top: 80px;">Newest post</h3> <br>
+        <div class="row">
             @foreach($newest_blogs as $blog)
                 <div class="col-lg-6">
                     <div class="blog_post">
