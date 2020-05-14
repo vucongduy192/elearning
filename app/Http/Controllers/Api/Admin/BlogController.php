@@ -96,14 +96,21 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->entity->customDestroy($id);
+        return $this->response();
     }
-
+    
     public function uploadImagePost(Request $request)
     {
         $new_image = $this->uploadImage($request, $image_name = 'image_post', $folder = 'blog');
         return $this->response([
             'path' => $new_image
         ]);
+    }
+
+    public function removeImagePost(Request $request)
+    {
+        $this->removeFile($request->path);
+        return $this->response();
     }
 }

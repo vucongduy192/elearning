@@ -50,6 +50,8 @@
                                 </li>
                                 <li><a href="{{ route('professors.index') }}">Professors</a>
                                 </li>
+                                <li><a href="{{ route('blogs.index') }}">Blogs</a>
+                                </li>
                                 @guest
                                 <li>
                                     <a href="{{ route('login') }}">{{ __('Login') }}</a>

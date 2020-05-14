@@ -8,7 +8,9 @@
     @foreach($courses as $course)
         <div class="col-lg-4 course_col">
             <div class="course">
-                <div class="course_image"><img src="{{ $course->thumbnail ? $course->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL }}" alt=""></div>
+                <div class="course_image">
+                    <img src="{{ $course->thumbnail ? $course->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL }}" alt="">
+                </div>
                 <div class="course_body">
                     <div class="course_title">
                         <a href="{{ route('courses.show', ['id' => $course->id]) }}">{{ mb_substr($course->name, 0, 21, "utf-8") }}

@@ -38,7 +38,6 @@
                                         api-key="3pcas7szukh1ybkajjx487slp3poawo33fs9tw9o1k0ly3jf"
                                         v-model="form.content"
                                         :init="tinymce_init"
-
                                     />
                                     <has-error :form="form" field="content"></has-error>
                                 </div>
@@ -104,7 +103,8 @@ export default {
                     'insertdatetime media table paste code help wordcount',
                 ],
                 menubar: 'file edit view insert format tools table tc help',
-                toolbar: 'undo redo | formatselect | bold italic backcolor | \
+                toolbar:
+                    'undo redo | formatselect | bold italic backcolor | \
                          alignleft aligncenter alignright alignjustify | \
                          bullist numlist outdent indent | removeformat | help',
                 automatic_uploads: true,
@@ -117,9 +117,32 @@ export default {
                         url: '/blogs/upload_image',
                         data: formData,
                     }).then((res) => {
-                        tinymce.activeEditor.insertContent(`<img class="content-img" style="width: 80%; margin-left: 10%" src="${res.data.path}"/>`);
-                        $('.tox-dialog-wrap').css("display", "none");
+                        tinymce.activeEditor.insertContent(
+                            `<img class="content-img" style="width: 80%; margin-left: 10%" src="${res.data.path}"/>`
+                        );
+                        $('.tox-dialog-wrap').css('display', 'none');
                     });
+                },
+                setup: function (editor) {
+                    editor.on('KeyDown', (e) => {
+                        if ((e.keyCode == 8 || e.keyCode == 46) && tinymce.activeEditor.selection) {
+                            // delete & backspace keys
+                            var selectedNode = tinymce.activeEditor.selection.getNode(); // get the selected node (element) in the editor
+                            if (selectedNode && selectedNode.nodeName == 'IMG') {
+                                this.removeImage(selectedNode.src);
+                            } else if (selectedNode = selectedNode.getElementsByTagName('img')[0]) {
+                                this.removeImage(selectedNode.src);
+                            }
+                        }
+                    });
+                },
+                removeImage(src) {
+                    let img_path = src.split(`${window.location.hostname}:${window.location.port}`)[1];
+                    axios({
+                        method: 'POST',
+                        url: '/blogs/remove_image',
+                        data: {path: decodeURI(img_path)},
+                    }).then((res) => {});
                 },
             },
         };

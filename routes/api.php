@@ -37,5 +37,6 @@ Route::group(['namespace' => 'Api\Admin', 'prefix' => 'v0'], function () {
         Route::get('configs', 'MatrixController@getConfig');
         Route::resource('blogs', 'BlogController');
         Route::post('blogs/upload_image', 'BlogController@uploadImagePost');
+        Route::post('blogs/remove_image', 'BlogController@removeImagePost');
     });
 });

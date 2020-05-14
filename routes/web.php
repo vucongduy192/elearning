@@ -30,6 +30,10 @@ Route::get('professors', 'ProfessorController@index')->name('professors.index');
 Route::get('professors/{professor}', 'ProfessorController@show')->name('professors.show');
 Route::post('professors/professor_courses', 'ProfessorController@professor_courses')->name('professors.professor_courses');
 
+Route::get('blogs', 'BlogController@index')->name('blogs.index');
+Route::get('blogs/{blog}', 'BlogController@show')->name('blogs.show');
+Route::post('blogs', 'BlogController@search')->name('blogs.search');
+
 
 Route::group(['middleware' => ['verified']], function () {
     Route::get('profile', 'ProfileController@show')->name('profile.show');

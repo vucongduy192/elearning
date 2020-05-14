@@ -70,15 +70,43 @@ class BlogRepository
     public function customUpdate(BlogRequest $request, $id)
     {
         $input = $request->only(['title', 'summary', 'content']);
-        $new_thumbnail = $this->uploadImage($request, 
+        $new_thumbnail = $this->uploadImage($request,
             $image_name = 'thumbnail', $folder = 'blog',
             $w = Blog::THUMBNAIL_WIDTH, $h = Blog::THUMBNAIL_HEIGHT);
-    
+
         if ($new_thumbnail != '') {
             $input['thumbnail'] = $new_thumbnail;
             $this->removeFile($this->getById($id)->thumbnail);
         }
 
         $this->update($id, $input);
+    }
+
+    /**
+     * Destroy a new category.
+     *
+     * @param  $input
+     * @return
+     */
+    public function customDestroy($id)
+    {
+        $this->removeFile($this->getById($id)->thumbnail);
+        $this->destroy($id);
+    }
+
+    /**
+     * @param $number
+     * @return mixed
+     */
+    public function filterBlog($number)
+    {
+        return $this->model->orderBy('created_at', 'desc')
+            ->paginate($number);
+    }
+
+    public function newestBlog()
+    {
+        return $this->model->orderBy('created_at', 'desc')
+            ->limit(2)->get();
     }
 }

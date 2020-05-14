@@ -137,6 +137,14 @@ class CourseRepository
             ->limit(3)->get();
     }
 
+    /**
+     * @param $number
+     * @param null $course_name
+     * @param null $teacher
+     * @param null $courses_category_id
+     * @param null $teacher_id
+     * @return mixed
+     */
     public function filterCourse($number, $course_name=null, $teacher=null, $courses_category_id=null, $teacher_id=null)
     {
         return $this->model
