@@ -1,3 +1,6 @@
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04
+
 ## Custom setup
 
 1. Set up .env Laravel
@@ -40,6 +43,7 @@ From here, all bash should be run in app container by 'docker-compose exec app'.
     docker-compose exec app npm install 
     docker-compose exec app php artisan key:generate 
     docker-compose exec app php artisan migrate
+    docker-compose exec app php artisan db:seed
 ```
 Finally because in this project using VueJS, let run final bash to listening and
 re-compile Vue Component if have any change!
@@ -50,7 +54,7 @@ docker-compose exec app npm run watch
 
 Don't forget change permission for storage image folder
 ```bash
-php artisan storage:link
+docker-compose exec app php artisan storage:link
 sudo chmod 775 storage/app/public/
 ```
 

@@ -18,7 +18,7 @@ class CreateBlogsTable extends Migration
             $table->string('title', 128);
             $table->string('thumbnail', 128)->nullable();
             $table->string('summary', 512)->nullable();
-            $table->string('content', 4096)->nullable();
+            $table->text('content')->nullable();
             $table->integer('status')->default(0)->comment('0: draft; 1: published');
             $table->integer('views', false, true)->default(0);
             $table->unsignedBigInteger('user_id');
