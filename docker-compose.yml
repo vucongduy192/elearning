@@ -24,7 +24,7 @@ services:
         container_name: elearning_webserver
         restart: unless-stopped
         ports:
-            - "81:80"
+            - "80:80"
             - "443:443"
         volumes:
             - ./:/var/www
