@@ -62,9 +62,9 @@
 @section('scripts')
     <script>
         var professor_id = "{{ $professor->id }}";
-        function professor_courses() {
+        function professor_courses(url="{{ route('professors.professor_courses') }}") {
             $.ajax({
-                url: "{{ route('professors.professor_courses') }}",
+                url: url,
                 method: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",

@@ -12,6 +12,6 @@ class Blog extends Model
         'title', 'thumbnail', 'summary', 'content', 'user_id'
     ];
 
-    const THUMBNAIL_WIDTH = 450;
-    const THUMBNAIL_HEIGHT = 350;
+    const THUMBNAIL_WIDTH = 1200;
+    const THUMBNAIL_HEIGHT = 650;
 }

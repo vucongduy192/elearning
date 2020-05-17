@@ -28,7 +28,7 @@
                 </div>
                 <div class="course_footer d-flex flex-row align-items-center justify-content-start">
                     <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>{{ $course->enrolls }}</span></div>
-                    <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>{{ $course->rate }}</span>
+                    <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>{{ (count($course->reviews) != 0) ? round($course->reviews->pluck('rating')->avg(), 0) : '0' }}</span>
                     </div>
                     <div class="course_mark course_free trans_200"><a href="#">Free</a></div>
                 </div>

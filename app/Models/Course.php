@@ -44,4 +44,9 @@ class Course extends Model
      {
          return $this->hasMany('App\Models\Module', 'course_id', 'id');
      }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review', 'course_id', 'id');
+    }
 }
