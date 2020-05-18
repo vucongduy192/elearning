@@ -58,6 +58,8 @@
                                             </button>
                                             <button
                                                 class="btn btn-sm btn-danger btn-flat"
+                                                data-toggle="modal"
+                                                data-target="#delModal"
                                                 @click="clickDelete(rule)"
                                             >
                                                 Delete
@@ -137,17 +139,12 @@ export default {
             }
             this.$store.dispatch('setAdminMainLoading', { show: false });
         },
-        async clickDelete(rule) {
-            return (
-                rule.id &&
-                (await this.$swal({
-                    title: this.$i18n.t('textConfirmDelete'),
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                })) &&
-                this.$store.dispatch('actionRuleDelete', { vue: this, id: rule.id })
-            );
+        clickDelete(rule) {
+            this.$store.dispatch('passEntityDeleteModal', {
+                entity: rule,
+                entityAction: 'actionRuleDelete',
+                entityNotify: this.$i18n.t('textDeleteRuleSuccess'),
+            });
         },
     },
 };

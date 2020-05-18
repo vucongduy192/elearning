@@ -106,9 +106,8 @@ export default {
             }
             this.$store.dispatch('setAdminLoading', { show: false });
             this.$router.push({ name: 'main.category' }, () => {
+                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textAddCategorySuccess')})
             });
-            toastr.success('Have fun storming the castle!', 'Miracle Max Says')
-
         },
     },
 };

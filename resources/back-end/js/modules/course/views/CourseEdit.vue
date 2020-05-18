@@ -171,7 +171,6 @@
 <script>
 import { Form, HasError, AlertError } from 'vform';
 import { objectToFormData } from 'object-to-formdata';
-import toastr from 'toastr';
 
 export default {
     name: 'CourseEdit',

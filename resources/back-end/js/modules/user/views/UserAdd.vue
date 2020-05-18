@@ -155,7 +155,9 @@ export default {
                 return;
             }
             this.$store.dispatch('setAdminLoading', { show: false });
-            this.$router.push({ name: 'main.user' });
+            this.$router.push({ name: 'main.user' }, () => {
+                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textAddUserSuccess')})
+            });
         },
     },
 };

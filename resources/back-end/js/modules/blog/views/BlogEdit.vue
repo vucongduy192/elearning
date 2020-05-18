@@ -179,7 +179,9 @@ export default {
                 return;
             }
             this.$store.dispatch('setAdminLoading', { show: false });
-            this.$router.push({ name: 'main.blog' });
+            this.$router.push({ name: 'main.blog' }, () => {
+                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textUpdateBlogSuccess')})
+            });
         },
     },
 };

@@ -61,6 +61,8 @@
                                             </button>
                                             <button
                                                 class="btn btn-sm btn-danger btn-flat"
+                                                data-toggle="modal"
+                                                data-target="#delModal"
                                                 @click="clickDelete(user)"
                                             >
                                                 Delete
@@ -132,15 +134,12 @@ export default {
         clickEdit(user) {
             this.$router.push({ name: 'main.user.edit', params: { id: user.id } });
         },
-        async clickDelete(user) {
-            return user.id
-                && await this.$swal({
-                    title: this.$i18n.t('textConfirmDelete'),
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                })
-                && this.$store.dispatch('actionUserDelete', { vue: this, id: user.id });
+        clickDelete(user) {
+            this.$store.dispatch('passEntityDeleteModal', {
+                entity: user,
+                entityAction: 'actionUserDelete',
+                entityNotify: this.$i18n.t('textDeleteUserSuccess'),
+            });
         },
     },
 };

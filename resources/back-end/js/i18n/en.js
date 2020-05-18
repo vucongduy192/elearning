@@ -116,12 +116,29 @@ const en = {
     // textCourse: 'Course',
     // textCreatedAt: 'Created at',
     // textManageBanner: 'Manage Banner',
+    textUpdateConfigSuccess: 'Update new combine coefficient success',
     // --------------------- Course msg ----------------------
+    textConfirmDelete: 'Are you sure want to delete',
     textAddCourseSuccess: 'Create new course successful',
     textUpdateCourseSuccess: 'Update course successful',
     textEditModuleWarning: 'Module must be saving before edit',
-    textConfirmDelete: 'Are you sure want to delete',
     textDeleteCourseSuccess: 'Delete course successful',
+    // --------------------- Category msg ----------------------
+    textAddCategorySuccess: 'Create new category successful',
+    textUpdateCategorySuccess: 'Update category successful',
+    textDeleteCategorySuccess: 'Delete category successful',
+    // --------------------- Blog msg ----------------------
+    textAddBlogSuccess: 'Create new blog successful',
+    textUpdateBlogSuccess: 'Update blog successful',
+    textDeleteBlogSuccess: 'Delete blog successful',
+    // --------------------- Rule msg ----------------------
+    textAddRuleSuccess: 'Create new rule successful',
+    textUpdateRuleSuccess: 'Update rule successful',
+    textDeleteRuleSuccess: 'Delete rule successful',
+    // --------------------- User msg ----------------------
+    textAddUserSuccess: 'Create new user successful',
+    textUpdateUserSuccess: 'Update user successful',
+    textDeleteUserSuccess: 'Delete user successful',
 };
 
 export default en;

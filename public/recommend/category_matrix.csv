@@ -1,7 +1,8 @@
-category,Công nghệ phần mềm,Toán học,Kinh doanh,Khoa học máy tính,Ngôn ngữ,Mạng và truyền thông
-Công nghệ phần mềm,1,0.5,0.1,0.9,0.1,0.9
-Toán học,0.5,1,0.5,0.5,0.1,0.5
-Kinh doanh,0.1,0.5,1,0.1,0.9,0.1
-Khoa học máy tính,0.9,0.5,0.1,1,0.1,0.9
-Ngôn ngữ,0.1,0.1,0.9,0.1,1,0.1
-Mạng và truyền thông,0.9,0.5,0.1,0.9,0.1,1
+category,Công nghệ phần mềm,Toán học,Kinh doanh,Khoa học máy tính,Ngôn ngữ,Mạng và truyền thông,Linear Algebra
+Công nghệ phần mềm,1,0.5,0.1,0.9,0.1,0.9,0.5
+Toán học,0.5,1,0.5,0.5,0,0.5,0
+Kinh doanh,0.1,0.5,1,0.1,0.9,0.1,0
+Khoa học máy tính,0.9,0.5,0.1,1,0.1,0.9,0
+Ngôn ngữ,0.1,0,0.9,0.1,1,0.1,0
+Mạng và truyền thông,0.9,0.5,0.1,0.9,0.1,1,0
+Linear Algebra,0.5,0,0,0,0,0,1

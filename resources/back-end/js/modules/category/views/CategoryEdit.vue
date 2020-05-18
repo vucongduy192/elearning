@@ -116,7 +116,9 @@ export default {
                 return;
             }
             this.$store.dispatch('setAdminLoading', { show: false });
-            this.$router.push({ name: 'main.category' });
+            this.$router.push({ name: 'main.category' }, () => {
+                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textUpdateCategorySuccess')})
+            });
         },
     },
 };

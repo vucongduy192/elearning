@@ -42,9 +42,6 @@
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
                                 <div class="pull-right">
                                     <a href="#" class="btn btn-default btn-flat" @click.prevent="logout">Sign out</a>
                                 </div>

@@ -59,6 +59,8 @@
                                             </button>
                                             <button
                                                 class="btn btn-sm btn-danger btn-flat"
+                                                data-toggle="modal"
+                                                data-target="#delModal"
                                                 @click="clickDelete(category)"
                                             >
                                                 Delete
@@ -127,22 +129,15 @@ export default {
                 },
             });
         },
-
         clickEdit(category) {
             this.$router.push({ name: 'main.category.edit', params: { id: category.id } });
         },
-
-        async clickDelete(category) {
-            return (
-                category.id &&
-                (await this.$swal({
-                    title: this.$i18n.t('textConfirmDelete'),
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                })) &&
-                this.$store.dispatch('actionCategoryDelete', { vue: this, id: category.id })
-            );
+        clickDelete(category) {
+            this.$store.dispatch('passEntityDeleteModal', {
+                entity: category,
+                entityAction: 'actionCategoryDelete',
+                entityNotify: this.$i18n.t('textDeleteCategorySuccess'),
+            });
         },
     },
 };

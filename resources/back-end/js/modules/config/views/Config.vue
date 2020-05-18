@@ -61,6 +61,7 @@ export default {
             this.$store.dispatch('setAdminMainLoading', { show: true });
             try {
                 const { data } = await axios.post('/configs/update', { c: this.config.c });
+                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textUpdateConfigSuccess')})
                 this.loadMatrix();
             } catch (error) {
                 this.$store.dispatch('setAdminMainLoading', { show: false });
@@ -70,7 +71,6 @@ export default {
         },
         loadMatrix() {
             d3.csv('/recommend/similar_matrix.csv', (error, data) => {
-                console.log(data);
                 var columns = [],
                     rows = [];
                 data.forEach((row) => {
@@ -82,8 +82,7 @@ export default {
 
                     rows.push(row_round);
                 });
-                console.log(columns, rows);
-
+                
                 // Clear half of matrix (symmetric matrix)
                 var num = columns.length;
                 var i, j;
