@@ -19,7 +19,7 @@ class CreateLecturesTable extends Migration
             $table->string('video')->nullable();
             $table->string('slide')->nullable();
             $table->unsignedBigInteger('module_id');
-            $table->foreign('module_id')->references('id')->on('modules');
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
             $table->timestamps();
         });
     }

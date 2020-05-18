@@ -11,6 +11,7 @@ import storeModule from '*/modules/module/store';
 import storeEnroll from '*/modules/enroll/store';
 import storeConfig from '*/modules/config/store';
 import storeBlog from '*/modules/blog/store';
+import storeNotify from '*/modules/notify/store';
 
 Vue.use(Vuex);
 
@@ -31,5 +32,6 @@ export default new Vuex.Store({
         storeEnroll,
         storeConfig,
         storeBlog,
+        storeNotify,
     },
 });

@@ -13,9 +13,6 @@ import VueI18n from 'vue-i18n';
 import messages from '*/i18n';
 Vue.use(VueI18n);
 
-import Toaster from 'v-toaster';
-Vue.use(Toaster, { timeout: 5000 });
-
 import VueSwal from 'vue-swal';
 Vue.use(VueSwal);
 

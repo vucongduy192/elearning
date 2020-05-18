@@ -1,8 +1,9 @@
-import en from './en'
-import vi from './vi'
+import en from './en';
+import vi from './vi';
 
 const messages = {
-    en, vi
-}
+    en,
+    vi,
+};
 
 export default messages;

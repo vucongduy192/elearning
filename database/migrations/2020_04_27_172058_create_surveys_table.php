@@ -16,9 +16,9 @@ class CreateSurveysTable extends Migration
         Schema::create('surveys', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('courses_category_id');
-            $table->foreign('courses_category_id')->references('id')->on('course_categories');
+            $table->foreign('courses_category_id')->references('id')->on('course_categories')->onDelete('cascade');
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -171,6 +171,7 @@
 <script>
 import { Form, HasError, AlertError } from 'vform';
 import { objectToFormData } from 'object-to-formdata';
+import toastr from 'toastr';
 
 export default {
     name: 'CourseEdit',
@@ -186,9 +187,6 @@ export default {
         let course = this.$store.state.storeCourse.edit.data;
 
         Object.assign(this.form, course);
-        // if (this.$store.state.storeAuth.auth_user.teacher_id != course.teacher_id) {
-        //     alert('Not owner this course');
-        // }
     },
     data() {
         return {
@@ -246,7 +244,9 @@ export default {
                 return;
             }
             this.$store.dispatch('setAdminLoading', { show: false });
-            this.$router.push({ name: 'main.course' });
+            this.$router.push({ name: 'main.course' }, () => {
+                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textUpdateCourseSuccess')})
+            });
         },
         addModule(e) {
             e.preventDefault();
@@ -260,10 +260,7 @@ export default {
             // console.log(module_id);
             if (module_id == -1) {
                 e.preventDefault();
-                this.$swal({
-                    title: this.$i18n.t('textEditModuleWarning'),
-                    icon: 'warning',
-                });
+                this.$store.dispatch('pushWarningNotify', {msg: this.$i18n.t('textEditModuleWarning')})
             }
             else window.location.href = `/admin/modules/edit/${module_id}`;
         },

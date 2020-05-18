@@ -19,7 +19,7 @@ class CreateTeachersTable extends Migration
             $table->string('workplace')->nullable();
             $table->string('expert')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

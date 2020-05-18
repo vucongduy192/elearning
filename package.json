@@ -47,6 +47,7 @@
         "laravel-vue-pagination": "^2.3.1",
         "object-to-formdata": "^3.0.6",
         "tinymce": "^5.2.2",
+        "toastr": "^2.1.4",
         "v-toaster": "^1.0.3",
         "vform": "^1.0.1",
         "vue-i18n": "^8.16.0",

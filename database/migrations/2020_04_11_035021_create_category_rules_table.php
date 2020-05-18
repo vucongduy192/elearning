@@ -18,8 +18,8 @@ class CreateCategoryRulesTable extends Migration
             $table->unsignedBigInteger('cat_id1');
             $table->unsignedBigInteger('cat_id2');
 
-            $table->foreign('cat_id1')->references('id')->on('course_categories');
-            $table->foreign('cat_id2')->references('id')->on('course_categories');
+            $table->foreign('cat_id1')->references('id')->on('course_categories')->onDelete('cascade');
+            $table->foreign('cat_id2')->references('id')->on('course_categories')->onDelete('cascade');
             $table->float('weight')->default(0);
             $table->timestamps();
         });

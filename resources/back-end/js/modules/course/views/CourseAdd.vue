@@ -228,7 +228,9 @@ export default {
                 return;
             }
             this.$store.dispatch('setAdminLoading', { show: false });
-            this.$router.push({ name: 'main.course' });
+            this.$router.push({ name: 'main.course' }, () => {
+                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textAddCourseSuccess')})
+            });
         },
         addModule(e) {
             e.preventDefault();

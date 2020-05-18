@@ -33,9 +33,7 @@
                                     class="form-control"
                                     @change="getResults()"
                                 >
-                                    <option v-bind:value="-1" v-bind:key="-1">
-                                        All category</option
-                                    >
+                                    <option v-bind:value="-1" v-bind:key="-1"> All category</option>
                                     <option
                                         v-for="category in categories"
                                         v-bind:value="category.id"
@@ -45,7 +43,6 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
@@ -92,6 +89,8 @@
                                             </button>
                                             <button
                                                 class="btn btn-sm btn-danger btn-flat"
+                                                data-toggle="modal"
+                                                data-target="#delModal"
                                                 @click="clickDelete(course)"
                                             >
                                                 Delete
@@ -137,6 +136,7 @@ export default {
             name: '',
             courses_category_id: -1,
             levels: ['Easy', 'Medium', 'Hard'],
+            delCourse: null,
         };
     },
     computed: {
@@ -174,17 +174,12 @@ export default {
         clickEdit(course) {
             this.$router.push({ name: 'main.course.edit', params: { id: course.id } });
         },
-        async clickDelete(course) {
-            return (
-                course.id &&
-                (await this.$swal({
-                    title: this.$i18n.t('textConfirmDelete'),
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                })) &&
-                this.$store.dispatch('actionCourseDelete', { vue: this, id: course.id })
-            );
+        clickDelete(course) {
+            this.$store.dispatch('passEntityDeleteModal', {
+                entity: course,
+                entityAction: 'actionCourseDelete',
+                entityNotify: this.$i18n.t('textDeleteCourseSuccess'),
+            });
         },
     },
 };

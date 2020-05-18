@@ -18,6 +18,7 @@
         </div>
         <app-footer></app-footer>
         <app-control-siderbar></app-control-siderbar>
+        <app-modal></app-modal>
         <div class="control-sidebar-bg"></div>
     </div>
 </template>
@@ -28,6 +29,7 @@ import AppAside from '*/components/Aside';
 import AppBreadcrumb from '*/components/Breadcrumb';
 import AppFooter from '*/components/Footer';
 import AppControlSiderbar from '*/components/ControlSidebar';
+import AppModal from '*/components/Modal';
 
 export default {
     name: 'Main',
@@ -37,6 +39,7 @@ export default {
         AppBreadcrumb,
         AppControlSiderbar,
         AppFooter,
+        AppModal,
     },
     computed: {
         loading() {

@@ -105,7 +105,10 @@ export default {
                 return;
             }
             this.$store.dispatch('setAdminLoading', { show: false });
-            this.$router.push({ name: 'main.category' });
+            this.$router.push({ name: 'main.category' }, () => {
+            });
+            toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+
         },
     },
 };

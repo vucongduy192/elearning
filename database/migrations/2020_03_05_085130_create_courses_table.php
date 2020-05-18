@@ -23,9 +23,9 @@ class CreateCoursesTable extends Migration
             $table->integer('rate')->default(0);
             $table->string('thumbnail')->nullable();
             $table->unsignedBigInteger('courses_category_id');
-            $table->foreign('courses_category_id')->references('id')->on('course_categories');
+            $table->foreign('courses_category_id')->references('id')->on('course_categories')->onDelete('cascade');
             $table->unsignedBigInteger('teacher_id');
-            $table->foreign('teacher_id')->references('id')->on('teachers');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->timestamps();
         });
     }
