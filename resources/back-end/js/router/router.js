@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 import store from '*/store';
 
 import Main from '*/components/Main';
+import Dashboard from '*/modules/dashboard/views/Dashboard';
 import Login from '*/modules/auth/views/Login';
 
 import Config from '*/modules/config/views/Config';
@@ -46,8 +47,14 @@ const router = new VueRouter({
             path: '/admin',
             name: 'main',
             component: Main,
+            redirect: { name: 'main.dashboard' },
             meta: { requiresAuth: true },
             children: [
+                {
+                    path: '',
+                    name: 'main.dashboard',
+                    component: Dashboard,
+                },
                 {
                     path: 'configs',
                     name: 'main.config',

@@ -21,7 +21,8 @@ Route::group(['namespace' => 'Api\Admin', 'prefix' => 'v0'], function () {
     Route::group(['middleware' => ['jwt.verify']], function () {
         Route::get('user', 'AuthController@getUser');
         Route::post('logout', 'AuthController@logout');
-
+        
+        Route::get('dashboards', 'DashboardController@index');
         Route::resource('categories', 'CategoryController');
         Route::resource('rules', 'RuleController');
         Route::post('rules/csv', 'RuleController@dumpCSV');

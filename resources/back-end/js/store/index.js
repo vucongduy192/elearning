@@ -12,6 +12,7 @@ import storeEnroll from '*/modules/enroll/store';
 import storeConfig from '*/modules/config/store';
 import storeBlog from '*/modules/blog/store';
 import storeNotify from '*/modules/notify/store';
+import storeDashboard from '*/modules/dashboard/store';
 
 Vue.use(Vuex);
 
@@ -33,5 +34,6 @@ export default new Vuex.Store({
         storeConfig,
         storeBlog,
         storeNotify,
+        storeDashboard,
     },
 });

@@ -27,6 +27,7 @@ class ProfessorController extends Controller
         foreach ($this->category->all() as $category) {
             $best_teacher_in_fields[$category->name] = $this->professor->bestTeacher($courses_category_id=$category->id)->first();
         }
+
         return view('pages.professors', compact('best_teachers', 'best_teacher_in_fields'));
     }
 

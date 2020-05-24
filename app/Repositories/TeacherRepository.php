@@ -55,9 +55,14 @@ class TeacherRepository {
     public function bestTeacher($courses_category_id=null)
     {
         return $this->model->join('courses', 'teachers.id', '=', 'courses.teacher_id')
+            ->join('users', 'teachers.user_id', '=', 'users.id')
             ->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
             ->groupby('teachers.id')
-            ->select(['teachers.id as id', 'teachers.expert', 'teachers.workplace', 'teachers.user_id', DB::raw('count(*) as enrolls')])
+            ->select([
+                'teachers.id as id', 'teachers.expert', 'teachers.workplace', 'teachers.user_id', 
+                'users.name', 'users.email', 'users.avatar',
+                DB::raw('count(*) as enrolls')
+            ])
             ->when($courses_category_id, function ($query, $courses_category_id) {
                 return $query->where('courses_category_id', $courses_category_id);
             })

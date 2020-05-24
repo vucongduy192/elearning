@@ -160,7 +160,7 @@
                             <!-- Reviews -->
                             <div id="reviews" class="tab-pane tab_panel reviews fade">
                                 <div class="panel_title">Reviews</div>
-                                <div class="cur_reviews">
+                                <div class="cur_reviews" style="margin-top:10px;">
                                 </div>
                                 @if($has_enrolled)
                                 <div class="review new-review">

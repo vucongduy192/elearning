@@ -2,8 +2,14 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
-                <div class="box-header">
+                <div class="box-header with-border">
                     <h3 class="box-title">Config combine coefficient</h3>
+                    <div class="box-tools pull-right">
+                        <!-- Collapse Button -->
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="box-body">
                     <form @submit.prevent="saveConfig" class="form-inline">
