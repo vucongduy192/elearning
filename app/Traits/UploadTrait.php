@@ -1,21 +1,28 @@
 <?php
+
 namespace App\Traits;
 
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 
-trait UploadTrait {
+trait UploadTrait
+{
     /**
      * Generic file upload method.
      */
-    public function uploadSlide($file, $course_id, $module_id, $folder='slide')
+    public function uploadSlide($file, $course_id, $module_id, $folder = 'slide')
     {
         if (!is_file($file)) {
             return '';
         }
-        $path = Storage::putFileAs('public/'.$folder.'/'.$course_id.'/'.$module_id, $file, time().$file->getClientOriginalName());
-        return '/storage/'.str_replace('public/', '', $path);
+        $storage_dir = storage_path() . '/app/public/';
+        $location = $storage_dir . $folder . '/' . $course_id . '/' . $module_id;
+        if (!file_exists($location)) {
+            mkdir($location, 0755, true);
+        }
+        $path = Storage::putFileAs('public/' . $folder . '/' . $course_id . '/' . $module_id, $file, time() . $file->getClientOriginalName());
+        return '/storage/' . str_replace('public/', '', $path);
     }
 
     /**
@@ -25,7 +32,7 @@ trait UploadTrait {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function uploadImage(Request $request, $image_name='image', $folder='category', $w=1024, $h=768)
+    public function uploadImage(Request $request, $image_name = 'image', $folder = 'category', $w = 1024, $h = 768)
     {
         # Return path in public location. 
         # Public location contains link to storage location
@@ -34,16 +41,21 @@ trait UploadTrait {
         if (!$request->hasFile($image_name)) {
             return '';
         }
-        
+
         $image = $request->$image_name;
-        $path = $folder.'/'.time().$image->getClientOriginalName();
-        $storage_dir = storage_path().'/app/public/';
+        $path = $folder . '/' . time() . $image->getClientOriginalName();
+        $storage_dir = storage_path() . '/app/public/';
+
+        $location = $storage_dir . $folder;
+        if (!file_exists($location)) {
+            mkdir($location, 0755, true);
+        }
 
         Image::make($image->getRealPath())
             ->resize($w, $h)
-            ->save($storage_dir.$path);
-        
-        return '/storage/'.$path;
+            ->save($storage_dir . $path);
+
+        return '/storage/' . $path;
     }
 
     /**
