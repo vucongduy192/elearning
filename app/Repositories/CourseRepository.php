@@ -128,13 +128,13 @@ class CourseRepository
      *
      * @return mixed
      */
-    public function popularCourse()
+    public function popularCourse($number=3)
     {
         return $this->model->join('enrolls', 'courses.id', '=', 'enrolls.course_id')
             ->groupby('courses.id')
             ->select([ 'courses.id', 'name', 'overview', 'level', 'thumbnail', 'rate', 'teacher_id', DB::raw('count(*) as enrolls')])
             ->orderBy('enrolls', 'desc')
-            ->limit(3)->get();
+            ->limit($number)->get();
     }
 
     /**
