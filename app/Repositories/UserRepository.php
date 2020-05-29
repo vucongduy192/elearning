@@ -9,6 +9,7 @@ use App\Repositories\BaseRepository;
 use App\Transformers\UserTransformer;
 use App\Traits\TransformPaginatorTrait;
 use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository {
     use BaseRepository, UploadTrait, TransformPaginatorTrait;
@@ -55,8 +56,9 @@ class UserRepository {
      */
     public function customStore(UserRequest $request)
     {
-        $input = $request->only(['name', 'email', 'role_id', 'password', 'password_confirmation']);
+        $input = $request->only(['name', 'email', 'role_id']);
         // $input['role_id'] = User::ADMIN;
+        $input['password'] = Hash::make($request->password);
         $input['avatar'] = $this->uploadImage($request, $image_name = 'avatar', $folder='avatar');
         $this->store($input);
     }
@@ -69,7 +71,8 @@ class UserRepository {
      */
     public function customUpdate(UserRequest $request, $id)
     {
-        $input = $request->only(['name', 'email', 'password', 'password_confirmation', 'role_id']);
+        $input = $request->only(['name', 'email', 'role_id']);
+        $input['password'] = Hash::make($request->password);
         $new_avatar = $this->uploadImage($request, $image_name = 'avatar', $folder='avatar');
         if ($new_avatar != '') {
             $input['avatar'] = $new_avatar;
