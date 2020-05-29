@@ -56,7 +56,9 @@ docker-compose exec app npm run watch
 Don't forget change permission for storage image folder
 ```bash
 docker-compose exec app php artisan storage:link
-sudo chmod 775 storage/app/public/
+sudo chgrp -R www storage bootstrap/cache
+sudo chmod -R ug+rwx storage bootstrap/cache
+
 ```
 
 Storage link to public folder: remember that link must be created when logged in docker container
