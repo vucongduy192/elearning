@@ -72,7 +72,8 @@ class UserRepository {
     public function customUpdate(UserRequest $request, $id)
     {
         $input = $request->only(['name', 'email', 'role_id']);
-        $input['password'] = Hash::make($request->password);
+        if ($request->has('password'))
+            $input['password'] = Hash::make($request->password);
         $new_avatar = $this->uploadImage($request, $image_name = 'avatar', $folder='avatar');
         if ($new_avatar != '') {
             $input['avatar'] = $new_avatar;
