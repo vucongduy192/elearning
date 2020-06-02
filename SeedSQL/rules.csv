@@ -1,16 +1,46 @@
 c_from,c_to,weight
 Công nghệ phần mềm,Khoa học máy tính,0.9
-Công nghệ phần mềm,Kinh doanh,0.1
+Công nghệ phần mềm,Kinh tế học cơ bản,0.1
+Công nghệ phần mềm,Lịch sử,0.1
+Công nghệ phần mềm,Marketing,0.1
 Công nghệ phần mềm,Mạng và truyền thông,0.9
+Công nghệ phần mềm,Nghệ thuật,0.1
 Công nghệ phần mềm,Ngôn ngữ,0.1
+Công nghệ phần mềm,Sức khỏe và đời sống,0.1
 Công nghệ phần mềm,Toán học,0.5
-Khoa học máy tính,Kinh doanh,0.1
+Khoa học máy tính,Kinh tế học cơ bản,0.1
+Khoa học máy tính,Lịch sử,0.1
+Khoa học máy tính,Marketing,0.5
 Khoa học máy tính,Mạng và truyền thông,0.9
+Khoa học máy tính,Nghệ thuật,0.1
 Khoa học máy tính,Ngôn ngữ,0.1
+Khoa học máy tính,Sức khỏe và đời sống,0.1
 Khoa học máy tính,Toán học,0.5
-Kinh doanh,Mạng và truyền thông,0.1
-Kinh doanh,Ngôn ngữ,0.9
-Kinh doanh,Toán học,0.5
+Kinh tế học cơ bản,Lịch sử,0.3
+Kinh tế học cơ bản,Marketing,0.9
+Kinh tế học cơ bản,Mạng và truyền thông,0.1
+Kinh tế học cơ bản,Nghệ thuật,0.1
+Kinh tế học cơ bản,Ngôn ngữ,0.3
+Kinh tế học cơ bản,Sức khỏe và đời sống,0.1
+Kinh tế học cơ bản,Toán học,0.5
+Lịch sử,Marketing,0.1
+Lịch sử,Mạng và truyền thông,0.1
+Lịch sử,Nghệ thuật,0.5
+Lịch sử,Ngôn ngữ,0.5
+Lịch sử,Sức khỏe và đời sống,0.1
+Lịch sử,Toán học,0.1
+Marketing,Mạng và truyền thông,0.9
+Marketing,Nghệ thuật,0.5
+Marketing,Ngôn ngữ,0.5
+Marketing,Sức khỏe và đời sống,0.1
+Marketing,Toán học,0.1
+Mạng và truyền thông,Nghệ thuật,0.1
 Mạng và truyền thông,Ngôn ngữ,0.1
+Mạng và truyền thông,Sức khỏe và đời sống,0.1
 Mạng và truyền thông,Toán học,0.5
+Nghệ thuật,Ngôn ngữ,0.5
+Nghệ thuật,Sức khỏe và đời sống,0.1
+Nghệ thuật,Toán học,0.1
+Ngôn ngữ,Sức khỏe và đời sống,0.1
 Ngôn ngữ,Toán học,0.1
+Sức khỏe và đời sống,Toán học,0.1

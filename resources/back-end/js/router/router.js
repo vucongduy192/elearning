@@ -252,7 +252,9 @@ router.beforeEach(async (to, from, next) => {
                 await store.dispatch('fetchUser');
             } catch (e) {}
         } else {
-            return next({ name: 'login' });
+            return next({
+                path: '/admin/login',
+            });
         }
     }
 
