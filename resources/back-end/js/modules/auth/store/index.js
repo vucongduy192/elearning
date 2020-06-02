@@ -45,8 +45,8 @@ const actions = {
     async fetchUser({ commit }) {
         try {
             const { data } = await axios.get('/user');
-
-            commit(FETCH_USER_SUCCESS, { auth_user: data });
+            console.log(data);
+            commit(FETCH_USER_SUCCESS, { auth_user: data.user });
         } catch (error) {
             commit(FETCH_USER_FAILURE);
         }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -26,7 +27,15 @@ class AuthController extends Controller
     {
         $user = $request->user();
         $transformer = new UserTransformer();
-        return $this->response($transformer->transform($user));
+        $auth = $request->header('Authorization');
+
+        return $this->response([
+            'user' => $transformer->transform($user),
+            'token' => [
+                'token_type' => 'Bearer',
+                'access_token' => explode(' ', $auth)[1],
+            ],
+        ], 200);
     }
 
     /**
@@ -47,7 +56,11 @@ class AuthController extends Controller
             return $this->response(['errors' => ['message' => trans('auth.failed')]], 400);
         }
 
+        $user = Auth::user();
+        $transformer = new UserTransformer();
+
         return $this->response([
+            'user' => $transformer->transform($user),
             'token' => [
                 'token_type' => 'Bearer',
                 'access_token' => $token,
