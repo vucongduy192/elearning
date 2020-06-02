@@ -5,13 +5,16 @@ namespace App\Repositories;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Repositories\BaseRepository;
 use App\Transformers\UserTransformer;
 use App\Traits\TransformPaginatorTrait;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Facades\Hash;
 
-class UserRepository {
+class UserRepository
+{
     use BaseRepository, UploadTrait, TransformPaginatorTrait;
     protected $model;
 
@@ -36,7 +39,7 @@ class UserRepository {
 
         $usersPaginator = $this->model
             ->where([
-                [$searchColumn, 'like', '%'.$request->get($searchColumn).'%'],
+                [$searchColumn, 'like', '%' . $request->get($searchColumn) . '%'],
                 // ['role_id', '=', User::ADMIN]
             ])
             ->orderBy($sortColumn, $sortType)
@@ -59,11 +62,26 @@ class UserRepository {
         $input = $request->only(['name', 'email', 'role_id']);
         // $input['role_id'] = User::ADMIN;
         $input['password'] = Hash::make($request->password);
-        $input['avatar'] = $this->uploadImage($request, $image_name = 'avatar', $folder='avatar');
-        $this->store($input);
+        $input['email_verified_at'] = date("Y-m-d H:i:s");
+        $input['avatar'] = $this->uploadImage($request, $image_name = 'avatar', $folder = 'avatar');
+        $new_user = $this->store($input);
+
+        if ($input['role_id'] == User::TEACHER) {
+            Teacher::create([
+                'workplace' => '',
+                'expert' => '',
+                'user_id' => $new_user->id,
+            ]);
+        } else if ($input['role_id'] == User::STUDENT) {
+            Student::create([
+                'school' => '',
+                'major' => '',
+                'user_id' => $new_user->id,
+            ]);
+        }
     }
 
-        /**
+    /**
      * Update a new category.
      *
      * @param  $input
