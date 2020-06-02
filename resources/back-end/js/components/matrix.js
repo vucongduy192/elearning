@@ -3,8 +3,8 @@ import * as d3 from 'd3';
 export default function Matrix(options) {
     var margin = { top: 50, right: 50, bottom: 200, left: 200 };
 
-    var width = 600,
-        height = 600,
+    var width = 900,
+        height = 900,
         data = options.data,
         container = options.container,
         labelsData = options.labels,

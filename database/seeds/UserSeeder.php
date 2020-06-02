@@ -79,6 +79,40 @@ class UserSeeder extends Seeder
             'role_id' => 1,
         ]);
 
+
+        DB::table('users')->insert([
+            'name' => 'Dai Nguyen',
+            'email' => 'dai123@gmail.com',
+            'password' => Hash::make('dai123'),
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Hoang Nguyen',
+            'email' => 'hoang123@gmail.com',
+            'password' => Hash::make('hoang123'),
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Manh Nguyen',
+            'email' => 'manh123@gmail.com',
+            'password' => Hash::make('manh123'),
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Cong Nguyen',
+            'email' => 'cong123@gmail.com',
+            'password' => Hash::make('cong123'),
+            'email_verified_at' => date("Y-m-d H:i:s"),
+            'role_id' => 1,
+        ]);
+
+
         # Users
         $fileUsers = fopen(base_path().'/SeedSQL/users.csv', 'r');
         $row = fgetcsv($fileUsers, 0, ',');
