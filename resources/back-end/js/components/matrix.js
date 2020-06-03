@@ -94,6 +94,7 @@ export default function Matrix(options) {
         .style('fill', function (d, i) {
             return d >= maxValue / 2 ? 'white' : 'black';
         })
+        .style('font-size', '10px')
         .text(function (d, i) {
             return d;
         });

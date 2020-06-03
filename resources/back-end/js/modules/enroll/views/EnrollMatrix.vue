@@ -31,7 +31,6 @@ export default {
     methods: {
         loadMatrix() {
             d3.csv('/recommend/similarE_matrix.csv', (error, data) => {
-                console.log(data);
                 var columns = [], rows = []
                 data.forEach(row => {
                     columns.push(row.course);
@@ -39,7 +38,6 @@ export default {
                     var row_round = Object.values(row).map((val) => {
                         return val.slice(0, 4);
                     });
-                    console.log(row_round);
                     rows.push(row_round)
                 });
                 // console.log(columns, rows);
