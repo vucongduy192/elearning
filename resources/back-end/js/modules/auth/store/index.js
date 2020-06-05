@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import router from '*/router/router';
 
 const SAVE_TOKEN = 'auth/save_token';
 const FETCH_USER_SUCCESS = 'auth/fetch_user_success';
@@ -46,10 +47,10 @@ const actions = {
     async fetchUser({ commit }) {
         try {
             const { data } = await axios.get('/user');
-            console.log(data);
             commit(FETCH_USER_SUCCESS, { auth_user: data.user });
         } catch (error) {
             commit(FETCH_USER_FAILURE);
+            router.push({ path: '/admin/login' });
         }
     },
     async logout({ commit }) {

@@ -17,7 +17,30 @@ import storeDashboard from '*/modules/dashboard/store';
 Vue.use(Vuex);
 
 const storeMain = {
-    state: {},
+    state: {
+        breadcrumb: {
+            'main.dashboard': 'Dashboard',
+            'main.config': 'Config',
+            'main.category': 'Category',
+            'main.category.add': 'Add category',
+            'main.category.edit': 'Edit category',
+            'main.rule': 'Rule',
+            'main.rule.add': 'Add rule',
+            'main.rule.edit': 'Edit rule',
+            'main.user': 'User',
+            'main.user.add': 'Add user',
+            'main.user.edit': 'Edit user',
+            'main.teacher': 'Teacher',
+            'main.student': 'Student',
+            'main.course': 'Course',
+            'main.course.add': 'Add course',
+            'main.course.edit': 'Edit course',
+            'main.enroll': 'Enroll',
+            'main.blog': 'Blog',
+            'main.blog.add': 'Add blog',
+            'main.blog.edit': 'Edit blog',
+        },
+    },
 };
 
 export default new Vuex.Store({

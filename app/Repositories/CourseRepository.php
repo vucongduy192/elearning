@@ -168,7 +168,7 @@ class CourseRepository
             ->when($teacher_id, function ($query, $teacher_id) {
                 return $query->where('courses.teacher_id', $teacher_id);
             })
-            ->orderBy('courses.created_at', 'desc')
+            ->orderBy('courses.id', 'asc')
             ->paginate($number);
     }
 }

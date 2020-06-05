@@ -28,6 +28,11 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu tree" data-widget="tree">
                 <li v-if="auth_user.role_id >= 2">
+                    <router-link :to="{ name: 'main.dashboard' }">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </router-link>
+                </li>
+                <li v-if="auth_user.role_id >= 2">
                     <router-link :to="{ name: 'main.config' }">
                         <i class="fa fa-cogs"></i> <span>Config</span>
                     </router-link>

@@ -7,8 +7,7 @@ import axios from 'axios';
 
 export default {
     name: 'App',
-    mounted() {
-    },
+    mounted() {},
     async created() {
         await this.$store.dispatch('fetchUser');
     }
