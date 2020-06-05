@@ -32,7 +32,7 @@
                                         <th id="email" @click="clickSort('email')">Email <i class="sort"></i></th>
                                         <th id="major" @click="clickSort('major')">Major <i class="sort"></i></th>
                                         <th>Avatar</th>
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,14 +44,14 @@
                                         <td>
                                             <img :src="student.avatar" alt="" />
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <button
                                                 class="btn btn-sm btn-info btn-flat"
                                                 @click="clickView(student)"
                                             >
                                                 View
                                             </button>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>

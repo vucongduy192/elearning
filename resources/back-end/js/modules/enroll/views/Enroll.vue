@@ -57,7 +57,7 @@
                                             Course <i class="sort"></i>
                                         </th>
                                         <th>Category</th>
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,14 +66,14 @@
                                         <td>{{ enroll.username }}</td>
                                         <td>{{ enroll.course_name }}</td>
                                         <td>{{ enroll.courses_category }}</td>
-                                        <td>
+                                        <!-- <td>
                                             <button
                                                 class="btn btn-sm btn-info btn-flat"
                                                 @click="clickEdit(enroll)"
                                             >
                                                 View
                                             </button>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>

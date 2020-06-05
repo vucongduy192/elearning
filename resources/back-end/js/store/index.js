@@ -35,6 +35,7 @@ const storeMain = {
             'main.course': 'Course',
             'main.course.add': 'Add course',
             'main.course.edit': 'Edit course',
+            'main.module.edit': 'Edit module',
             'main.enroll': 'Enroll',
             'main.blog': 'Blog',
             'main.blog.add': 'Add blog',

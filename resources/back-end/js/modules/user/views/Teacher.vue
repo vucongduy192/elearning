@@ -38,7 +38,7 @@
                                             Expert <i class="sort"></i>
                                         </th>
                                         <th>Avatar</th>
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,14 +50,14 @@
                                         <td>
                                             <img :src="teacher.avatar" alt="" />
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <a
                                                 class="btn btn-sm btn-info btn-flat"
                                                 :href="'/professors/' + teacher.id"
                                             >
                                                 View
                                             </a>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>
