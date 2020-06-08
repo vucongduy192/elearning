@@ -40,6 +40,10 @@ class SurveyRepository
         return $this->model->where('student_id', $student_id)->delete();
     }
 
+    /**
+     * With survey: student choose some interested category
+     * @return array
+     */
     public function recommend()
     {
         $student  = Auth::user()->student;
@@ -51,13 +55,19 @@ class SurveyRepository
             ->get();
 
         $recommend_courses = array();
-        foreach ($courses as $c) {
-            if (in_array($c->courses_category_id, $categories_id)) {
-                array_push($recommend_courses, $c);
-                $categories_id = array_diff($categories_id, [$c->courses_category_id]);
+        // Get first course from each category untils recommend_courses length equals 3
+        while(count($recommend_courses) < 3) {
+            $copy_categories_id = $categories_id;
+            foreach ($courses as $c) {
+                if (in_array($c->courses_category_id, $copy_categories_id)) {
+                    array_push($recommend_courses, $c);
+
+                    $copy_categories_id = array_diff($copy_categories_id, [$c->courses_category_id]);
+                    $courses = $courses->except($c->id);
+                }
             }
         }
 
-        return $recommend_courses;
+        return array_slice($recommend_courses, 0, 3);
     }
 }
