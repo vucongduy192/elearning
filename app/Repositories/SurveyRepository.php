@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Teacher;
+use App\Models\SurveyRank;
 
 class SurveyRepository
 {
@@ -33,6 +35,30 @@ class SurveyRepository
         ->select(['course_categories.id', 'course_categories.name', 'surveys.id as interest'])
         ->orderBy('course_categories.id')
         ->get();
+    }
+
+    /**
+     * Survey if student interested with courses from these teachers
+     */
+    public function studentSurveyTeacher($student_id)
+    {
+        return Teacher::leftJoin('survey_teachers', function($join) use ($student_id) {
+            $join->on('survey_teachers.teacher_id', '=', 'teachers.id')
+                 ->where('survey_teachers.student_id', '=', $student_id);
+        })
+        ->join('users', 'teachers.user_id', '=', 'users.id')
+        ->select(['teachers.id', 'users.name', 'survey_teachers.id as interest'])
+        ->orderBy('teachers.id')
+        ->get();
+    }
+
+    /**
+     * Survey if student interested with courses from these teachers
+     */
+    public function studentSurveyRank($student_id)
+    {
+        return SurveyRank::where('survey_ranks.student_id', '=', $student_id)
+            ->first();
     }
 
     public function destroyByStudentId($student_id)

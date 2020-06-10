@@ -268,7 +268,9 @@
                                     <!-- Like Item -->
                                         <div class="like_item d-flex flex-row align-items-end justify-content-start">
                                             <div class="like_title_container">
-                                                <div class="like_title">{{ $r_c->name }}</div>
+                                                <div class="like_title">
+                                                    <a href="{{route('courses.show', ['id' => $r_c->id])}}" style="color: #000;">{{ $r_c->name }}</a>
+                                                </div>
                                                 <div class="like_subtitle">{{ $r_c->teacher->user->name }}</div>
                                             </div>
                                             <div class="like_price ml-auto">Free</div>

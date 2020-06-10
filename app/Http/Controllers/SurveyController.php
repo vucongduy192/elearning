@@ -21,7 +21,10 @@ class SurveyController extends Controller
     {
         $student = Auth::user()->student;
         $survey = $this->survey->studentSurvey($student->id);
-        return view('pages.survey', compact('student', 'survey'));
+        $surveyRank = $this->survey->studentSurveyRank($student->id);
+        $surveyTeacher = $this->survey->studentsurveyTeacher($student->id);
+        // dd($surveyRank);
+        return view('pages.survey', compact('student', 'survey', 'surveyRank', 'surveyTeacher'));
     }
 
     public function update(Request $request)
