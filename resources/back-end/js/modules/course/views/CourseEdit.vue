@@ -87,6 +87,48 @@
                                             <has-error :form="form" field="courses_category_id" />
                                         </div>
                                     </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="">Duration</label>
+                                            <select
+                                                v-model="form.duration_id"
+                                                name="duration_id"
+                                                class="form-control"
+                                            >
+                                                <option
+                                                    v-for="duration in this.durations"
+                                                    v-bind:value="duration.id"
+                                                    v-bind:key="duration.id"
+                                                    :selected="
+                                                        form.duration_id == duration.id
+                                                    "
+                                                    >{{ duration.name }}</option
+                                                >
+                                            </select>
+                                            <has-error :form="form" field="duration_id" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="">Partner</label>
+                                            <select
+                                                v-model="form.partner_id"
+                                                name="partner_id"
+                                                class="form-control"
+                                            >
+                                                <option
+                                                    v-for="partner in this.partners"
+                                                    v-bind:value="partner.id"
+                                                    v-bind:key="partner.id"
+                                                    :selected="
+                                                        form.partner_id == partner.id
+                                                    "
+                                                    >{{ partner.name }}</option
+                                                >
+                                            </select>
+                                            <has-error :form="form" field="partner_id" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -182,7 +224,8 @@ export default {
     async mounted() {
         await this.$store.dispatch('actionFetchCategory', { vue: this, params: {} });
         await this.$store.dispatch('actionCourseShow', { vue: this, id: this.$route.params.id });
-
+        this.$store.dispatch('actionFetchDuration');
+        this.$store.dispatch('actionFetchPartner');
         let course = this.$store.state.storeCourse.edit.data;
 
         Object.assign(this.form, course);
@@ -196,6 +239,8 @@ export default {
                 level: '',
                 teacher_id: '',
                 courses_category_id: '',
+                partner_id: '',
+                duration_id: '',
                 thumbnail: null,
                 modules: [],
             }),
@@ -209,6 +254,12 @@ export default {
     computed: {
         categories() {
             return this.$store.state.storeCategory.listFetch.data;
+        },
+        durations() {
+            return this.$store.state.storeCourse.durations;
+        },
+        partners() {
+            return this.$store.state.storeCourse.partners;
         },
     },
     methods: {
@@ -244,7 +295,9 @@ export default {
             }
             this.$store.dispatch('setAdminLoading', { show: false });
             this.$router.push({ name: 'main.course' }, () => {
-                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textUpdateCourseSuccess')})
+                this.$store.dispatch('pushSuccessNotify', {
+                    msg: this.$i18n.t('textUpdateCourseSuccess'),
+                });
             });
         },
         addModule(e) {
@@ -259,9 +312,10 @@ export default {
             // console.log(module_id);
             if (module_id == -1) {
                 e.preventDefault();
-                this.$store.dispatch('pushWarningNotify', {msg: this.$i18n.t('textEditModuleWarning')})
-            }
-            else window.location.href = `/admin/modules/edit/${module_id}`;
+                this.$store.dispatch('pushWarningNotify', {
+                    msg: this.$i18n.t('textEditModuleWarning'),
+                });
+            } else window.location.href = `/admin/modules/edit/${module_id}`;
         },
         deleteModule(e, counter) {
             e.preventDefault();

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/main_styles.css") }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/responsive.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/main_styles.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/responsive.css") }}">
 @endsection
 @section('content')
 <div class="home">
@@ -52,8 +52,10 @@
                         </div>
                     </div>
                     <div class="course_footer d-flex flex-row align-items-center justify-content-start">
-                        <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>{{ $course->enrolls }}</span></div>
-                        <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>{{ ($course->reviews) ? $course->reviews->pluck('rating')->avg() : 0 }}</span>
+                        <div class="course_students"><i class="fa fa-user"
+                                aria-hidden="true"></i><span>{{ $course->enrolls }}</span></div>
+                        <div class="course_rating ml-auto"><i class="fa fa-star"
+                                aria-hidden="true"></i><span>{{ ($course->reviews) ? $course->reviews->pluck('rating')->avg() : 0 }}</span>
                         </div>
                         <div class="course_mark course_free trans_200"><a href="#">Free</a></div>
                     </div>
@@ -237,14 +239,16 @@
         </div>
         <div class="row events_row">
             @foreach($newest_blogs as $blog)
-                <div class="col-lg-4 event_col">
+            <div class="col-lg-4 event_col">
                 <div class="event">
                     <div class="event_image">
-                        <img src="{{ $blog->thumbnail ? $blog->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL }}" alt="">
+                        <img src="{{ $blog->thumbnail ? $blog->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL }}"
+                            alt="">
                     </div>
                     <div class="event_body d-flex flex-row align-items-center justify-content-start">
                         <div class="event_title">
-                            <a href="{{ route('blogs.show', ['id' => $blog->id]) }}">{{ substr($blog->title, 0, 20) . '...' }}</a>
+                            <a
+                                href="{{ route('blogs.show', ['id' => $blog->id]) }}">{{ substr($blog->title, 0, 20) . '...' }}</a>
                         </div>
                     </div>
                 </div>

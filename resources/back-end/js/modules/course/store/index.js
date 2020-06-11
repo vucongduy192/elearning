@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const FETCH_COURSE = 'course/fetch_list';
+const FETCH_DURATION = 'course/fetch_duration';
+const FETCH_PARTNER = 'course/fetch_partner';
 const ADMIN_COURSE_SHOW = 'course/show';
 const ADMIN_COURSE_DELETE = 'course/delete';
 
@@ -9,11 +11,19 @@ const state = {
     edit: {
         data: {},
     },
+    durations: {},
+    partners: {},
 };
 
 const mutations = {
     [FETCH_COURSE](state, { listFetch }) {
         return (state.listFetch = listFetch);
+    },
+    [FETCH_DURATION](state, { durations }) {
+        return (state.durations = durations);
+    },
+    [FETCH_PARTNER](state, { partners }) {
+        return (state.partners = partners);
     },
     [ADMIN_COURSE_SHOW](state, { data }) {
         return (state.edit.data = data);
@@ -32,6 +42,20 @@ const actions = {
             commit(FETCH_COURSE, { listFetch: data });
         } catch (error) {}
         vue.$store.dispatch('setAdminMainLoading', { show: false });
+    },
+
+    async actionFetchDuration({ commit }) {
+        try {
+            const { data } = await axios.get('/durations');
+            commit(FETCH_DURATION, { durations: data });
+        } catch (error) {}
+    },
+
+    async actionFetchPartner({ commit }) {
+        try {
+            const { data } = await axios.get('/partners');
+            commit(FETCH_PARTNER, { partners: data });
+        } catch (error) {}
     },
 
     async actionCourseShow({ commit }, { vue, id }) {

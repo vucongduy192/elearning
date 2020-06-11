@@ -34,6 +34,8 @@ Route::group(['namespace' => 'Api\Admin', 'prefix' => 'v0'], function () {
         Route::resource('teachers', 'TeacherController');
         Route::resource('students', 'StudentController');
         Route::resource('courses', 'CourseController');
+        Route::get('durations', 'CourseController@getListDurations');
+        Route::get('partners', 'CourseController@getListPartners');
         Route::resource('modules', 'ModuleController', ['only' => ['show', 'update']]);
         Route::resource('enrolls', 'EnrollController');
         Route::post('enrolls/csv', 'EnrollController@dumpCSV');

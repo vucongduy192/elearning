@@ -42,7 +42,7 @@
                                                 type="text"
                                                 name="price"
                                                 class="form-control"
-                                                placeholder="Enter price"
+                                                placeholder="Enter price (dollar)"
                                             />
                                             <has-error :form="form" field="price"></has-error>
                                         </div>
@@ -81,6 +81,42 @@
                                                 >
                                             </select>
                                             <has-error :form="form" field="courses_category_id" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="">Duration</label>
+                                            <select
+                                                v-model="form.duration_id"
+                                                name="duration_id"
+                                                class="form-control"
+                                            >
+                                                <option
+                                                    v-for="duration in this.durations"
+                                                    v-bind:value="duration.id"
+                                                    v-bind:key="duration.id"
+                                                    >{{ duration.name }}</option
+                                                >
+                                            </select>
+                                            <has-error :form="form" field="duration_id" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="">Partner</label>
+                                            <select
+                                                v-model="form.partner_id"
+                                                name="partner_id"
+                                                class="form-control"
+                                            >
+                                                <option
+                                                    v-for="partner in this.partners"
+                                                    v-bind:value="partner.id"
+                                                    v-bind:key="partner.id"
+                                                    >{{ partner.name }}</option
+                                                >
+                                            </select>
+                                            <has-error :form="form" field="partner_id" />
                                         </div>
                                     </div>
                                 </div>
@@ -169,6 +205,8 @@ export default {
     },
     mounted() {
         this.$store.dispatch('actionFetchCategory', { vue: this, params: {} });
+        this.$store.dispatch('actionFetchDuration');
+        this.$store.dispatch('actionFetchPartner');
         this.form.teacher_id = this.$store.state.storeAuth.auth_user.teacher_id;
     },
     data() {
@@ -179,6 +217,8 @@ export default {
                 price: '',
                 level: '',
                 teacher_id: '',
+                duration_id: '',
+                partner_id: '',
                 courses_category_id: '',
                 thumbnail: null,
                 modules: [
@@ -198,6 +238,12 @@ export default {
     computed: {
         categories() {
             return this.$store.state.storeCategory.listFetch.data;
+        },
+        durations() {
+            return this.$store.state.storeCourse.durations;
+        },
+        partners() {
+            return this.$store.state.storeCourse.partners;
         },
     },
     methods: {

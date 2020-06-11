@@ -29,6 +29,8 @@ class CourseRequest extends FormRequest
             'price' => 'required',
             'level' => 'required',
             'courses_category_id' => 'required',
+            'duration_id' => 'required',
+            'partner_id' => 'required',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'modules.*.name' => 'required',
             'modules.*.overview' => 'required',
@@ -39,6 +41,8 @@ class CourseRequest extends FormRequest
             'price' => 'required',
             'level' => 'required',
             'courses_category_id' => 'required',
+            'duration_id' => 'required',
+            'partner_id' => 'required',
             'modules.*.name' => 'required',
             'modules.*.overview' => 'required',
         ];

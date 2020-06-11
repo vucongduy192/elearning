@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Transformers\CourseTransformer;
 use Illuminate\Http\Request;
 use App\Http\Requests\CourseRequest;
+use App\Models\Duration;
+use App\Models\Partner;
 
 class CourseController extends Controller
 {
@@ -128,5 +130,22 @@ class CourseController extends Controller
         }
         $this->entity->customDestroy($id);
     }
+
+    /**
+     * Fetch durations option for form add/edit
+     */
+    public function getListDurations()
+    {
+        $durations = Duration::all();
+        return $this->response($durations);
+    }
+
+    /**
+     * Fetch durations option for form add/edit
+     */
+    public function getListPartners()
+    {
+        $partners = Partner::all();
+        return $this->response($partners);
+    }
 }
-// Baisc

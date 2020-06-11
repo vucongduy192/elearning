@@ -16,7 +16,7 @@ class Course extends Model
     const THUMBNAIL_HEIGHT = 180;
 
     protected $fillable = [
-        'name', 'overview', 'price', 'level', 'thumbnail', 'courses_category_id', 'teacher_id',
+        'name', 'overview', 'price', 'level', 'thumbnail', 'courses_category_id', 'teacher_id', 'duration_id', 'partner_id'
     ];
 
     public static function getLevel($level_id)

@@ -1,7 +1,12 @@
 @if(count($enrolled) == 0)
-    <script>
+    {{-- <script>
         toastr.warning('You don\'t have any enrollment history data.');
-    </script>
+    </script> --}}
+    <div class="course_body">
+        <div class="course_text">
+            You don\'t have any enrollment history data.
+        </div>
+    </div>
 @endif
 
 @foreach($enrolled as $enroll)

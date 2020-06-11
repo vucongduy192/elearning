@@ -98,7 +98,6 @@ class ProfileController extends Controller
         $recommend_courses = (count($student->enrolled) == 0)
             ? $this->survey->recommend()
             : $this->enroll->recommend();
-        // $survey_courses = 
 
         return view('pages.recommend', compact('recommend_courses'));
     }

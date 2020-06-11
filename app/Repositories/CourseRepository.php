@@ -79,7 +79,7 @@ class CourseRepository
      */
     public function customStore(CourseRequest $request)
     {
-        $input = $request->only(['name', 'overview', 'price', 'level', 'teacher_id', 'courses_category_id']);
+        $input = $request->only(['name', 'overview', 'price', 'level', 'teacher_id', 'courses_category_id', 'duration_id', 'partner_id']);
         if (empty($input['teacher_id']))
             $input['teacher_id'] = Teacher::TEACHER_ADMIN_ID;
 
@@ -98,7 +98,7 @@ class CourseRepository
      */
     public function customUpdate(CourseRequest $request, $id)
     {
-        $input = $request->only(['name', 'overview', 'price', 'level', 'teacher_id', 'courses_category_id']);
+        $input = $request->only(['name', 'overview', 'price', 'level', 'teacher_id', 'courses_category_id', 'duration_id', 'partner_id']);
         $new_thumbnail = $this->uploadImage($request,
             $image_name = 'thumbnail', $folder = 'course',
             $w = Course::THUMBNAIL_WIDTH, $h = Course::THUMBNAIL_HEIGHT);
