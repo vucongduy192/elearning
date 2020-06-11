@@ -16,8 +16,12 @@ class CreateSurveyRanksTable extends Migration
         Schema::create('survey_ranks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('level');
-            $table->integer('duration');
             $table->integer('free');
+            
+            $table->unsignedBigInteger('duration_id');
+            $table->foreign('duration_id')->references('id')->on('durations')->onDelete('cascade');
+            $table->unsignedBigInteger('partner_id');
+            $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->timestamps();

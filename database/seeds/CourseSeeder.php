@@ -24,6 +24,8 @@ class CourseSeeder extends Seeder
                 'rate' => rand(1, 5),
                 'courses_category_id' => $category_id,
                 'teacher_id' => $teacher_id,
+                'duration_id' => rand(1, 4),
+                'partner_id' => rand(1, 5),
             ]);
         }
     }

@@ -10,6 +10,8 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Teacher;
 use App\Models\SurveyRank;
+use App\Models\Duration;
+use App\Models\Partner;
 
 class SurveyRepository
 {
@@ -26,7 +28,7 @@ class SurveyRepository
         $this->model = $survey;
     }
 
-    public function studentSurvey($student_id)
+    public function studentSurveyCategory($student_id)
     {
         return Category::leftJoin('surveys', function($join) use ($student_id) {
             $join->on('surveys.courses_category_id', '=', 'course_categories.id')
@@ -56,9 +58,28 @@ class SurveyRepository
      * Survey if student interested with courses from these teachers
      */
     public function studentSurveyRank($student_id)
-    {
-        return SurveyRank::where('survey_ranks.student_id', '=', $student_id)
-            ->first();
+    {         
+        $durations = Duration::leftJoin('survey_ranks', function($join) use ($student_id) {
+            $join->on('survey_ranks.duration_id', '=', 'durations.id')
+                 ->where('survey_ranks.student_id', '=', $student_id);
+        })
+        ->select(['durations.*'])
+        ->distinct()
+        ->get();
+
+        $partners = Partner::leftJoin('survey_ranks', function($join) use ($student_id) {
+            $join->on('survey_ranks.partner_id', '=', 'partners.id')
+                 ->where('survey_ranks.student_id', '=', $student_id);
+        })
+        ->select(['partners.*'])
+        ->distinct()
+        ->get();
+
+        return [
+            'ranks' => SurveyRank::where('survey_ranks.student_id', '=', $student_id)->first(),
+            'durations' => $durations,
+            'partners' => $partners
+        ];
     }
 
     public function destroyByStudentId($student_id)

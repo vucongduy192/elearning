@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/responsive.css") }}">
 <style>
     label {
-        color: rgba(0, 0, 0, 0.45);
+        color: rgba(0, 0, 0, 1);
     }
 
     .carousel-item {
@@ -15,7 +15,6 @@
         content: '>';
         font-size: 55px;
         color: rgba(0, 0, 0, 0.45);
-        margin-left: -30px;
     }
 
     .carousel-control-prev-icon:after {
@@ -26,7 +25,28 @@
 
     .carousel-inner {
         width: 70%;
-        margin-left: 20%;
+        margin-left: 15%;
+    }
+
+    ol.carousel-indicators li,
+    ol.carousel-indicators li.active {
+        border: 0;
+        margin: 8px;
+        height: 10px;
+        width: 10px;
+    }
+
+    ol.carousel-indicators li {
+        background: rgba(0, 0, 0, 0.45);
+    }
+
+    ol.carousel-indicators li.active {
+        background: #2e21df;
+    }
+
+    .dot {
+        position: absolute;
+        transform: scale(1.5);
     }
 </style>
 @endsection
@@ -40,13 +60,68 @@
                     <div class="card-header">Survey interested category</div>
 
                     <div class="card-body">
-                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div id="survey-carousel" class="carousel slide" data-interval="false">
+                            <ol class="carousel-indicators">
+                                <li data-target="#survey-carousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#survey-carousel" data-slide-to="1"></li>
+                                {{-- <li data-target="#survey-carousel" data-slide-to="2"></li> --}}
+                            </ol>
                             <div class="carousel-inner">
                                 <form method="POST" action="{{ route('survey.update') }}" enctype="multipart/form-data"
                                     class="survey-form">
                                     @csrf
                                     <input type="hidden" name="student_id" value="{{ $student->id }}">
                                     <div class="carousel-item active">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="level">Level</label>
+                                                <select class="form-control" name="level" id="">
+                                                    <option value="{{ App\Models\Course::EASY }}"
+                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 0 ? "selected" : ""}}>
+                                                        Easy</option>
+                                                    <option value="{{ App\Models\Course::MEDIUM }}"
+                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 1 ? "selected" : ""}}>
+                                                        Medium</option>
+                                                    <option value="{{ App\Models\Course::HARD }}"
+                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 2 ? "selected" : ""}}>
+                                                        Hard</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="duration_id">Duration</label>
+                                                <select class="form-control" name="duration_id" id="">
+                                                    @foreach($surveyRank['durations'] as $duration)
+                                                    <option value="{{ $duration->id }}"
+                                                        {{ $surveyRank['ranks'] && $duration->id == $surveyRank['ranks']->duration_id ? "selected" : ""}}>
+                                                        {{ $duration->name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 20px;">
+                                            <div class="col-sm-12">
+                                                <label for="partner_id">From</label>
+                                                <select class="form-control" name="partner_id" id="">
+                                                    @foreach($surveyRank['partners'] as $partner)
+                                                    <option value="{{ $partner->id }}"
+                                                        {{ $surveyRank['ranks'] && $partner->id == $surveyRank["ranks"]->partner_id ? "selected" : ""}}>
+                                                        {{ $partner->name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 30px;">
+                                            <div class="form-group template-checkbox col-md-6">
+                                                <input type="checkbox" name="free" id="free"
+                                                    {{ $surveyRank["ranks"] && $surveyRank['ranks']->free == 1 ? "checked" : "" }}
+                                                    value="1">
+                                                <label for="free">Only free courses</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
                                         <div class="row">
                                             @foreach($survey as $category)
                                             <div class="form-group template-checkbox col-md-6">
@@ -58,7 +133,7 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                    <div class="carousel-item">
+                                    {{-- <div class="carousel-item">
                                         <div class="row">
                                             @foreach($surveyTeacher as $teacher)
                                             <div class="form-group template-checkbox col-md-6">
@@ -69,26 +144,12 @@
                                             </div>
                                             @endforeach
                                         </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="row">
-                                            <select class="form-control" name="courses_category_id" id="">
-                                                <option value="" {{ !old('courses_category_id') ? "selected" : "" }}>All
-                                                    categories</option>
-                                                @foreach($categories as $c)
-                                                <option value="{{ $c->id }}"
-                                                    {{ old('courses_category_id') == $c->id ? "selected" : "" }}>
-                                                    {{ $c->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row">
                                         <div class="form-group">
                                             @if (session('message'))
-                                            <a href="{{ route('profile.recommend') }}" style="margin-left: 20px;">See
-                                                your
-                                                recommend now !</a>
+                                            <a href="{{ route('profile.recommend') }}" style="margin-left: 20px;">
+                                                See your recommend now !</a>
                                             @endif
                                         </div>
                                     </div>
@@ -101,13 +162,11 @@
                                     </div>
                                 </form>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                data-slide="prev">
+                            <a class="carousel-control-prev" href="#survey-carousel" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                data-slide="next">
+                            <a class="carousel-control-next" href="#survey-carousel" role="button" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
