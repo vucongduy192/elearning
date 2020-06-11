@@ -21,7 +21,8 @@ class CourseSeeder extends Seeder
             DB::table('courses')->insert([
                 'name' => $row[1],
                 'overview' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla.',
-                'rate' => rand(1, 5),
+                'level' => rand(1, 3),
+                'rate' => rand(1, 5),   // TODO current not use => will remove
                 'courses_category_id' => $category_id,
                 'teacher_id' => $teacher_id,
                 'duration_id' => rand(1, 4),

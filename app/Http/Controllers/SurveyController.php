@@ -43,6 +43,7 @@ class SurveyController extends Controller
 
         // Update survey_ranks
         $input = $request->only('level', 'duration_id', 'partner_id', 'free', 'student_id');
+        // dd($input);
         $input['free'] = empty($input['free']) ? 0 : 1;
         $survey_rank = SurveyRank::where('student_id', $request->student_id)->first();
         if ($survey_rank) {

@@ -76,20 +76,27 @@
                                             <div class="col-sm-6">
                                                 <label for="level">Level</label>
                                                 <select class="form-control" name="level" id="">
+                                                    <option value=""
+                                                        {{ empty($surveyRank['ranks']->level) ? "selected" : ""}}>
+                                                        All levels</option>
                                                     <option value="{{ App\Models\Course::EASY }}"
-                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 0 ? "selected" : ""}}>
+                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 1 ? "selected" : ""}}>
                                                         Easy</option>
                                                     <option value="{{ App\Models\Course::MEDIUM }}"
-                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 1 ? "selected" : ""}}>
+                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 2 ? "selected" : ""}}>
                                                         Medium</option>
                                                     <option value="{{ App\Models\Course::HARD }}"
-                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 2 ? "selected" : ""}}>
+                                                        {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 3 ? "selected" : ""}}>
                                                         Hard</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="duration_id">Duration</label>
                                                 <select class="form-control" name="duration_id" id="">
+                                                    <option value=""
+                                                        {{ empty($surveyRank['ranks']->duration_id) ? "selected" : ""}}>
+                                                        All durations
+                                                    </option>
                                                     @foreach($surveyRank['durations'] as $duration)
                                                     <option value="{{ $duration->id }}"
                                                         {{ $surveyRank['ranks'] && $duration->id == $surveyRank['ranks']->duration_id ? "selected" : ""}}>
@@ -103,6 +110,10 @@
                                             <div class="col-sm-12">
                                                 <label for="partner_id">From</label>
                                                 <select class="form-control" name="partner_id" id="">
+                                                    <option value=""
+                                                        {{  empty($surveyRank['ranks']->partner_id) ? "selected" : ""}}>
+                                                        All partners
+                                                    </option>
                                                     @foreach($surveyRank['partners'] as $partner)
                                                     <option value="{{ $partner->id }}"
                                                         {{ $surveyRank['ranks'] && $partner->id == $surveyRank["ranks"]->partner_id ? "selected" : ""}}>
@@ -133,18 +144,6 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                    {{-- <div class="carousel-item">
-                                        <div class="row">
-                                            @foreach($surveyTeacher as $teacher)
-                                            <div class="form-group template-checkbox col-md-6">
-                                                <input type="checkbox" name="teacher_id[]" id="{{ $teacher->name }}"
-                                                    {{ $teacher->interest != null ? "checked" : "" }}
-                                                    value="{{ $teacher->id }}">
-                                                <label for="{{ $teacher->name }}">{{ $teacher->name }}</label>
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                    </div> --}}
                                     <div class="row">
                                         <div class="form-group">
                                             @if (session('message'))

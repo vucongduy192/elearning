@@ -14,6 +14,7 @@ class EnrollTransformer extends TransformerAbstract
             'id' => $enroll->id,
             'course_name' => $enroll->course_name,
             'username' => $enroll->username,
+            'email' => $enroll->email,
             'courses_category_id' => $enroll->courses_category_id,
             'courses_category' => $enroll->course->courses_category->name,
         ];

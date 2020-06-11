@@ -9,6 +9,7 @@ use App\Repositories\BaseRepository;
 use App\Transformers\EnrollTransformer;
 use App\Traits\TransformPaginatorTrait;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EnrollRepository {
     use BaseRepository, TransformPaginatorTrait;
@@ -28,7 +29,7 @@ class EnrollRepository {
     /**
      * Get list category
      */
-    public function pageWithRequest(Request $request, $number = 5, $searchColumn=['course_name', 'username'])
+    public function pageWithRequest(Request $request, $number = 5, $searchColumn=['course_name', 'email'])
     {
         $sortType = $request->get('sortType') ? $request->get('sortType') : 'desc';
         $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';
@@ -40,7 +41,7 @@ class EnrollRepository {
             ->join('courses', 'enrolls.course_id', '=', 'courses.id')
             ->where([
                 ['courses.name', 'like', '%'.$request->get($searchColumn[0]).'%'],
-                ['users.name', 'like', '%'.$request->get($searchColumn[1]).'%']
+                ['users.email', 'like', '%'.$request->get($searchColumn[1]).'%']
             ])
             ->when($teacher_id != -1, function ($query) use ($teacher_id) {
                 return $query->where('teacher_id', $teacher_id);
@@ -48,7 +49,7 @@ class EnrollRepository {
             ->select([
                 'enrolls.id as id', 'enrolls.student_id', 'enrolls.course_id',
                 'courses.name as course_name', 'courses.courses_category_id',
-                'users.name as username',
+                'users.name as username', 'users.email as email'
             ])
             ->orderBy($sortColumn, $sortType)
             ->paginate($number);
@@ -78,19 +79,38 @@ class EnrollRepository {
             'student_id' => $student_id,
         ])->first();
     }
+
     /**
      * Recommend by enrollment data + rule category
      * @return mixed
      */
-    public function recommend()
-    {
-        $sim_csv_path = public_path("recommend/similar_matrix.csv");
-        $file = fopen($sim_csv_path, 'r');
-        $row = fgetcsv($file, 0, ',');
+    public function recommend($student=null)
+    {        
+        $splited = $this->splitEnrolled($student);
+        $enrolled = $splited['enrolled'];
+        $non_enrolled = $splited['non_enrolled'];
+        
+        $top_id = $this->getTopID($enrolled, $non_enrolled);
+        
+        return Course::whereIn('courses.id', $top_id)
+            ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
+            ->join('users', 'teachers.user_id', '=', 'users.id')
+            ->leftJoin('enrolls', 'courses.id', '=', 'enrolls.course_id')
+            ->groupby('courses.id')
+            ->select([ 'courses.id', 'courses.name', 'courses.overview', 'courses.level', 'courses.thumbnail',
+                'courses.rate', 'courses.teacher_id', 'courses.price', DB::raw('count(*) as enrolls'),
+                'users.name as teacher_name', 
+            ])
+            ->get();
+    }
 
-        $student = Auth::user()->student;
-        $index_2_id = Course::pluck("id")->toArray();
-        $id_2_index = array_flip($index_2_id);
+    /**
+     * Split course to 2 group: enrolled && non-enrolled
+     */
+    public function splitEnrolled($student=null)
+    {
+        if ($student == null)
+            $student = Auth::user()->student;
 
         $courses = Course::pluck("name", "id")->toArray();  // array(["id" =>"name"])
         $enrolled = $this->model->join('courses', 'enrolls.course_id', '=', 'courses.id')
@@ -98,6 +118,23 @@ class EnrollRepository {
             ->pluck("courses.name", "courses.id")
             ->toArray();
         $non_enrolled = array_diff($courses, $enrolled);
+        return [
+            'enrolled' => $enrolled,
+            'non_enrolled' => $non_enrolled
+        ];
+    }
+
+    /**
+     * Apply collaborative algorithm to get top score course_id
+     */
+    public function getTopID($enrolled, $non_enrolled)
+    {
+        $sim_csv_path = public_path("recommend/similar_matrix.csv");
+        $file = fopen($sim_csv_path, 'r');
+        $row = fgetcsv($file, 0, ',');
+
+        $index_2_id = Course::pluck("id")->toArray();
+        $id_2_index = array_flip($index_2_id);
 
         $scores = array_fill_keys(array_keys($non_enrolled), 0);
         foreach ($non_enrolled as $c_i => $str_i) {
@@ -121,9 +158,6 @@ class EnrollRepository {
         else {
             $top_id = array_keys($scores);
         }
-
-        return Course::whereIn('id', $top_id)->get();
+        return $top_id;
     }
-
-
 }

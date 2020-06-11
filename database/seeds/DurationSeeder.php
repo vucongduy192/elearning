@@ -19,7 +19,7 @@ class DurationSeeder extends Seeder
             'name' => '1-4 Weeks',
         ]);
         DB::table('durations')->insert([
-            'name' => 'Less Than 2 Hours',
+            'name' => 'Less Than 2H',
         ]);
         DB::table('durations')->insert([
             'name' => '3+ Months',

@@ -10,24 +10,32 @@ use App\Http\Controllers\Controller;
 
 class MatrixController extends Controller
 {
+    /**
+     * Get combine Coefficient
+     */
     public function getConfig()
     {
         return $this->response($data=Config::first(), $status=200);
     }
 
+    /**
+     * Set up combine Coefficient, merge rule_similar & enroll_similar 
+     */
     public function updateCoefficient(Request $request)
     {
         $config = Config::first();
         if (empty($config)) {
             $config = new Config();
         }
-        // dd($request->all());
         $config->c = $request->c;
         $config->save();
 
         $this->combineMatrix($config->c);
     }
 
+    /**
+     * Save similar item matrix to CSV
+     */
     public function combineMatrix($c)
     {
         $courses = Course::pluck("name", "id")->toArray();  // array(["id" =>"name"])
@@ -54,6 +62,9 @@ class MatrixController extends Controller
         $this->saveCSV($filePath, $similar_matrix_csv);
     }
 
+    /**
+     * Save csv to /public/recommend
+     */
     public function saveCSV($filePath, $csv)
     {
         if (file_exists($filePath)) {

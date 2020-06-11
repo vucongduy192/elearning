@@ -8,6 +8,7 @@ use App\Repositories\EnrollRepository;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Enroll;
+use App\Models\User;
 
 class EnrollController extends Controller
 {
@@ -189,5 +190,11 @@ class EnrollController extends Controller
         $fp = fopen($filePath, "w+");
         fwrite($fp, $csv);
         fclose($fp);
+    }
+
+    public function getRecommendProgress(Request $request)
+    {
+        $student = User::where('users.email', 'like', '%'.$request->email.'%')->first()->student;
+        return $this->response($this->entity->recommend($student));
     }
 }

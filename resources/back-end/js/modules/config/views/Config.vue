@@ -2,30 +2,73 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Config combine coefficient</h3>
-                    <div class="box-tools pull-right">
-                        <!-- Collapse Button -->
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
+                <div class="box-header">
+                    <h3 class="box-title">Enrollment Similar Item</h3>
                 </div>
                 <div class="box-body">
-                    <form @submit.prevent="saveConfig" class="form-inline">
-                        <div class="form-group">
-                            <label for="" style="margin-top: 5px;">Combine c: </label>
-                            <input
-                                v-model="config.c"
-                                type="text"
-                                name="c"
-                                class="form-control pull-right"
-                                placeholder="Enter float number [0, 1]"
-                            />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select v-model="current_course" class="form-control">
+                                    <option value="" selected>Select course</option>
+                                    <option
+                                        v-for="course in this.courses"
+                                        v-bind:value="course"
+                                        v-bind:key="course"
+                                        >{{ course }}</option
+                                    >
+                                </select>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            Apply
-                        </button>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary" @click="buildTable()">
+                                Top similar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" v-if="this.current_row">
+                        <div class="col-sm-6">
+                            <table class="table no-padding">
+                                <thead>
+                                    <th>Course</th>
+                                    <th>Score</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(c, key)  in this.current_row.slice(0, 6)" :key=key>
+                                        <td>{{ c[0] }}</td>
+                                        <td>{{ c[1] }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-info">
+                <div class="box-header">
+                    <h3 class="box-title">Config combine coefficient</h3>
+                </div>
+                <div class="box-body">
+                    <form @submit.prevent="saveConfig">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input
+                                        v-model="config.c"
+                                        type="text"
+                                        name="c"
+                                        class="form-control"
+                                        placeholder="Enter float number [0, 1]"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary">
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -53,21 +96,49 @@ import axios from 'axios';
 export default {
     name: 'Config',
     async mounted() {
-        // this.loadMatrix();
         await this.$store.dispatch('actionFetchConfig', { vue: this });
         this.config = this.$store.state.storeConfig.config;
+        d3.csv('/recommend/similar_matrix.csv', (error, data) => {
+            this.data_csv = data;
+            this.courses = data.map((row) => row.course);
+        });
     },
     data() {
         return {
             config: {},
+            courses: {},
+            current_course: '',
+            current_row: null,
+            data_csv: {},
         };
     },
     methods: {
+        sortProperty(obj) {
+            var sortable = [];
+            for (var c in obj) {
+                sortable.push([c, obj[c]]);
+            }
+
+            sortable.sort(function(a, b) {
+                return b[1] - a[1];
+            });
+            return sortable;
+        },
+        buildTable() {
+            this.current_row = this.data_csv.filter((row) => {
+                return row.course === this.current_course;
+            });
+            delete this.current_row[0].course;
+            this.current_row = this.sortProperty(this.current_row[0]);
+            console.log(this.current_row);
+        },
         async saveConfig() {
             this.$store.dispatch('setAdminMainLoading', { show: true });
             try {
                 const { data } = await axios.post('/configs/update', { c: this.config.c });
-                this.$store.dispatch('pushSuccessNotify', {msg: this.$i18n.t('textUpdateConfigSuccess')})
+                this.$store.dispatch('pushSuccessNotify', {
+                    msg: this.$i18n.t('textUpdateConfigSuccess'),
+                });
                 this.loadMatrix();
             } catch (error) {
                 this.$store.dispatch('setAdminMainLoading', { show: false });
@@ -88,7 +159,7 @@ export default {
 
                     rows.push(row_round);
                 });
-                
+
                 // Clear half of matrix (symmetric matrix)
                 var num = columns.length;
                 var i, j;
@@ -126,7 +197,7 @@ td,
 th,
 tr {
     padding: 4px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
 }
 
 table {

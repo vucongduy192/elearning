@@ -245,9 +245,9 @@ export default {
                 modules: [],
             }),
             levels: [
-                { name: 'Easy', value: 0 },
-                { name: 'Medium', value: 1 },
-                { name: 'Hard', value: 2 },
+                { name: 'Easy', value: 1 },
+                { name: 'Medium', value: 2 },
+                { name: 'Hard', value: 3 },
             ],
         };
     },

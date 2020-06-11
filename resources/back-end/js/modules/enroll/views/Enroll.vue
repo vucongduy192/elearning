@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-sm-12">
             <div class="box box-info">
                 <div class="box-header">
                     <h3 class="box-title">Enroll List</h3>
@@ -35,8 +35,8 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="User"
-                                    v-model="username"
+                                    placeholder="Email"
+                                    v-model="email"
                                     v-on:keyup.enter="getResults()"
                                 />
                             </div>
@@ -53,6 +53,9 @@
                                         <th id="username" @click="clickSort('username')">
                                             Student <i class="sort"></i>
                                         </th>
+                                        <th id="email" @click="clickSort('email')">
+                                            Email <i class="sort"></i>
+                                        </th>
                                         <th id="course_name" @click="clickSort('course_name')">
                                             Course <i class="sort"></i>
                                         </th>
@@ -64,6 +67,7 @@
                                     <tr v-for="enroll in listFetch.data" :key="enroll.id">
                                         <td>{{ enroll.id }}</td>
                                         <td>{{ enroll.username }}</td>
+                                        <td>{{ enroll.email }}</td>
                                         <td>{{ enroll.course_name }}</td>
                                         <td>{{ enroll.courses_category }}</td>
                                         <!-- <td>
@@ -90,6 +94,49 @@
                 </div>
                 <!-- /.box-body -->
             </div>
+
+            <div class="box box-info">
+                <div class="box-header">
+                    <h3 class="box-title">Recommend</h3>
+                </div>
+                <div class="box-body">
+                    <form @submit.prevent="recommend">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input
+                                        v-model="r_email"
+                                        type="text"
+                                        name="c"
+                                        class="form-control"
+                                        placeholder="Enter email"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary">
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row" v-if="this.recommends">
+                        <div class="col-sm-8">
+                            <table class="table no-padding">
+                                <thead>
+                                    <th>Recommend courses</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(c, key)  in this.recommends" :key=key>
+                                        <td>{{ c.name }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -111,15 +158,27 @@ export default {
             sortColumn: 'id',
             sortType: 'desc',
             course_name: '',
-            username: '',
+            email: '',
+            r_email: '',
         };
     },
     computed: {
         listFetch() {
             return this.$store.state.storeEnroll.listFetch;
         },
+        recommends() {
+            return this.$store.state.storeEnroll.recommends;
+        },
     },
     methods: {
+        recommend() {
+            this.$store.dispatch('actionFetchRecommend', {
+                vue: this,
+                params: {
+                    email: this.r_email,
+                },
+            });
+        },
         clickSort(column) {
             this.sortType = this.sortType === 'desc' ? 'asc' : 'desc';
             this.sortColumn = column;
@@ -138,7 +197,7 @@ export default {
                 params: {
                     page: page,
                     course_name: this.course_name,
-                    username: this.username,
+                    email: this.email,
                     sortColumn: this.sortColumn,
                     sortType: this.sortType,
                 },

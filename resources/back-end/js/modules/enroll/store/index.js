@@ -2,12 +2,14 @@ import axios from 'axios';
 
 const FETCH_ENROLL = 'enroll/fetch_list';
 const ADMIN_ENROLL_SHOW = 'enroll/show';
+const FETCH_RECOMMEND = 'enroll/fetch_recommend';
 
 const state = {
     listFetch: {},
     edit: {
         data: {},
     },
+    recommends: {},
 };
 
 const mutations = {
@@ -16,6 +18,9 @@ const mutations = {
     },
     [ADMIN_ENROLL_SHOW](state, { data }) {
         return (state.edit.data = data);
+    },
+    [FETCH_RECOMMEND](state, { courses }) {
+        return (state.recommends = courses);
     },
 };
 
@@ -26,6 +31,16 @@ const actions = {
             let url = `/enrolls?${$.param(params)}`;
             const { data } = await axios.get(url);
             commit(FETCH_ENROLL, { listFetch: data });
+        } catch (error) {}
+        vue.$store.dispatch('setAdminMainLoading', { show: false });
+    },
+
+    async actionFetchRecommend({ commit }, { vue, params }) {
+        vue.$store.dispatch('setAdminMainLoading', { show: true });
+        try {
+            let url = `/recommend_progress?${$.param(params)}`;
+            const { data } = await axios.get(url);
+            commit(FETCH_RECOMMEND, { courses: data });
         } catch (error) {}
         vue.$store.dispatch('setAdminMainLoading', { show: false });
     },

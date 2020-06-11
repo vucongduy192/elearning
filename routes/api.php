@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Api\Admin', 'prefix' => 'v0'], function () {
         Route::get('partners', 'CourseController@getListPartners');
         Route::resource('modules', 'ModuleController', ['only' => ['show', 'update']]);
         Route::resource('enrolls', 'EnrollController');
+        Route::get('recommend_progress', 'EnrollController@getRecommendProgress');
         Route::post('enrolls/csv', 'EnrollController@dumpCSV');
         Route::post('configs/update', 'MatrixController@updateCoefficient');
         Route::post('configs/combine', 'MatrixController@combineMatrix');

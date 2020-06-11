@@ -8,9 +8,9 @@ class Course extends Model
 {
     protected $table = 'courses';
 
-    const EASY = 0;
-    const MEDIUM = 1;
-    const HARD = 2;
+    const EASY = 1;
+    const MEDIUM = 2;
+    const HARD = 3;
 
     const THUMBNAIL_WIDTH = 360;
     const THUMBNAIL_HEIGHT = 180;
@@ -30,6 +30,11 @@ class Course extends Model
         return $this->belongsTo('App\Models\Teacher');
     }
 
+    public function duration()
+    {
+        return $this->belongsTo('App\Models\Duration');
+    }
+
     public function modules()
     {
         return $this->hasMany('App\Models\Module')->select(['id', 'name', 'overview']);
@@ -42,7 +47,7 @@ class Course extends Model
 
      public function num_enrolls()
      {
-         return $this->hasMany('App\Models\Module', 'course_id', 'id');
+         return $this->hasMany('App\Models\Enroll', 'course_id', 'id');
      }
 
     public function reviews()
