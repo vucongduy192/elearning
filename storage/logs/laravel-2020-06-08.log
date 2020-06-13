@@ -1,0 +1,12 @@
+[2020-06-08 00:26:55] local.ERROR: Maximum execution time of 30 seconds exceeded {"userId":1457,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at /var/www/app/Repositories/SurveyRepository.php:61)
+[stacktrace]
+#0 {main}
+"} 
+[2020-06-08 00:27:14] local.ERROR: Maximum execution time of 30 seconds exceeded {"userId":1457,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at /var/www/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php:438)
+[stacktrace]
+#0 {main}
+"} 
+[2020-06-08 00:28:31] local.ERROR: Maximum execution time of 30 seconds exceeded {"userId":1457,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at /var/www/app/Repositories/SurveyRepository.php:59)
+[stacktrace]
+#0 {main}
+"} 
