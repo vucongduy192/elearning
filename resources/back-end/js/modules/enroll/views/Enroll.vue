@@ -128,7 +128,7 @@
                                     <th>Recommend courses</th>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(c, key)  in this.recommends" :key=key>
+                                    <tr v-for="(c, key) in this.recommends" :key="key">
                                         <td>{{ c.name }}</td>
                                     </tr>
                                 </tbody>

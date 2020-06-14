@@ -38,6 +38,8 @@ import Blog from '*/modules/blog/views/Blog';
 import BlogAdd from '*/modules/blog/views/BlogAdd';
 import BlogEdit from '*/modules/blog/views/BlogEdit';
 
+import Log from '*/modules/log/views/Log';
+
 const router = new VueRouter({
     mode: 'history',
     linkActiveClass: 'active',
@@ -232,6 +234,21 @@ const router = new VueRouter({
                             path: 'edit/:id',
                             name: 'main.blog.edit',
                             component: BlogEdit,
+                        },
+                    ],
+                },
+                {
+                    path: 'logs',
+                    component: {
+                        render(c) {
+                            return c('router-view');
+                        },
+                    },
+                    children: [
+                        {
+                            path: '',
+                            name: 'main.log',
+                            component: Log,
                         },
                     ],
                 },

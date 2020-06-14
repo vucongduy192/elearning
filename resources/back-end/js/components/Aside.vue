@@ -88,6 +88,12 @@
                         <i class="fa fa-newspaper-o"></i> <span>Blog</span>
                     </router-link>
                 </li>
+
+                <li v-if="auth_user.role_id >= 2">
+                    <router-link :to="{ name: 'main.log' }">
+                        <i class="fa fa-history"></i> <span>Logs</span>
+                    </router-link>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
