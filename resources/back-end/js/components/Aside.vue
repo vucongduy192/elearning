@@ -27,7 +27,7 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu tree" data-widget="tree">
-                <li v-if="auth_user.role_id >= 2">
+                <li v-if="auth_user.role_id >= 1">
                     <router-link :to="{ name: 'main.dashboard' }">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </router-link>

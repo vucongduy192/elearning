@@ -154,6 +154,25 @@ class CourseRepository
     }
 
     /**
+     * Get courses in top enrolled
+     *
+     * @return mixed
+     */
+    public function topRatedCourse($number = 3)
+    {
+        return $this->model->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
+            ->join('users', 'teachers.user_id', '=', 'users.id')
+            ->leftJoin('reviews', 'courses.id', '=', 'reviews.course_id')
+            ->groupby('courses.id')
+            ->select([
+                'courses.id', 'courses.name', 'courses.overview', 'courses.level', 'courses.thumbnail',
+                'courses.rate', 'courses.teacher_id', 'courses.price', DB::raw('avg(reviews.rating) as rating'),
+                'users.name as teacher_name',
+            ])->orderBy('rating', 'desc')
+            ->limit($number)->get();
+    }    
+
+    /**
      * @param $number
      * @param null $course_name
      * @param null $teacher

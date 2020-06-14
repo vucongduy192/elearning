@@ -20,11 +20,13 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $popular_courses = $this->course->popularCourse($number=5);
+        $topRatedCourse = $this->course->topRatedCourse($number=5);
         $best_teachers = $this->teacher->bestTeacher();
-
+        
         return $this->response([
             'top_courses' => $popular_courses,
             'best_professors' => $best_teachers,
+            'best_courses' => $topRatedCourse
         ]);
     }
 }
