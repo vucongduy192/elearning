@@ -125,10 +125,13 @@ class SurveyRepository
             
         if (count($courses) == 0)
             return [];
-        
-        $recommend_courses = array();
+
         // Get first course from each category untils recommend_courses length equals 3
+        $recommend_courses = array();
         while(count($recommend_courses) < 3) {
+            if(count($courses) == 0)
+                break;
+
             $copy_categories_id = $categories_id;
             foreach ($courses as $c) {
                 if (in_array($c->courses_category_id, $copy_categories_id)) {
@@ -139,6 +142,9 @@ class SurveyRepository
                 }
             }
         }
+
+        if (count($recommend_courses) == 0)
+            return [];
 
         $top_course = array_slice($recommend_courses, 0, 3);
         $top_id = array_column($top_course, 'id');

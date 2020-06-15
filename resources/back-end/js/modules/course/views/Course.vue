@@ -135,7 +135,7 @@ export default {
             sortType: 'asc',
             name: '',
             courses_category_id: -1,
-            levels: ['Easy', 'Medium', 'Hard'],
+            levels: ['', 'Easy', 'Medium', 'Hard'],
             delCourse: null,
         };
     },

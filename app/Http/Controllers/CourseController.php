@@ -70,7 +70,7 @@ class CourseController extends Controller
 
             $recommend_courses = (count($user->student->enrolled) == 0)
                 ? $this->survey->recommend()
-                : $this->enroll->recommend();
+                : $this->enroll->recommend()['top_courses'];
 
             $module_processed = $this->process->getModuleProcessed($user->student->id);
         }

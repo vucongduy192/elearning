@@ -96,7 +96,7 @@ class ProfileController extends Controller
     {
         $student = Auth::user()->student;
         $recommend_by_survey = $this->survey->recommend();
-        $recommend_by_enroll = (count($student->enrolled) != 0) ? $this->enroll->recommend() : [];
+        $recommend_by_enroll = (count($student->enrolled) != 0) ? $this->enroll->recommend()['top_courses'] : [];
 
         return view('pages.recommend', compact('recommend_by_survey', 'recommend_by_enroll'));
     }

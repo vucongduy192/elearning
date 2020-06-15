@@ -28,7 +28,7 @@ class BlogRepository
     /**
      * Get list blog
      */
-    public function pageWithRequest(Request $request, $number = 5, $searchColumn = 'title')
+    public function pageWithRequest(Request $request, $number = 8, $searchColumn = 'title')
     {
         $sortType = $request->get('sortType') ? $request->get('sortType') : 'desc';
         $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';

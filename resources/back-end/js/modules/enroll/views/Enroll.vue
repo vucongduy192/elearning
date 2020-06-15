@@ -121,18 +121,42 @@
                         </div>
                     </form>
 
-                    <div class="row" v-if="this.recommends">
-                        <div class="col-sm-8">
-                            <table class="table no-padding">
+                    <div class="row" v-if="this.recommends.top_courses">
+                        <div class="col-sm-5">
+                            <table class="table table-bordered">
                                 <thead>
                                     <th>Recommend courses</th>
+                                    <th>Score</th>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(c, key) in this.recommends" :key="key">
+                                    <tr v-for="(c, key) in this.recommends.top_courses" :key="key">
                                         <td>{{ c.name }}</td>
+                                        <td>{{ recommends.top_scores[c.id] }}</td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col-sm-7">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>Recommend courses</th>
+                                    <th>Ernolled courses</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(c, key) in this.recommends.top_courses" :key="key">
+                                        <td>{{ c.name }}</td>
+                                        <td>
+                                            <p>{{ recommends.traces[c.id] }}</p>
+                                            <!-- <p v-for="(value, name) in this.recommends.traces[c.id][0]" :key="name">
+                                                {{ name }}
+                                            </p> -->
+                                        </td>
+                                        <!-- <td v-for="(sim_c, sim_score) in this.recommends.traces[c.id]" :key="sim_score">
+                                            <p>{{ sim_c }} - {{ sim_score }}</p>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>                            
                         </div>
                     </div>
                 </div>

@@ -19,8 +19,8 @@ const mutations = {
     [ADMIN_ENROLL_SHOW](state, { data }) {
         return (state.edit.data = data);
     },
-    [FETCH_RECOMMEND](state, { courses }) {
-        return (state.recommends = courses);
+    [FETCH_RECOMMEND](state, { data }) {
+        return (state.recommends = data);
     },
 };
 
@@ -40,7 +40,7 @@ const actions = {
         try {
             let url = `/recommend_progress?${$.param(params)}`;
             const { data } = await axios.get(url);
-            commit(FETCH_RECOMMEND, { courses: data });
+            commit(FETCH_RECOMMEND, { data: data });
         } catch (error) {}
         vue.$store.dispatch('setAdminMainLoading', { show: false });
     },

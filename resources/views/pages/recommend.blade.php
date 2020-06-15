@@ -13,19 +13,16 @@
 <div class="courses">
     <div class="courses_background"></div>
     <div class="container">
+        @if($recommend_by_enroll)
         <div class="row">
             <div class="col">
-                <h3 class="section_title">Recommend courses from your survey</h3>
+                <h3 class="section_title">You may like</h3>
             </div>
         </div>
-        @if (count($recommend_by_survey) == 0)
-            <div class="course_text">
-                Not found any courses conform with your survey
-            </div>
         @endif
         <div class="row courses_row">
             <!-- Course -->
-            @foreach($recommend_by_survey as $course)
+            @foreach($recommend_by_enroll as $course)
             <div class="col-md-4 course_col">
                 <div class="course">
                     <div class="course_image"><img
@@ -67,16 +64,19 @@
             @endforeach
         </div>
         <div style="clear: both; height: 60px;"></div>
-        @if($recommend_by_enroll)
         <div class="row">
             <div class="col">
-                <h3 class="section_title">You may like</h3>
+                <h3 class="section_title">Recommend courses from your survey</h3>
             </div>
         </div>
+        @if (count($recommend_by_survey) == 0)
+            <div class="course_text">
+                Not found any courses conform with your survey
+            </div>
         @endif
         <div class="row courses_row">
             <!-- Course -->
-            @foreach($recommend_by_enroll as $course)
+            @foreach($recommend_by_survey as $course)
             <div class="col-md-4 course_col">
                 <div class="course">
                     <div class="course_image"><img

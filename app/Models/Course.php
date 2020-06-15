@@ -21,7 +21,7 @@ class Course extends Model
 
     public static function getLevel($level_id)
     {
-        $level_str = ['Easy', 'Medium', 'Hard'];
+        $level_str = ['', 'Easy', 'Medium', 'Hard'];
         return $level_str[$level_id];
     }
 

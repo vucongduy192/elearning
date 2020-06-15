@@ -29,7 +29,7 @@ class EnrollRepository {
     /**
      * Get list category
      */
-    public function pageWithRequest(Request $request, $number = 5, $searchColumn=['course_name', 'email'])
+    public function pageWithRequest(Request $request, $number = 8, $searchColumn=['course_name', 'email'])
     {
         $sortType = $request->get('sortType') ? $request->get('sortType') : 'desc';
         $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';
@@ -90,9 +90,9 @@ class EnrollRepository {
         $enrolled = $splited['enrolled'];
         $non_enrolled = $splited['non_enrolled'];
         
-        $top_id = $this->getTopID($enrolled, $non_enrolled);
+        $scores = $this->calScore($enrolled, $non_enrolled);
         
-        return Course::whereIn('courses.id', $top_id)
+        $scores['top_courses'] = Course::whereIn('courses.id', array_keys($scores['top_scores']))
             ->join('teachers', 'courses.teacher_id', '=', 'teachers.id')
             ->join('users', 'teachers.user_id', '=', 'users.id')
             ->leftJoin('enrolls', 'courses.id', '=', 'enrolls.course_id')
@@ -102,6 +102,7 @@ class EnrollRepository {
                 'users.name as teacher_name', 
             ])
             ->get();
+        return $scores;
     }
 
     /**
@@ -127,7 +128,7 @@ class EnrollRepository {
     /**
      * Apply collaborative algorithm to get top score course_id
      */
-    public function getTopID($enrolled, $non_enrolled)
+    public function calScore($enrolled, $non_enrolled)
     {
         $sim_csv_path = public_path("recommend/similar_matrix.csv");
         $file = fopen($sim_csv_path, 'r');
@@ -136,6 +137,7 @@ class EnrollRepository {
         $index_2_id = Course::pluck("id")->toArray();
         $id_2_index = array_flip($index_2_id);
 
+        $traces = [];
         $scores = array_fill_keys(array_keys($non_enrolled), 0);
         foreach ($non_enrolled as $c_i => $str_i) {
             # Find until get vector $c_i
@@ -149,15 +151,30 @@ class EnrollRepository {
                 $similar[$c_j] = $row[$id_2_index[$c_j] + 1];
             }
             arsort($similar);    # sort by value similar
-            $scores[$c_i] = array_sum(array_splice($similar, 0, 3));
+            $courses_trace = [];
+            foreach($similar as $key => $value) {
+                $course_name = Course::where('id', $key)->first()->name;
+                $courses_trace[$course_name] = $value;
+            }
+            // $traces[$c_i] = array_slice($courses_trace, 0, 3);
+            $traces[$c_i] = $courses_trace;
+            $scores[$c_i] = array_sum(array_slice($similar, 0, 3));
+        }
+        arsort($scores);
+        // dd($scores);
+        if (sizeof($scores) >= 3)
+            $top_scores = array_slice($scores, 0, 3, true);
+        else {
+            $top_scores = $scores;
         }
 
-        arsort($scores);
-        if (sizeof($scores) >= 3)
-            $top_id = array_keys(array_slice($scores, 0, 3, true));
-        else {
-            $top_id = array_keys($scores);
-        }
-        return $top_id;
+        $traces = array_filter($traces, function ($key) use ($top_scores) { 
+            return in_array($key, array_keys($top_scores));
+        }, ARRAY_FILTER_USE_KEY);
+        
+        return [
+            'top_scores' => $top_scores,
+            'traces' => $traces 
+        ];
     }
 }

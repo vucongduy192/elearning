@@ -32,7 +32,7 @@ class UserRepository
     /**
      * Get list category
      */
-    public function pageWithRequest(Request $request, $number = 5, $searchColumn = 'name')
+    public function pageWithRequest(Request $request, $number = 8, $searchColumn = 'name')
     {
         $sortType = $request->get('sortType') ? $request->get('sortType') : 'desc';
         $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';

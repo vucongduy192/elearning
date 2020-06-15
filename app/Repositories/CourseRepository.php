@@ -38,7 +38,7 @@ class CourseRepository
     /**
      * Get list category
      */
-    public function pageWithRequest(Request $request, $number = 5)
+    public function pageWithRequest(Request $request, $number = 8)
     {
         $searchColumn = ['name', 'courses_category_id', 'teacher_id'];
 

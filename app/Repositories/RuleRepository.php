@@ -27,7 +27,7 @@ class RuleRepository {
     /**
      * Get list category
      */
-    public function pageWithRequest(Request $request, $number = 5)
+    public function pageWithRequest(Request $request, $number = 8)
     {
         $sortType = $request->get('sortType') ? $request->get('sortType') : 'desc';
         $sortColumn = $request->get('sortColumn') ? $request->get('sortColumn') : 'id';

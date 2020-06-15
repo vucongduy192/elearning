@@ -35,8 +35,8 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(c, key)  in this.current_row.slice(0, 6)" :key=key>
-                                        <td>{{ c[0] }}</td>
-                                        <td>{{ c[1] }}</td>
+                                        <td v-if="c != null">{{ c[0] }}</td>
+                                        <td v-if="c != null">{{ c[1] }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -100,7 +100,7 @@ export default {
         this.config = this.$store.state.storeConfig.config;
         d3.csv('/recommend/similar_matrix.csv', (error, data) => {
             this.data_csv = data;
-            this.courses = data.map((row) => row.course);
+            this.courses = data.map((row) => row.course).sort();
         });
     },
     data() {
@@ -122,6 +122,7 @@ export default {
             sortable.sort(function(a, b) {
                 return b[1] - a[1];
             });
+            delete sortable[0];
             return sortable;
         },
         buildTable() {
@@ -130,7 +131,6 @@ export default {
             });
             delete this.current_row[0].course;
             this.current_row = this.sortProperty(this.current_row[0]);
-            console.log(this.current_row);
         },
         async saveConfig() {
             this.$store.dispatch('setAdminMainLoading', { show: true });
