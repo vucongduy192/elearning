@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-primary" @click="buildTable('vi')">
+                            <button class="btn btn-primary" @click="buildTable()">
                                 Top similar
                             </button>
                         </div>
@@ -123,18 +123,21 @@ export default {
         d3.csv('/recommend/similar_matrix.csv', (error, data) => {
             this.data_csv = data;
         });
-        this.courses = this.langs;
     },
     data() {
         return {
             config: {},
             langs: [],
             current_lang: 'vi',
-            courses: {},
             current_course: '',
             current_row: null,
             data_csv: {},
         };
+    },
+    computed: {
+        courses() {
+            return this.langs;
+        }
     },
     methods: {
         sortProperty(obj) {
@@ -151,8 +154,9 @@ export default {
             delete sortable[0];
             return sortable;
         },
-        buildTable (lang='vi') {
-            this.current_lang = lang;
+        async buildTable (lang) {
+            if (lang !== undefined)
+                this.current_lang = lang;
             this.current_row = this.data_csv.find(row => row.course === this.current_course);
             this.current_row = this.sortProperty(this.current_row);
         },
