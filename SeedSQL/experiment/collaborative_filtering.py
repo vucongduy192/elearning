@@ -124,8 +124,9 @@ class CF(object):
 
 
 if __name__ == '__main__':
-    train = pd.read_csv('./enroll_train.csv')
-    test = pd.read_csv('./enroll_test.csv')
+    version = 'v1'
+    train = pd.read_csv(version + '/enroll_train.csv')
+    test = pd.read_csv(version + '/enroll_test.csv')
     k_neighbor = 5
 
     rs = CF(train, k_neighbor)

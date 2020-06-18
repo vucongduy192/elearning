@@ -25,6 +25,17 @@
                                     <has-error :form="form" field="name"></has-error>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Name (english)</label>
+                                    <input
+                                        v-model="form.name_en"
+                                        type="text"
+                                        name="name_en"
+                                        class="form-control"
+                                        placeholder="Enter name (english)"
+                                    />
+                                    <has-error :form="form" field="name_en"></has-error>
+                                </div>
+                                <div class="form-group">
                                     <label for="">Overview</label>
                                     <textarea
                                         v-model="form.overview"
@@ -234,6 +245,7 @@ export default {
         return {
             form: new Form({
                 name: '',
+                name_en: '',
                 overview: '',
                 price: '',
                 level: '',

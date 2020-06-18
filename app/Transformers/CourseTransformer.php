@@ -15,6 +15,7 @@ class CourseTransformer extends TransformerAbstract
         return [
             'id' => $course->id,
             'name' => $course->name,
+            'name_en' => $course->name_en,
             'overview' => $course->overview,
             'price' => $course->price,
             'enrolls' => $course->enrolls,

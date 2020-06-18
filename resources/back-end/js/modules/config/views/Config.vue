@@ -4,6 +4,14 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h3 class="box-title">Enrollment Similar Item</h3>
+                    <div class="pull-right">
+                        <button class="btn btn-primary" v-on:click="buildTable('en')">
+                            en
+                        </button>
+                        <button class="btn btn-success" v-on:click="buildTable('vi')">
+                            vi
+                        </button>
+                    </div>
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -12,16 +20,19 @@
                                 <select v-model="current_course" class="form-control">
                                     <option value="" selected>Select course</option>
                                     <option
-                                        v-for="course in this.courses"
+                                        v-for="(course_en, course) of this.courses"
                                         v-bind:value="course"
                                         v-bind:key="course"
-                                        >{{ course }}</option
+                                        >
+                                            <span v-if="current_lang=='vi'">{{ course }}</span>
+                                            <span v-else> {{ course_en }}</span>
+                                        </option
                                     >
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-primary" @click="buildTable()">
+                            <button class="btn btn-primary" @click="buildTable('vi')">
                                 Top similar
                             </button>
                         </div>
@@ -34,7 +45,7 @@
                                     <th>Score</th>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(c, key)  in this.current_row.slice(0, 6)" :key=key>
+                                    <tr v-for="(c, key) in this.current_row.slice(0, 6)" :key="key">
                                         <td v-if="c != null">{{ c[0] }}</td>
                                         <td v-if="c != null">{{ c[1] }}</td>
                                     </tr>
@@ -76,6 +87,14 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h3 class="box-title">Enrollment Similar Matrix</h3>
+                    <div class="pull-right">
+                        <button class="btn btn-primary" v-on:click="loadMatrix('en')">
+                            en
+                        </button>
+                        <button class="btn btn-success" v-on:click="loadMatrix('vi')">
+                            vi
+                        </button>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -97,15 +116,20 @@ export default {
     name: 'Config',
     async mounted() {
         await this.$store.dispatch('actionFetchConfig', { vue: this });
+        await this.$store.dispatch('actionFetchLangs', { vue: this });
+
         this.config = this.$store.state.storeConfig.config;
+        this.langs = this.$store.state.storeConfig.langs;
         d3.csv('/recommend/similar_matrix.csv', (error, data) => {
             this.data_csv = data;
-            this.courses = data.map((row) => row.course).sort();
         });
+        this.courses = this.langs;
     },
     data() {
         return {
             config: {},
+            langs: [],
+            current_lang: 'vi',
             courses: {},
             current_course: '',
             current_row: null,
@@ -116,21 +140,21 @@ export default {
         sortProperty(obj) {
             var sortable = [];
             for (var c in obj) {
-                sortable.push([c, obj[c]]);
+                if(this.current_lang === 'vi')
+                    sortable.push([c, obj[c]]);
+                else sortable.push([this.langs[c], obj[c]]);
             }
 
-            sortable.sort(function(a, b) {
+            sortable.sort(function (a, b) {
                 return b[1] - a[1];
             });
             delete sortable[0];
             return sortable;
         },
-        buildTable() {
-            this.current_row = this.data_csv.filter((row) => {
-                return row.course === this.current_course;
-            });
-            delete this.current_row[0].course;
-            this.current_row = this.sortProperty(this.current_row[0]);
+        buildTable (lang='vi') {
+            this.current_lang = lang;
+            this.current_row = this.data_csv.find(row => row.course === this.current_course);
+            this.current_row = this.sortProperty(this.current_row);
         },
         async saveConfig() {
             this.$store.dispatch('setAdminMainLoading', { show: true });
@@ -146,12 +170,14 @@ export default {
             }
             this.$store.dispatch('setAdminMainLoading', { show: false });
         },
-        loadMatrix() {
+        loadMatrix (lang='vi') {
             d3.csv('/recommend/similar_matrix.csv', (error, data) => {
                 var columns = [],
                     rows = [];
                 data.forEach((row) => {
-                    columns.push(row.course);
+                    console.log(row.course, this.langs[row.course]);
+                    if (lang === 'vi') columns.push(row.course);
+                    else columns.push(this.langs[row.course]);
                     delete row.course;
                     var row_round = Object.values(row).map((val) => {
                         return val.slice(0, 4);

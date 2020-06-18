@@ -1,38 +1,38 @@
-category,course
-Công nghệ phần mềm,Thiết kế giao diện người dùng
-Công nghệ phần mềm,Kiểm thử và đảm bảo chất lượng phần mềm
-Công nghệ phần mềm,Kiến trúc phần mềm
-Công nghệ phần mềm,Phân tích và thiết kế hướng đối tượng
-Công nghệ phần mềm,Quản lý dự án phần mềm
-Toán học,Giải tích
-Toán học,Tư duy toán học
-Toán học,Đại số tuyến tính
-Toán học,Toán ứng dụng
-Khoa học máy tính,Trí tuệ nhân tạo
-Khoa học máy tính,Chương trình dịch
-Khoa học máy tính,Xử lý ảnh
-Khoa học máy tính,Học máy
-Ngôn ngữ,Nhập môn tiếng Nhật
-Ngôn ngữ,Tiếng Anh giao tiếp
-Mạng và truyền thông,Lập trình mạng
-Mạng và truyền thông,Phát triển ứng dụng Web
-Mạng và truyền thông,Quản trị mạng
-Kinh tế học cơ bản,Kinh tế tiền tệ và ngân hàng
-Kinh tế học cơ bản,Nguyên tắc kinh tế vi mô
-Kinh tế học cơ bản,Khái niệm cơ bản về giao dịch
-Kinh tế học cơ bản,Cơ sở kinh doanh
-Kinh tế học cơ bản,Thị trường tài chính
-Marketing,Giới thiệu về marketing
-Marketing,Marketing trong thế giới thực
-Marketing,Tiếp thị kỹ thuật số
-Lịch sử,Lịch sử Việt Nam cận đại
-Lịch sử,Chiến tranh thế giới thứ 1
-Lịch sử,Chiến tranh thế giới thứ 2
-Lịch sử,Phát xít Đức
-Lịch sử,Ai Cập cổ đại
-Sức khỏe và đời sống,Dinh dưỡng cho trẻ
-Sức khỏe và đời sống,Tâm lý xã hội
-Sức khỏe và đời sống,Bệnh tiểu đường
-Nghệ thuật,Giới thiệu về nhạc cổ điển
-Nghệ thuật,Guitar cho người mới bắt đầu
-Nghệ thuật,Hội họa thời Phục hưng
+category,course,category_en,course_en
+Công nghệ phần mềm,Thiết kế giao diện người dùng,Software Engineering,Human Interface
+Công nghệ phần mềm,Kiểm thử và đảm bảo chất lượng phần mềm,Software Engineering,Software Testing Techniques
+Công nghệ phần mềm,Kiến trúc phần mềm,Software Engineering,Software Architecture
+Công nghệ phần mềm,Phân tích và thiết kế hướng đối tượng,Software Engineering,Object Oriented Programming
+Công nghệ phần mềm,Quản lý dự án phần mềm,Software Engineering,Software Project Management 
+Toán học,Giải tích,Math and Logic,Mathematical Analysis
+Toán học,Tư duy toán học,Math and Logic,Mathematical Thinking
+Toán học,Đại số tuyến tính,Math and Logic,Linear Algebra
+Toán học,Lý thuyết trò chơi,Math and Logic,Game Theory
+Khoa học máy tính,Trí tuệ nhân tạo,Computer Science,Artificial Intelligence
+Khoa học máy tính,Chương trình dịch,Computer Science,Compiler Programing
+Khoa học máy tính,Xử lý ảnh,Computer Science,Image Processing
+Khoa học máy tính,Xử lý ngôn ngữ tự nhiên,Computer Science,Natural Language Processing
+Ngôn ngữ,Nhập môn tiếng Nhật,Language,Introduction to Japanese
+Ngôn ngữ,Tiếng Anh giao tiếp,Language,Communication English
+Mạng và truyền thông,Lập trình mạng,Communications and Computer Networks,Network Programming
+Mạng và truyền thông,Phát triển ứng dụng Web,Communications and Computer Networks,Website Development
+Mạng và truyền thông,An ninh mạng,Communications and Computer Networks,Network Security
+Kinh tế học cơ bản,Kinh tế tiền tệ và ngân hàng,Economic,Introduction to Bank
+Kinh tế học cơ bản,Nguyên tắc kinh tế vi mô,Economic,Micro Economic
+Kinh tế học cơ bản,Khái niệm cơ bản về giao dịch,Economic,Introduction to Transactional
+Kinh tế học cơ bản,Cơ sở kinh doanh,Economic,Business Model
+Kinh tế học cơ bản,Thị trường tài chính,Economic,Financial Markets
+Marketing,Giới thiệu về marketing,Marketing,Introduction to marketing
+Marketing,Marketing trong thế giới thực,Marketing,Marketing in the World
+Marketing,Tiếp thị kỹ thuật số,Marketing,Digital mMkerting
+Lịch sử,Lịch sử Việt Nam cận đại,History,History of Vietnam
+Lịch sử,Chiến tranh thế giới thứ 1,History,1st World War
+Lịch sử,Chiến tranh thế giới thứ 2,History,2nd World War
+Lịch sử,Văn hóa Việt Nam,History,Vietnamese culture
+Lịch sử,Lịch sử Hà Nội,History,History of Ha Noi
+Sức khỏe và đời sống,Dinh dưỡng cho trẻ,Health,Children Nutrition
+Sức khỏe và đời sống,Tâm lý xã hội,Health,Psychology
+Sức khỏe và đời sống,Bệnh tiểu đường,Health,Healthcare Management
+Nghệ thuật,Giới thiệu về kiến trúc,Arts and Humanities,Introdution to Architect
+Nghệ thuật,Nhạc truyền thống,Arts and Humanities,Traditional music
+Nghệ thuật,Hội họa,Arts and Humanities,Painting

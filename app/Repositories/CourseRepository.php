@@ -82,7 +82,7 @@ class CourseRepository
      */
     public function customStore(CourseRequest $request)
     {
-        $input = $request->only(['name', 'overview', 'price', 'level', 'teacher_id', 'courses_category_id', 'duration_id', 'partner_id']);
+        $input = $request->only(['name', 'name_en', 'overview', 'price', 'level', 'teacher_id', 'courses_category_id', 'duration_id', 'partner_id']);
         if (empty($input['teacher_id']))
             $input['teacher_id'] = Teacher::TEACHER_ADMIN_ID;
 
@@ -105,7 +105,7 @@ class CourseRepository
      */
     public function customUpdate(CourseRequest $request, $id)
     {
-        $input = $request->only(['name', 'overview', 'price', 'level', 'teacher_id', 'courses_category_id', 'duration_id', 'partner_id']);
+        $input = $request->only(['name', 'name_en', 'overview', 'price', 'level', 'teacher_id', 'courses_category_id', 'duration_id', 'partner_id']);
         $new_thumbnail = $this->uploadImage(
             $request,
             $image_name = 'thumbnail',
@@ -146,7 +146,7 @@ class CourseRepository
             ->leftJoin('enrolls', 'courses.id', '=', 'enrolls.course_id')
             ->groupby('courses.id')
             ->select([
-                'courses.id', 'courses.name', 'courses.overview', 'courses.level', 'courses.thumbnail',
+                'courses.id', 'courses.name', 'courses.name_en', 'courses.overview', 'courses.level', 'courses.thumbnail',
                 'courses.rate', 'courses.teacher_id', 'courses.price', DB::raw('count(*) as enrolls'),
                 'users.name as teacher_name',
             ])->orderBy('enrolls', 'desc')
@@ -165,7 +165,7 @@ class CourseRepository
             ->leftJoin('reviews', 'courses.id', '=', 'reviews.course_id')
             ->groupby('courses.id')
             ->select([
-                'courses.id', 'courses.name', 'courses.overview', 'courses.level', 'courses.thumbnail',
+                'courses.id', 'courses.name', 'courses.name_en', 'courses.overview', 'courses.level', 'courses.thumbnail',
                 'courses.rate', 'courses.teacher_id', 'courses.price', DB::raw('avg(reviews.rating) as rating'),
                 'users.name as teacher_name',
             ])->orderBy('rating', 'desc')
@@ -188,7 +188,7 @@ class CourseRepository
             ->leftJoin('enrolls', 'courses.id', '=', 'enrolls.course_id')
             ->groupby('courses.id')
             ->select([
-                'courses.id', 'courses.name', 'courses.overview', 'courses.level', 'courses.thumbnail',
+                'courses.id', 'courses.name', 'courses.name_en', 'courses.overview', 'courses.level', 'courses.thumbnail',
                 'courses.rate', 'courses.teacher_id', 'courses.price', DB::raw('count(*) as enrolls'),
                 'users.name as teacher_name',
             ])
@@ -206,5 +206,10 @@ class CourseRepository
             })
             ->orderBy('courses.id', 'asc')
             ->paginate($number);
+    }
+
+    public function getNameConvert()
+    {
+        return $this->model->pluck('name_en', 'name')->toArray();
     }
 }

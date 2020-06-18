@@ -25,6 +25,7 @@ class CourseRequest extends FormRequest
     {
         $rules_store = [
             'name' => 'required|unique:courses',
+            'name_en' => 'required|unique:courses',
             'overview' => 'required',
             'price' => 'required',
             'level' => 'required',
@@ -37,6 +38,7 @@ class CourseRequest extends FormRequest
         ];
         $rules_update = [
             'name' => 'required|unique:courses,name,'.$this->route('course'),
+            'name_en' => 'required|unique:courses,name_en,'.$this->route('course'),
             'overview' => 'required',
             'price' => 'required',
             'level' => 'required',

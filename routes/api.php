@@ -42,6 +42,8 @@ Route::group(['namespace' => 'Api\Admin', 'prefix' => 'v0'], function () {
         Route::post('enrolls/csv', 'EnrollController@dumpCSV');
         Route::post('configs/update', 'MatrixController@updateCoefficient');
         Route::post('configs/combine', 'MatrixController@combineMatrix');
+        Route::get('configs/get_name_convert', 'ConfigController@getNameConvert');
+
         Route::get('configs', 'MatrixController@getConfig');
         Route::resource('blogs', 'BlogController');
         Route::post('blogs/upload_image', 'BlogController@uploadImagePost');
