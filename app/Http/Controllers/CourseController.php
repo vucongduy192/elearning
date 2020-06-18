@@ -37,7 +37,8 @@ class CourseController extends Controller
         // $number = 6;
         // $courses = $this->course->filterCourse($number);
         $categories = $this->category->all();
-        return view('pages.courses', compact('categories'));
+        $header_search_name = $request->name;
+        return view('pages.courses', compact('categories', 'header_search_name'));
     }
 
     public function search(Request $request)

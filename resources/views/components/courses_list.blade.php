@@ -1,12 +1,14 @@
 <div class="row courses_row">
     @if (count($courses) == 0)
-    <div class="course_text" style="color: black;">
-        Not found any courses
+    <div class="course_body" style="width: 100%; margin-left: 15px; margin-right: 15px;">
+        <div class="course_text">
+            Sorry, can't found any courses.
+        </div>
     </div>
     @endif
 
     @foreach($courses as $course)
-    <div class="col-md-4 course_col">
+    <div class="col-lg-4 col-md-6 col-xs-6 course_col">
         <div class="course">
             <div class="course_image">
                 <img src="{{ $course->thumbnail ? $course->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL }}"

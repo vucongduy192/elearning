@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/instructors_responsive.css") }}">
 @endsection
 @section('content')
-<div class="header_padding" style="height: 500px;"></div>
+<div class="header_padding professor_header" style="height: 500px;"></div>
 
 <div class="video">
     <div class="container">

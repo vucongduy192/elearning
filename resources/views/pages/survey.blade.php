@@ -3,10 +3,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/main_styles.css") }}">
 <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/responsive.css") }}">
 <style>
-    label {
-        color: rgba(0, 0, 0, 1);
-    }
-
     .carousel-item {
         min-height: 320px;
     }

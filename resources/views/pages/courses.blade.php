@@ -13,7 +13,7 @@
 @endsection
 @section('content')
     <div class="header_padding"></div>
-    <div class="courses">
+    <div class="courses" style="min-height: 700px;">
         <div class="container">
             <div class="card" style="margin-bottom: 20px;">
                 <div class="card-body">
@@ -21,7 +21,7 @@
                         @csrf
                         <div class="row" style="margin-bottom: -20px;">
                             <div class="col-md-5 form-group">
-                                <input id="name" type="text" class="form-control" name="name" placeholder="Course name">
+                                <input id="name" type="text" value="{{ $header_search_name }}" class="form-control" name="name" placeholder="Course name">
                             </div>
 
                             <div class="col-md-3 form-group">

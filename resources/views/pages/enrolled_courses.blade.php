@@ -18,7 +18,7 @@
 @endsection
 @section('content')
 <div class="header_padding" style="height: 120px;"></div>
-<div class="auth" style="min-height: 550px;">
+<div class="auth" style="min-height: 650px;">
     <div class="container">
         <div class="col-md-8 offset-md-2">
             <div class="tab_panels">

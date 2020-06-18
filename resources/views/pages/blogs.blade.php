@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="blogs_list" style="min-height: 295px;">
+        <div class="blogs_list" style="min-height: 350px;">
 
         </div>
     </div>

@@ -1,6 +1,11 @@
 <!-- Menu -->
 <div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
-    <div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+    <div class="menu_close_container">
+        <div class="menu_close">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <div class="search">
         <form action="#" class="header_search_form menu_mm">
             <input type="search" class="search_input menu_mm" placeholder="Search" required="required">
@@ -17,37 +22,37 @@
             <li class="menu_mm">
                 <a href="{{ route('courses.index') }}">Courses</a>
             </li>
-            <li class="menu_mm"><a href="#">Professors</a>
+            <li class="menu_mm"><a href="{{ route('professors.index') }}">Professors</a>
             </li>
             @guest
-                <li class="menu_mm">
-                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-                <li class="menu_mm">
-                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
+            <li class="menu_mm">
+                <a href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+            <li class="menu_mm">
+                <a href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
             @else
-                <li class="menu_mm">
-                    <a href="{{ route('profile.show') }}">Profile</a>
-                </li>
-                @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STUDENT)
-                    <li class="menu_mm">
-                        <a href="{{ route('profile.enrolled_page') }}">My Courses</a>
-                    </li>
-                    <li class="menu_mm">
-                        <a href="{{ route('profile.recommend') }}">Recommend</a>
-                    </li>
-                @elseif(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::TEACHER)
-                    <li class="menu_mm">
-                        <a href="{{ route('admin') }}">Courses Manager</a>
-                    </li>
-                @endif
-                <li class="menu_mm">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+            <li class="menu_mm">
+                <a href="{{ route('profile.show') }}">Profile</a>
+            </li>
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STUDENT)
+            <li class="menu_mm">
+                <a href="{{ route('profile.enrolled_page') }}">My Courses</a>
+            </li>
+            <li class="menu_mm">
+                <a href="{{ route('profile.recommend') }}">Recommend</a>
+            </li>
+            @elseif(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::TEACHER)
+            <li class="menu_mm">
+                <a href="{{ route('admin') }}">Courses Manager</a>
+            </li>
+            @endif
+            <li class="menu_mm">
+                <a href="{{ route('logout') }}" onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-                </li>
+                    {{ __('Logout') }}
+                </a>
+            </li>
             @endguest
         </ul>
     </nav>
@@ -63,4 +68,3 @@
         </div>
     </div>
 </div>
-

@@ -1,6 +1,6 @@
 <header class="header">
-@if (strpos(Request::url(), 'lectures'))
-@else
+    @if (strpos(Request::url(), 'lectures'))
+    @else
     <!-- Top Bar -->
     <div class="top_bar">
         <div class="top_bar_container">
@@ -8,16 +8,22 @@
                 <div class="row">
                     <div class="col">
                         <div class="top_bar_content d-flex flex-row align-items-center justify-content-start">
-                            <div class="top_bar_phone"><span class="top_bar_title">phone:</span>+44 300 303 0266</div>
+                            <div class="top_bar_phone"><span class="top_bar_title">phone:</span>0971053097</div>
                             <div class="top_bar_right ml-auto">
 
                                 <!-- Social -->
                                 <div class="top_bar_social">
                                     <span class="top_bar_title social_title">follow us</span>
                                     <ul>
-                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a
+                                                href="https://www.facebook.com/H%E1%BB%8Dc-li%E1%BB%87u-tr%E1%BB%B1c-tuy%E1%BA%BFn-102682404824217/notifications/"><i
+                                                    class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a
+                                                href="https://www.facebook.com/H%E1%BB%8Dc-li%E1%BB%87u-tr%E1%BB%B1c-tuy%E1%BA%BFn-102682404824217/notifications/"><i
+                                                    class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                        <li><a
+                                                href="https://www.facebook.com/H%E1%BB%8Dc-li%E1%BB%87u-tr%E1%BB%B1c-tuy%E1%BA%BFn-102682404824217/notifications/"><i
+                                                    class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -27,7 +33,7 @@
             </div>
         </div>
     </div>
-@endif
+    @endif
     <!-- Header Content -->
     <div class="header_container">
         <div class="container">
@@ -65,7 +71,7 @@
                         <div class="header_content_right ml-auto text-right">
                             <div class="header_search">
                                 <div class="search_form_container">
-                                    <form method="POST" action="{{ route('courses.search') }}"
+                                    <form method="GET" action="{{ route('courses.index') }}"
                                         class="search_form trans_400">
                                         @csrf
                                         <input type="search" class="header_search_input trans_400"
@@ -95,14 +101,16 @@
                                             <a class="dropdown-item" href="{{ route('profile.show') }}">
                                                 Profile
                                             </a>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::STUDENT)
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role_id ==
+                                            \App\Models\User::STUDENT)
                                             <a class="dropdown-item" href="{{ route('profile.enrolled_page') }}">
                                                 My Courses
                                             </a>
                                             <a class="dropdown-item" href="{{ route('profile.recommend') }}">
                                                 Recommend
                                             </a>
-                                            @elseif(\Illuminate\Support\Facades\Auth::user()->role_id == \App\Models\User::TEACHER)
+                                            @elseif(\Illuminate\Support\Facades\Auth::user()->role_id ==
+                                            \App\Models\User::TEACHER)
                                             <a class="dropdown-item" href="{{ route('admin') }}">
                                                 Courses Manager
                                             </a>

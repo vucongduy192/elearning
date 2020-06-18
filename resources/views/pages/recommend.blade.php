@@ -71,7 +71,7 @@
         </div>
         @if (count($recommend_by_survey) == 0)
             <div class="course_text">
-                Not found any courses conform with your survey
+                Not found any courses conform with your survey. Do new <a href="{{ route('survey.show') }}">survey</a>.
             </div>
         @endif
         <div class="row courses_row">
