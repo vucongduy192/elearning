@@ -2,10 +2,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo e(asset("front-end/styles/main_styles.css")); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo e(asset("front-end/styles/responsive.css")); ?>">
 <style>
-    label {
-        color: rgba(0, 0, 0, 1);
-    }
-
     .carousel-item {
         min-height: 320px;
     }
@@ -56,7 +52,7 @@
         <div class="row auth_row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Survey interested category</div>
+                    <div class="card-header">Khảo sát</div>
 
                     <div class="card-body">
                         <div id="survey-carousel" class="carousel slide" data-interval="false">
@@ -73,28 +69,28 @@
                                     <div class="carousel-item active">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <label for="level">Level</label>
+                                                <label for="level">Độ khó</label>
                                                 <select class="form-control" name="level" id="">
                                                     <option value=""
                                                         <?php echo e(empty($surveyRank['ranks']->level) ? "selected" : ""); ?>>
-                                                        All levels</option>
+                                                        Tất cả</option>
                                                     <option value="<?php echo e(App\Models\Course::EASY); ?>"
                                                         <?php echo e($surveyRank['ranks'] && $surveyRank['ranks']->level == 1 ? "selected" : ""); ?>>
-                                                        Easy</option>
+                                                        Dễ</option>
                                                     <option value="<?php echo e(App\Models\Course::MEDIUM); ?>"
                                                         <?php echo e($surveyRank['ranks'] && $surveyRank['ranks']->level == 2 ? "selected" : ""); ?>>
-                                                        Medium</option>
+                                                        Trung bình</option>
                                                     <option value="<?php echo e(App\Models\Course::HARD); ?>"
                                                         <?php echo e($surveyRank['ranks'] && $surveyRank['ranks']->level == 3 ? "selected" : ""); ?>>
-                                                        Hard</option>
+                                                        Khó</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6">
-                                                <label for="duration_id">Duration</label>
+                                                <label for="duration_id">Thời gian</label>
                                                 <select class="form-control" name="duration_id" id="">
                                                     <option value=""
                                                         <?php echo e(empty($surveyRank['ranks']->duration_id) ? "selected" : ""); ?>>
-                                                        All durations
+                                                        Tất cả
                                                     </option>
                                                     <?php $__currentLoopData = $surveyRank['durations']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $duration): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($duration->id); ?>"
@@ -112,7 +108,7 @@
                                                 <select class="form-control" name="partner_id" id="">
                                                     <option value=""
                                                         <?php echo e(empty($surveyRank['ranks']->partner_id) ? "selected" : ""); ?>>
-                                                        All partners
+                                                        Nguồn
                                                     </option>
                                                     <?php $__currentLoopData = $surveyRank['partners']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($partner->id); ?>"
@@ -130,7 +126,7 @@
                                                     <?php echo e($surveyRank["ranks"] && $surveyRank['ranks']->free == 1 ? "checked" : ""); ?>
 
                                                     value="1">
-                                                <label for="free">Only free courses</label>
+                                                <label for="free">Khóa học free</label>
                                             </div>
                                         </div>
                                     </div>
@@ -188,4 +184,5 @@
         <?php endif; ?>
 </script>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/resources/views/pages/survey.blade.php ENDPATH**/ ?>

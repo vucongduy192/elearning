@@ -8,12 +8,12 @@
                 <div class="row">
                     <div class="col">
                         <div class="top_bar_content d-flex flex-row align-items-center justify-content-start">
-                            <div class="top_bar_phone"><span class="top_bar_title">phone:</span>0971053097</div>
+                            <div class="top_bar_phone"><span class="top_bar_title">SĐT:</span>0971053097</div>
                             <div class="top_bar_right ml-auto">
 
                                 <!-- Social -->
                                 <div class="top_bar_social">
-                                    <span class="top_bar_title social_title">follow us</span>
+                                    <span class="top_bar_title social_title">Mạng xã hội</span>
                                     <ul>
                                         <li><a
                                                 href="https://www.facebook.com/H%E1%BB%8Dc-li%E1%BB%87u-tr%E1%BB%B1c-tuy%E1%BA%BFn-102682404824217/notifications/"><i
@@ -49,21 +49,21 @@
                         <nav class="main_nav_contaner">
                             <ul class="main_nav">
                                 <li class="active">
-                                    <a href="{{ route('home') }}">Home</a>
+                                    <a href="{{ route('home') }}">Trang chủ</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('courses.index') }}">Courses</a>
+                                    <a href="{{ route('courses.index') }}">Khóa học</a>
                                 </li>
-                                <li><a href="{{ route('professors.index') }}">Professors</a>
+                                <li><a href="{{ route('professors.index') }}">Giảng viên</a>
                                 </li>
-                                <li><a href="{{ route('blogs.index') }}">Blogs</a>
+                                <li><a href="{{ route('blogs.index') }}">Diễn đàn</a>
                                 </li>
                                 @guest
                                 <li>
-                                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a href="{{ route('login') }}">Đăng nhập</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a href="{{ route('register') }}">Đăng ký</a>
                                 </li>
                                 @endguest
                             </ul>
@@ -94,31 +94,32 @@
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link" href="#" role="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            <i class="fa fa-user"></i>
+{{--                                            <i class="fa fa-user"></i>--}}
+                                                <?php $user = \Illuminate\Support\Facades\Auth::user(); ?>
+                                               <img style="height: 40px; width: 40px; margin-top: -10px; border-radius: 50%;"
+                                                    src="{{ $user->avatar ? $user->avatar : \App\Models\Config::PLACEHOLDER_AVATAR }}"/>
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="{{ route('profile.show') }}">
-                                                Profile
+                                                Hồ sơ
                                             </a>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->role_id ==
-                                            \App\Models\User::STUDENT)
+                                            @if($user->role_id == \App\Models\User::STUDENT)
                                             <a class="dropdown-item" href="{{ route('profile.enrolled_page') }}">
-                                                My Courses
+                                                Lịch sử học
                                             </a>
                                             <a class="dropdown-item" href="{{ route('profile.recommend') }}">
-                                                Recommend
+                                                Gợi ý
                                             </a>
-                                            @elseif(\Illuminate\Support\Facades\Auth::user()->role_id ==
-                                            \App\Models\User::TEACHER)
+                                            @elseif($user->role_id == \App\Models\User::TEACHER)
                                             <a class="dropdown-item" href="{{ route('admin') }}">
-                                                Courses Manager
+                                                Quản lý khóa học
                                             </a>
                                             @endif
 
                                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                                  document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
+                                                Đăng xuất
                                             </a>
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"

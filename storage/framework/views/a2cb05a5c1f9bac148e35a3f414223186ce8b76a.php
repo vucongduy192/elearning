@@ -9,19 +9,19 @@
         <div class="row auth_row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header"><?php echo e(__('Verify Your Email Address')); ?></div>
+                    <div class="card-header"><?php echo e(__('Xác thực email')); ?></div>
 
                     <div class="card-body">
                         <?php if(session('resent')): ?>
                             <div class="alert alert-success" role="alert">
-                                <?php echo e(__('A fresh verification link has been sent to your email address.')); ?>
+                                <?php echo e(__('Mail xác thực đã được gửi đến địa chỉ mail của bạn')); ?>
 
                             </div>
                         <?php endif; ?>
 
-                        <?php echo e(__('Before proceeding, please check your email for a verification link.')); ?>
+                        <?php echo e(__('Trước khi bắt đầu, vui lòng kiểm tra email và xác thực')); ?>
 
-                        <?php echo e(__('If you did not receive the email')); ?>, <a href="<?php echo e(route('verification.resend')); ?>"><?php echo e(__('click here to request another')); ?></a>.
+                        <?php echo e(__('Nếu bạn không nhận được email')); ?>, <a href="<?php echo e(route('verification.resend')); ?>"><?php echo e(__('Bấm vào đây để gửi lại')); ?></a>.
                     </div>
                 </div>
             </div>

@@ -19,10 +19,10 @@ class CanRecommend
         $student = Auth::user()->student;
         if ($student && count($student->enrolled) == 0 && count($student->survey) == 0)
             return redirect(route('errors', [
-                'error' => 'Enroll history error',
-                'message' => 'You don\'t have any enrollment history data. Make '
-                            .'<a href="'.route('survey.show').'">survey</a>'
-                            .' now.'
+                'error' => 'Thông báo',
+                'message' => 'Bạn chưa tham gia khóa học nào của hệ thống. Hãy thực hiện'
+                            .'<a href="'.route('survey.show').'"> khảo sát</a>'
+                            .' để nhận được gợi ý từ hệ thống'
             ]));
 
         return $next($request);

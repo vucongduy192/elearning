@@ -31,13 +31,13 @@
                             <div class="author_image"><div><img src="images/blog_author.jpg" alt=""></div></div>
                             <div class="author_info">
                                 <ul>
-                                    <li><a href="#">Admin</a></li>
-                                    <li>Sep 29, 2017 at 9:48 am</li>
+                                    <li><?php echo e($blog->user->name); ?></li>
+                                    <li><?php echo e(date('d/m/Y', strtotime($blog->created_at))); ?></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="blog_post_share ml-lg-auto">
-                            <span>share</span>
+                            <span></span>
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>

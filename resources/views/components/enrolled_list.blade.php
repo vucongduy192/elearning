@@ -1,10 +1,7 @@
 @if(count($enrolled) == 0)
-{{-- <script>
-        toastr.warning('You don\'t have any enrollment history data.');
-    </script> --}}
 <div class="course_body">
     <div class="course_text">
-        You don\'t have any enrollment history data.
+        Bạn chưa có dữ liệu lịch sử học.
     </div>
 </div>
 @endif
@@ -16,18 +13,17 @@
     </div>
     <div>
         <a href="{{ route('courses.show', ['id' => $enroll->course->id]) }}" class="btn btn-primary e-btn pull-right">
-            Go to course
+            Tiếp tục học
         </a>
     </div>
     <br>
     <div class="course_info">
         <ul>
             <li><a href="#"><b> {{ $enroll->course->teacher->user->name }}</b></a></li>
-            <li><a href="#">English</a></li>
         </ul>
     </div>
     <div class="course_text">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla.</p>
+        <p>{{ $enroll->course->overview }}</p>
     </div>
 </div>
 <br>

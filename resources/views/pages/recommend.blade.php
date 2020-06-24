@@ -16,7 +16,7 @@
         @if($recommend_by_enroll)
         <div class="row">
             <div class="col">
-                <h3 class="section_title">You may like</h3>
+                <h3 class="section_title">Có thể bạn thích</h3>
             </div>
         </div>
         @endif
@@ -37,7 +37,7 @@
                         <div class="course_info">
                             <ul>
                                 <li><a href="instructors.html">{{ $course->teacher->user->name }}</a></li>
-                                <li><a href="#">English</a></li>
+{{--                                <li><a href="#">English</a></li>--}}
                             </ul>
                         </div>
                         <div class="course_text">
@@ -66,12 +66,12 @@
         <div style="clear: both; height: 60px;"></div>
         <div class="row">
             <div class="col">
-                <h3 class="section_title">Recommend courses from your survey</h3>
+                <h3 class="section_title">Gợi ý theo khảo sát</h3>
             </div>
         </div>
         @if (count($recommend_by_survey) == 0)
             <div class="course_text">
-                Not found any courses conform with your survey. Do new <a href="{{ route('survey.show') }}">survey</a>.
+                Không tìm thấy khóa học phù hợp với khảo sát. Làm lại <a href="{{ route('survey.show') }}">khảo sát</a>.
             </div>
         @endif
         <div class="row courses_row">
@@ -91,7 +91,7 @@
                         <div class="course_info">
                             <ul>
                                 <li><a href="instructors.html">{{ $course->teacher->user->name }}</a></li>
-                                <li><a href="#">English</a></li>
+{{--                                <li><a href="#">English</a></li>--}}
                             </ul>
                         </div>
                         <div class="course_text">

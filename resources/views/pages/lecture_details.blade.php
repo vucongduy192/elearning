@@ -16,7 +16,7 @@
                     <div class="course_info">
                         <ul>
                             <li><a href="instructors.html">{{ $lecture->module->course->teacher->user->name }}</a></li>
-                            <li><a href="#">English</a></li>
+{{--                            <li><a href="#">English</a></li>--}}
                         </ul>
                     </div>
                     <div class="course_text">

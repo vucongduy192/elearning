@@ -4,82 +4,64 @@
             <div class="row">
 
                 <!-- Newsletter -->
-                <div class="col-lg-3 footer_col">
-                    <div class="newsletter_container d-flex flex-column align-items-start justify-content-end">
-                        <div class="footer_logo mb-auto"><a href="#">Lingua</a></div>
-                        <div class="footer_title">Subscribe</div>
-                        <form action="#" id="newsletter_form" class="newsletter_form">
-                            <input type="email" class="newsletter_input" placeholder="Email" required="required">
-                            <button class="newsletter_button"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-                        </form>
+                <div class="col-lg-4 footer_col">
+                    <div class="newsletter_container align-items-start justify-content-end">
+                        <div class="footer_logo mb-auto"><a href="#">ELearn</a></div>
+                        <div class="footer_social">
+                            <ul>
+                                <li><a
+                                        href="https://www.facebook.com/H%E1%BB%8Dc-li%E1%BB%87u-tr%E1%BB%B1c-tuy%E1%BA%BFn-102682404824217/notifications/"><i
+                                            class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a
+                                        href="https://www.facebook.com/H%E1%BB%8Dc-li%E1%BB%87u-tr%E1%BB%B1c-tuy%E1%BA%BFn-102682404824217/notifications/"><i
+                                            class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a
+                                        href="https://www.facebook.com/H%E1%BB%8Dc-li%E1%BB%87u-tr%E1%BB%B1c-tuy%E1%BA%BFn-102682404824217/notifications/"><i
+                                            class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <!-- About -->
-                <div class="col-lg-2 offset-lg-3 footer_col">
+                <div class="col-lg-4 footer_col">
                     <div>
-                        <div class="footer_title">About Us</div>
+                        <div class="footer_title">Liên hệ</div>
                         <ul class="footer_list">
-                            <li><a href="#">Courses</a></li>
-                            <li><a href="#">Team</a></li>
-                            <li><a href="#">Brand Guidelines</a></li>
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">Advertise with us</a></li>
-                            <li><a href="#">Press</a></li>
-                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Email: duy.vc150636@sis.hust.edu.vn </a></li>
+                            <li><a href="#">Phone: 0971053097</a></li>
+                            <li><a href="#">HEDSPI-B K60</a></li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Help & Support -->
-                <div class="col-lg-2 footer_col">
-                    <div class="footer_title">Help & Support</div>
-                    <ul class="footer_list">
-                        <li><a href="#">Discussions</a></li>
-                        <li><a href="#">Troubleshooting</a></li>
-                        <li><a href="#">Duolingo FAQs</a></li>
-                        <li><a href="#">Schools FAQs</a></li>
-                        <li><a href="#">Duolingo English Test FAQs</a></li>
-                        <li><a href="#">Status</a></li>
-                    </ul>
-                </div>
-
-                <!-- Privacy -->
-                <div class="col-lg-2 footer_col clearfix">
+                <!-- About -->
+                <div class="col-lg-3 footer_col">
                     <div>
-                        <div class="footer_title">Privacy & Terms</div>
+                        <div class="footer_title">Menu</div>
                         <ul class="footer_list">
-                            <li><a href="#">Community Guidelines</a></li>
-                            <li><a href="#">Terms</a></li>
-                            <li><a href="#">Brand Guidelines</a></li>
-                            <li><a href="#">Privacy</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="copyright_content d-flex flex-md-row flex-column align-items-md-center align-items-start justify-content-start">
-                        <div class="cr_right ml-md-auto">
-                            <div class="footer_phone"><span class="cr_title">phone:</span>+44 300 303 0266</div>
-                            <div class="footer_social">
-                                <span class="cr_social_title">follow us</span>
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                </ul>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <li class="active">
+                                        <a href="<?php echo e(route('home')); ?>">Trang chủ</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo e(route('courses.index')); ?>">Khóa học</a>
+                                    </li>
+                                </div>
+                                <div class="col-lg-6">
+                                    <li><a href="<?php echo e(route('professors.index')); ?>">Giảng viên</a>
+                                    </li>
+                                    <li><a href="<?php echo e(route('blogs.index')); ?>">Diễn đàn</a>
+                                    </li>
+                                </div>
                             </div>
-                        </div>
+                        </ul>
                     </div>
+                </div>
+                <div class="col-lg-1 footer_col">
                 </div>
             </div>
         </div>
-    </div>
 </footer>
 <?php /**PATH /var/www/resources/views/components/footer.blade.php ENDPATH**/ ?>

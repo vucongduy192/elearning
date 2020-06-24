@@ -12,7 +12,7 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
     <div class="header_padding"></div>
-    <div class="courses">
+    <div class="courses" style="min-height: 700px;">
         <div class="container">
             <div class="card" style="margin-bottom: 20px;">
                 <div class="card-body">
@@ -20,16 +20,16 @@
                         <?php echo csrf_field(); ?>
                         <div class="row" style="margin-bottom: -20px;">
                             <div class="col-md-5 form-group">
-                                <input id="name" type="text" class="form-control" name="name" placeholder="Course name">
+                                <input id="name" type="text" value="<?php echo e($header_search_name); ?>" class="form-control" name="name" placeholder="Khóa học">
                             </div>
 
                             <div class="col-md-3 form-group">
-                                <input id="teacher" type="text" class="form-control" name="teacher" placeholder="Professor name">
+                                <input id="teacher" type="text" class="form-control" name="teacher" placeholder="Giảng viên">
                             </div>
 
                             <div class="col-md-3 form-group">
                                 <select class="form-control" name="courses_category_id" id="">
-                                    <option value="" <?php echo e(!old('courses_category_id') ? "selected" : ""); ?>>All categories</option>
+                                    <option value="" <?php echo e(!old('courses_category_id') ? "selected" : ""); ?>>Tất cả </option>
                                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($c->id); ?>" <?php echo e(old('courses_category_id') == $c->id ? "selected" : ""); ?>><?php echo e($c->name); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary e-btn search-btn">
-                                    Search
+                                    Tìm kiếm
                                 </button>
                             </div>
                         </div>

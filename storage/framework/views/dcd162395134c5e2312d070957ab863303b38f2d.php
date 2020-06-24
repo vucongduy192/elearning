@@ -9,7 +9,7 @@
                     <div class="blog_post_text">
                         <p><?php echo e($blog->summary); ?></p>
                     </div>
-                    <div class="read_more"><a href="<?php echo e(route('blogs.show', ['id' => $blog->id])); ?>">Read More <img src="<?php echo e(asset('front-end/images/right.png')); ?>" alt=""></a></div>
+                    <div class="read_more"><a href="<?php echo e(route('blogs.show', ['id' => $blog->id])); ?>">Xem thêm <img src="<?php echo e(asset('front-end/images/right.png')); ?>" alt=""></a></div>
                 </div>
             </div>
         </div>

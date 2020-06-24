@@ -29,7 +29,7 @@ class ReviewController extends Controller
         $input = $request->only('content', 'rating', 'course_id', 'student_id');
         $this->review->store($input);
         return $this->response([
-            'message' => 'Save review success'
+            'message' => 'Lưu đánh giá thành công'
         ]);
     }
 }

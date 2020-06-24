@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo e(asset("front-end/styles/instructors_responsive.css")); ?>">
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-<div class="header_padding" style="height: 500px;"></div>
+<div class="header_padding professor_header" style="height: 500px;"></div>
 
 <div class="video">
     <div class="container">
@@ -12,19 +12,23 @@
                 <div class="video_content">
                     <div class="video_container_outer">
                         <div class="video_overlay d-flex flex-column align-items-start justify-content-center">
-                            <div>Be</div>
-                            <div>The Best</div>
-                            <div>Teacher</div>
+
+
+
                         </div>
                         <div class="video_container">
-                            <video id="vid1" class="video-js vjs-default-skin" controls width="100%" height="100%"
-                                data-setup='{ "poster": "images/video.jpg", "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://youtu.be/IV3ueyrp5M4"}], "youtube": { "iv_load_policy": 1 } }'>
+
+
+
+
+                            <video controls width="100%" height="100%">
+                                <source src="<?php echo e(asset('intro.mp4')); ?>" type="video/mp4">
                             </video>
                         </div>
                     </div>
                     <?php if(\Illuminate\Support\Facades\Auth::user() == null): ?>
                     <div class="register_button">
-                        <a href="<?php echo e(route('register')); ?>">register</a>
+                        <a href="<?php echo e(route('register')); ?>">Đăng ký ngay</a>
                     </div>
                     <?php endif; ?>
                 </div>
@@ -39,7 +43,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="section_title text-center">The Best Tutors in Town</h2>
+                <h2 class="section_title text-center">Giảng viên được yêu thích</h2>
             </div>
         </div>
         <div class="row instructors_row">
@@ -77,7 +81,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="section_title text-center">Top Teachers in Every Field</h2>
+                <h2 class="section_title text-center">Giảng viên trong từng chuyên ng</h2>
             </div>
         </div>
         <div class="row teachers_row">
@@ -108,4 +112,5 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/resources/views/pages/professors.blade.php ENDPATH**/ ?>

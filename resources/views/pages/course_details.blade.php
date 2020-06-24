@@ -53,9 +53,9 @@
                                 <div class="col-lg-9">
                                     <div class="tabs nav nav-tabs d-flex flex-row align-items-center justify-content-start"
                                         role="tablist">
-                                        <a class="nav-link active" data-toggle="tab" href="#description">description</a>
-                                        <a class="nav-link" data-toggle="tab" href="#syllabus">syllabus</a>
-                                        <a class="nav-link" data-toggle="tab" href="#reviews">reviews</a>
+                                        <a class="nav-link active" data-toggle="tab" href="#description">Mô tả</a>
+                                        <a class="nav-link" data-toggle="tab" href="#syllabus">Lộ trình</a>
+                                        <a class="nav-link" data-toggle="tab" href="#reviews">Đánh giá</a>
                                     </div>
                                 </div>
                             </div>
@@ -64,12 +64,12 @@
                     <div class="tab-content">
                         <!-- Description -->
                         <div id="description" class="tab-pane tab_panel description active">
-                            <div class="panel_title">About this course</div>
+                            <div class="panel_title">Thông tin khóa học</div>
                             <div class="panel_text">
                                 <p>{{ $course->overview }}</p>
                             </div>
                             <br>
-                            <div class="panel_title">About teacher</div>
+                            <div class="panel_title">Về giảng viên</div>
                             <div class="row instructors_row">
 
                                 <!-- Instructor -->
@@ -153,7 +153,7 @@
 
                         <!-- Reviews -->
                         <div id="reviews" class="tab-pane tab_panel reviews fade">
-                            <div class="panel_title">Reviews</div>
+                            <div class="panel_title">Đánh giá</div>
                             <div class="cur_reviews" style="margin-top:10px;">
                             </div>
                             @if($has_enrolled)
@@ -177,7 +177,7 @@
 
                                     <div class="form-group pull-right">
                                         {{--                                            <button type="button" class="btn btn-primary e-btn-cancel ca">Cancel</button>--}}
-                                        <button type="button" class="btn btn-primary e-btn review-submit">Save</button>
+                                        <button type="button" class="btn btn-primary e-btn review-submit">Lưu</button>
                                     </div>
 
                                     <div class="rating">
@@ -211,14 +211,14 @@
                             href="{{ route('lectures.show', [$module->lectures->first()->id]) }}">Continue</a>
                         @else
                         <a style="background: gray" href="{{ route('errors', [
-                                                'error' => 'Course content error',
-                                                'message' => 'Current course you seeing don\'t has any lectures',
+                                                'error' => 'Lỗi nội dung khóa học',
+                                                'message' => 'Khóa học bạn đang theo dõi chưa được thêm bài giảng',
                                             ]) }}">
-                            Continue</a>
+                            Tiếp tục</a>
                         @endif
                         @else
                         <a href="{{ route('courses.enroll', [$course->id]) }}">
-                            enroll course
+                            Đăng ký
                         </a>
                         @endif
 
@@ -227,14 +227,14 @@
 
                         <!-- Features -->
                         <div class="sidebar_section features">
-                            <div class="sidebar_title">Course Features</div>
+                            <div class="sidebar_title">Thông tin thêm</div>
                             <div class="features_content">
                                 <ul class="features_list">
 
                                     <!-- Feature -->
                                     <li class="d-flex flex-row align-items-start justify-content-start">
                                         <div class="feature_title"><i class="fa fa-clock-o"
-                                                aria-hidden="true"></i><span>Duration</span>
+                                                aria-hidden="true"></i><span>Thời gian</span>
                                         </div>
                                         <div class="feature_text ml-auto">{{ $course->duration->name }}</div>
                                     </li>
@@ -242,7 +242,7 @@
                                     <!-- Feature -->
                                     <li class="d-flex flex-row align-items-start justify-content-start">
                                         <div class="feature_title"><i class="fa fa-bell"
-                                                aria-hidden="true"></i><span>Lectures</span>
+                                                aria-hidden="true"></i><span>Bài giảng</span>
                                         </div>
                                         <div class="feature_text ml-auto">{{ count($course->modules) }}</div>
                                     </li>
@@ -250,15 +250,15 @@
                                     <!-- Feature -->
                                     <li class="d-flex flex-row align-items-start justify-content-start">
                                         <div class="feature_title"><i class="fa fa-user"
-                                                aria-hidden="true"></i><span>Enrolled</span>
+                                                aria-hidden="true"></i><span>Lượt đăng ký</span>
                                         </div>
                                         <div class="feature_text ml-auto">{{ count($course->num_enrolls) }}</div>
                                     </li>
                                     <li class="d-flex flex-row align-items-start justify-content-start">
                                         <div class="feature_title"><i class="fa fa-graduation-cap"
-                                                aria-hidden="true"></i><span>Level</span>
+                                                aria-hidden="true"></i><span>Độ khó</span>
                                         </div>
-                                        <?php $levels = [1 => 'Easy', 2 => 'Medium', 3 => 'Hard']  ?>
+                                        <?php $levels = [1 => 'Dễ', 2 => 'Trung bình', 3 => 'Khó']  ?>
                                         <div class="feature_text ml-auto">{{ $levels[$course->level] }}</div>
                                     </li>
                                 </ul>
@@ -267,7 +267,7 @@
 
                         <!-- You may like -->
                         <div class="sidebar_section like">
-                            <div class="sidebar_title">You may like</div>
+                            <div class="sidebar_title">Có thể bạn thích</div>
                             <div class="like_items">
                                 @foreach($recommend_courses as $r_c)
                                 <!-- Like Item -->
@@ -309,8 +309,8 @@
                 }
             });
         }
-        wanring_msg('.lecture_link', 'Enroll course before access any lectures');
-        wanring_msg('.process', 'Enroll course before update any process');
+        wanring_msg('.lecture_link', 'Đăng ký tham gia khóa học trước khi truy cập bài giảng');
+        wanring_msg('.process', 'Đăng ký tham gia khóa học trước khi cập nhật trạng thái');
 
         $('.process').click(function () {
             var url = "{{ route('processes.store') }}", method = "POST";

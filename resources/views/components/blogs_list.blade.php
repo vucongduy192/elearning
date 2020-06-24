@@ -9,7 +9,7 @@
                     <div class="blog_post_text">
                         <p>{{ $blog->summary }}</p>
                     </div>
-                    <div class="read_more"><a href="{{ route('blogs.show', ['id' => $blog->id]) }}">Read More <img src="{{ asset('front-end/images/right.png') }}" alt=""></a></div>
+                    <div class="read_more"><a href="{{ route('blogs.show', ['id' => $blog->id]) }}">Xem thêm <img src="{{ asset('front-end/images/right.png') }}" alt=""></a></div>
                 </div>
             </div>
         </div>

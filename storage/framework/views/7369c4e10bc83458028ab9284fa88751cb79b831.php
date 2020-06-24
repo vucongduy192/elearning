@@ -41,10 +41,9 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="professor_detail">
-                        <div class="instructor_name"><a href="#">Information</a></div>
+                        <div class="instructor_name"><a href="#">Thông tin</a></div>
                         <div class="instructor_text">
-                            <p>In 2011, he led the development of Stanford University’s main MOOC (Massive Open Online Courses) platform and also taught an online Machine Learning class to over 100,000 students, thus helping launch the MOOC movement and also leading to the founding of Coursera.</p>
-                            <p>Ng also works on machine learning, with an emphasis on deep learning. He had founded and led the “Google Brain” project, which developed massive-scale deep learning algorithms. This resulted in the famous “Google cat” result, in which a massive neural network with 1 billion parameters learned from unlabeled YouTube videos to detect cats. Until recently, he led Baidu's ~1300 person AI Group, which developed technologies in deep learning, speech, computer vision, NLP, and other areas.</p>
+                            <p>Thầy giảng dạy tại Bộ môn Công nghệ Phần mềm, Viện Công nghệ thông tin và truyền thông, trường Đại học Bách khoa Hà Nội. Bà nhận học vị Tiến sỹ ngành Tin học tại trường Đại học Bách khoa Grenoble, Cộng hoà Pháp năm 2008. Các hướng nghiên cứu chủ yếu hiện nay bao gồm: các hệ thống hướng dịch vụ và ứng dụng (chuyển đổi số, e-learning, IoT), các khía cạnh ngoài chức năng của phần mềm (đảm bảo an toàn, rủi ro, dung lỗi, dễ truy cập, tương tác, dùng được), các phương pháp phát triển phần mềm tiên tiến và ứng dụng.</p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +52,7 @@
     </div>
     <div class="courses">
         <div class="container">
-            <h3 class="section_title">Courses</h3>
+            <h3 class="section_title">Khóa học</h3>
             <div class="professor_courses_list courses_list"></div>
         </div>
     </div>

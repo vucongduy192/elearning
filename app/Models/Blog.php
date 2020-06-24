@@ -14,4 +14,9 @@ class Blog extends Model
 
     const THUMBNAIL_WIDTH = 1200;
     const THUMBNAIL_HEIGHT = 650;
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

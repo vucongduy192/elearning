@@ -53,7 +53,7 @@
         <div class="row auth_row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Survey interested category</div>
+                    <div class="card-header">Khảo sát</div>
 
                     <div class="card-body">
                         <div id="survey-carousel" class="carousel slide" data-interval="false">
@@ -70,28 +70,28 @@
                                     <div class="carousel-item active">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <label for="level">Level</label>
+                                                <label for="level">Độ khó</label>
                                                 <select class="form-control" name="level" id="">
                                                     <option value=""
                                                         {{ empty($surveyRank['ranks']->level) ? "selected" : ""}}>
-                                                        All levels</option>
+                                                        Tất cả</option>
                                                     <option value="{{ App\Models\Course::EASY }}"
                                                         {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 1 ? "selected" : ""}}>
-                                                        Easy</option>
+                                                        Dễ</option>
                                                     <option value="{{ App\Models\Course::MEDIUM }}"
                                                         {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 2 ? "selected" : ""}}>
-                                                        Medium</option>
+                                                        Trung bình</option>
                                                     <option value="{{ App\Models\Course::HARD }}"
                                                         {{ $surveyRank['ranks'] && $surveyRank['ranks']->level == 3 ? "selected" : ""}}>
-                                                        Hard</option>
+                                                        Khó</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6">
-                                                <label for="duration_id">Duration</label>
+                                                <label for="duration_id">Thời gian</label>
                                                 <select class="form-control" name="duration_id" id="">
                                                     <option value=""
                                                         {{ empty($surveyRank['ranks']->duration_id) ? "selected" : ""}}>
-                                                        All durations
+                                                        Tất cả
                                                     </option>
                                                     @foreach($surveyRank['durations'] as $duration)
                                                     <option value="{{ $duration->id }}"
@@ -108,7 +108,7 @@
                                                 <select class="form-control" name="partner_id" id="">
                                                     <option value=""
                                                         {{  empty($surveyRank['ranks']->partner_id) ? "selected" : ""}}>
-                                                        All partners
+                                                        Nguồn
                                                     </option>
                                                     @foreach($surveyRank['partners'] as $partner)
                                                     <option value="{{ $partner->id }}"
@@ -124,7 +124,7 @@
                                                 <input type="checkbox" name="free" id="free"
                                                     {{ $surveyRank["ranks"] && $surveyRank['ranks']->free == 1 ? "checked" : "" }}
                                                     value="1">
-                                                <label for="free">Only free courses</label>
+                                                <label for="free">Khóa học free</label>
                                             </div>
                                         </div>
                                     </div>

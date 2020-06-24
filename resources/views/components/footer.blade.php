@@ -26,7 +26,7 @@
                 <!-- About -->
                 <div class="col-lg-4 footer_col">
                     <div>
-                        <div class="footer_title">Contact</div>
+                        <div class="footer_title">Liên hệ</div>
                         <ul class="footer_list">
                             <li><a href="#">Email: duy.vc150636@sis.hust.edu.vn </a></li>
                             <li><a href="#">Phone: 0971053097</a></li>
@@ -43,16 +43,16 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <li class="active">
-                                        <a href="{{ route('home') }}">Home</a>
+                                        <a href="{{ route('home') }}">Trang chủ</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('courses.index') }}">Courses</a>
+                                        <a href="{{ route('courses.index') }}">Khóa học</a>
                                     </li>
                                 </div>
                                 <div class="col-lg-6">
-                                    <li><a href="{{ route('professors.index') }}">Professors</a>
+                                    <li><a href="{{ route('professors.index') }}">Giảng viên</a>
                                     </li>
-                                    <li><a href="{{ route('blogs.index') }}">Blogs</a>
+                                    <li><a href="{{ route('blogs.index') }}">Diễn đàn</a>
                                     </li>
                                 </div>
                             </div>

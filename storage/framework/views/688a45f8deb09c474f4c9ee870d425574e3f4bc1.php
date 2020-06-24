@@ -1,12 +1,14 @@
 <div class="row courses_row">
     <?php if(count($courses) == 0): ?>
-    <div class="course_text" style="color: black;">
-        Not found any courses
+    <div class="course_body" style="width: 100%; margin-left: 15px; margin-right: 15px;">
+        <div class="course_text">
+            Không tìm thấy khóa học phù hợp
+        </div>
     </div>
     <?php endif; ?>
 
     <?php $__currentLoopData = $courses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <div class="col-md-4 course_col">
+    <div class="col-lg-4 col-md-6 col-xs-6 course_col">
         <div class="course">
             <div class="course_image">
                 <img src="<?php echo e($course->thumbnail ? $course->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL); ?>"
@@ -23,7 +25,7 @@
                         <li><a
                                 href="<?php echo e(route('professors.show', ['id' => $course->teacher->id])); ?>"><?php echo e($course->teacher->user->name); ?></a>
                         </li>
-                        <li><a href="#">English</a></li>
+
                     </ul>
                 </div>
                 <div class="course_text">
@@ -49,4 +51,5 @@
 <div class="pull-right">
     <?php echo e($courses->links('components.pagination')); ?>
 
-</div><?php /**PATH /var/www/resources/views/components/courses_list.blade.php ENDPATH**/ ?>
+</div>
+<?php /**PATH /var/www/resources/views/components/courses_list.blade.php ENDPATH**/ ?>

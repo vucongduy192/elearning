@@ -9,7 +9,7 @@
             </div>
             <div class="review_author">
                 <div class="review_author_name"><a href="#">{{ $r->student->user->name }}</a></div>
-                <div class="review_date">Sep 29, 2017 at 9:48 am</div>
+                <div class="review_date">{{ date('d/m/Y', strtotime($r->created_at)) }}</div>
             </div>
         </div>
         <div class="review_stars ml-auto">

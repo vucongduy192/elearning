@@ -9,7 +9,7 @@
         <div class="row auth_row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header"><?php echo e(__('Register')); ?></div>
+                    <div class="card-header">Đăng ký</div>
 
                     <div class="card-body">
                         <form method="POST" action="<?php echo e(route('register')); ?>">
@@ -38,7 +38,7 @@ endif; ?>
                             </div>
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right"><?php echo e(__('E-Mail Address')); ?></label>
+                                <label for="email" class="col-md-4 col-form-label text-md-right"><?php echo e(__('E-Mail')); ?></label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control <?php if ($errors->has('email')) :
@@ -60,7 +60,7 @@ endif; ?>
                             </div>
 
                             <div class="form-group row">
-                                <label for="role_id" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Role')); ?></label>
+                                <label for="role_id" class="col-md-4 col-form-label text-md-right">Quyền</label>
 
                                 <div class="col-md-6">
                                     <select name="role_id" id="role_id"
@@ -69,8 +69,8 @@ if (isset($message)) { $messageCache = $message; }
 $message = $errors->first('role_id'); ?> is-invalid <?php unset($message);
 if (isset($messageCache)) { $message = $messageCache; }
 endif; ?>" value="<?php echo e(old('role_id')); ?>">
-                                        <option value="<?php echo e(\App\Models\User::STUDENT); ?>">Student</option>
-                                        <option value="<?php echo e(\App\Models\User::TEACHER); ?>">Teacher</option>
+                                        <option value="<?php echo e(\App\Models\User::STUDENT); ?>">Học viên</option>
+                                        <option value="<?php echo e(\App\Models\User::TEACHER); ?>">Giảng viên</option>
                                     </select>
                                     <?php if ($errors->has('role_id')) :
 if (isset($message)) { $messageCache = $message; }
@@ -85,7 +85,7 @@ endif; ?>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Password')); ?></label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Mật khẩu</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control <?php if ($errors->has('password')) :
@@ -107,7 +107,7 @@ endif; ?>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Confirm Password')); ?></label>
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Xác nhận mật kh</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
@@ -117,8 +117,7 @@ endif; ?>
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary e-btn">
-                                        <?php echo e(__('Register')); ?>
-
+                                        Đăng ký
                                     </button>
                                 </div>
                             </div>

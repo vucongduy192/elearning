@@ -12,19 +12,16 @@
 <div class="courses">
     <div class="courses_background"></div>
     <div class="container">
+        <?php if($recommend_by_enroll): ?>
         <div class="row">
             <div class="col">
-                <h3 class="section_title">Recommend courses from your survey</h3>
+                <h3 class="section_title">Có thể bạn thích</h3>
             </div>
         </div>
-        <?php if(count($recommend_by_survey) == 0): ?>
-            <div class="course_text">
-                Not found any courses conform with your survey
-            </div>
         <?php endif; ?>
         <div class="row courses_row">
             <!-- Course -->
-            <?php $__currentLoopData = $recommend_by_survey; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $recommend_by_enroll; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="col-md-4 course_col">
                 <div class="course">
                     <div class="course_image"><img
@@ -40,7 +37,7 @@
                         <div class="course_info">
                             <ul>
                                 <li><a href="instructors.html"><?php echo e($course->teacher->user->name); ?></a></li>
-                                <li><a href="#">English</a></li>
+
                             </ul>
                         </div>
                         <div class="course_text">
@@ -67,16 +64,19 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <div style="clear: both; height: 60px;"></div>
-        <?php if($recommend_by_enroll): ?>
         <div class="row">
             <div class="col">
-                <h3 class="section_title">You may like</h3>
+                <h3 class="section_title">Gợi ý theo khảo sát</h3>
             </div>
         </div>
+        <?php if(count($recommend_by_survey) == 0): ?>
+            <div class="course_text">
+                Không tìm thấy khóa học phù hợp với khảo sát. Làm lại <a href="<?php echo e(route('survey.show')); ?>">khảo sát</a>.
+            </div>
         <?php endif; ?>
         <div class="row courses_row">
             <!-- Course -->
-            <?php $__currentLoopData = $recommend_by_enroll; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $recommend_by_survey; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="col-md-4 course_col">
                 <div class="course">
                     <div class="course_image"><img
@@ -92,7 +92,7 @@
                         <div class="course_info">
                             <ul>
                                 <li><a href="instructors.html"><?php echo e($course->teacher->user->name); ?></a></li>
-                                <li><a href="#">English</a></li>
+
                             </ul>
                         </div>
                         <div class="course_text">
@@ -121,4 +121,5 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/resources/views/pages/recommend.blade.php ENDPATH**/ ?>

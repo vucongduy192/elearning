@@ -17,14 +17,14 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 <div class="header_padding" style="height: 120px;"></div>
-<div class="auth" style="min-height: 550px;">
+<div class="auth" style="min-height: 650px;">
     <div class="container">
         <div class="col-md-8 offset-md-2">
             <div class="tab_panels">
                 <!-- Tabs -->
                 <div class="tabs nav nav-tabs d-flex flex-row align-items-center justify-content-start" role="tablist">
-                    <a class="nav-link process-type active" data-toggle="tab" href="#process">In Progress</a>
-                    <a class="nav-link process-type" data-toggle="tab" href="#completed">Completed</a>
+                    <a class="nav-link process-type active" data-toggle="tab" href="#process">Đang học dở</a>
+                    <a class="nav-link process-type" data-toggle="tab" href="#completed">Hoàn thành</a>
                 </div>
 
                 <div class="tab-content">
@@ -76,4 +76,5 @@
         })
 </script>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/resources/views/pages/enrolled_courses.blade.php ENDPATH**/ ?>

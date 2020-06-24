@@ -2,7 +2,7 @@
     @if (count($courses) == 0)
     <div class="course_body" style="width: 100%; margin-left: 15px; margin-right: 15px;">
         <div class="course_text">
-            Sorry, can't found any courses.
+            Không tìm thấy khóa học phù hợp
         </div>
     </div>
     @endif
@@ -24,7 +24,7 @@
                         <li><a
                                 href="{{ route('professors.show', ['id' => $course->teacher->id]) }}">{{ $course->teacher->user->name }}</a>
                         </li>
-                        <li><a href="#">English</a></li>
+{{--                        <li><a href="#">English</a></li>--}}
                     </ul>
                 </div>
                 <div class="course_text">

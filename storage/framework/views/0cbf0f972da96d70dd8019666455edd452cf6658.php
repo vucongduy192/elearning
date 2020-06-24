@@ -9,7 +9,7 @@
         <div class="row auth_row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Profile</div>
+                    <div class="card-header">Hồ sơ</div>
 
                     <div class="card-body">
                         <form method="POST" action="<?php echo e(route('profile.update')); ?>" enctype="multipart/form-data">
@@ -74,7 +74,7 @@ endif; ?>
                             </div>
 
                             <div class="form-group row">
-                                <label for="last_name" class="col-md-2 col-form-label text-md-right">Avatar</label>
+                                <label for="last_name" class="col-md-2 col-form-label text-md-right">Ảnh đại diện</label>
 
                                 <div class="col-md-6">
                                     <input type="file" id="avatar" name="avatar"
@@ -182,7 +182,7 @@ endif; ?>
                             <?php endif; ?>
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-2">
-                                    Change your interest category now. Do new <a href="<?php echo e(route('survey.show')); ?>">survey</a>.
+                                    Cập nhật sở thích của bạn. Làm <a href="<?php echo e(route('survey.show')); ?>"> khảo sát </a> ngay.
                                 </div>
                             </div>
                             <div class="form-group row mb-0">

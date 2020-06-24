@@ -11,8 +11,8 @@
         <div class="container">
             <div class="row">
                 <div class="col text-center">
-                    <h1 class="home_title">E-Learning Easily</h1>
-                    <div class="home_button trans_200"><a href="{{ route('courses.index') }}">get started</a></div>
+                    <h1 class="home_title">Chào mừng bạn tham gia ELearn</h1>
+                    <div class="home_button trans_200"><a href="{{ route('courses.index') }}">Bắt đầu ngay</a></div>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="section_title text-center">Popular Online Courses</h2>
+                <h2 class="section_title text-center">Khóa học phổ biến</h2>
             </div>
         </div>
         <div class="row courses_row">
@@ -44,7 +44,7 @@
                         <div class="course_info">
                             <ul>
                                 <li><a href="instructors.html">{{ $course->teacher->user->name }}</a></li>
-                                <li><a href="#">English</a></li>
+{{--                                <li><a href="#">English</a></li>--}}
                             </ul>
                         </div>
                         <div class="course_text">
@@ -76,7 +76,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="section_title text-center">The Best Tutors in Town</h2>
+                <h2 class="section_title text-center">Giảng viên được yêu thích</h2>
             </div>
         </div>
         <div class="row instructors_row">
@@ -124,7 +124,7 @@
 
             <div class="col-lg-6">
                 <div class="register_form_container">
-                    <div class="register_form_title">Courses For Free</div>
+                    <div class="register_form_title">Nhận ngay khóa học miễn phí</div>
                     <br>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -202,28 +202,27 @@
 
             <div class="col-lg-6">
                 <div class="register_timer_container">
-                    <div class="register_timer_title">Register Now</div>
+                    <div class="register_timer_title">Đăng ký ngay</div>
                     <div class="register_timer_text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus
-                            in, sagittis fringilla tortor.</p>
+                        <p>ELearn là hệ thống học trực tuyến lớn, tổng hợp nhiều khóa học từ các trường Đại học hàng đầu Việt Nam</p>
                     </div>
                     <div class="timer_container">
                         <ul class="timer_list">
                             <li>
                                 <div id="day" class="timer_num">00</div>
-                                <div class="timer_ss">days</div>
+                                <div class="timer_ss">ngày</div>
                             </li>
                             <li>
                                 <div id="hour" class="timer_num">00</div>
-                                <div class="timer_ss">hours</div>
+                                <div class="timer_ss">giờ</div>
                             </li>
                             <li>
                                 <div id="minute" class="timer_num">00</div>
-                                <div class="timer_ss">minutes</div>
+                                <div class="timer_ss">phút</div>
                             </li>
                             <li>
                                 <div id="second" class="timer_num">00</div>
-                                <div class="timer_ss">seconds</div>
+                                <div class="timer_ss">giây</div>
                             </li>
                         </ul>
                     </div>
@@ -238,7 +237,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="section_title text-center">New Blogs</h2>
+                <h2 class="section_title text-center">Diễn đàn</h2>
             </div>
         </div>
         <div class="row events_row">

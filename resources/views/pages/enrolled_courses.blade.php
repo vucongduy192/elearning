@@ -24,8 +24,8 @@
             <div class="tab_panels">
                 <!-- Tabs -->
                 <div class="tabs nav nav-tabs d-flex flex-row align-items-center justify-content-start" role="tablist">
-                    <a class="nav-link process-type active" data-toggle="tab" href="#process">In Progress</a>
-                    <a class="nav-link process-type" data-toggle="tab" href="#completed">Completed</a>
+                    <a class="nav-link process-type active" data-toggle="tab" href="#process">Đang học</a>
+                    <a class="nav-link process-type" data-toggle="tab" href="#completed">Hoàn thành</a>
                 </div>
 
                 <div class="tab-content">

@@ -13,19 +13,23 @@
                 <div class="video_content">
                     <div class="video_container_outer">
                         <div class="video_overlay d-flex flex-column align-items-start justify-content-center">
-                            <div>Be</div>
-                            <div>The Best</div>
-                            <div>Teacher</div>
+{{--                            <div>Be</div>--}}
+{{--                            <div>The Best</div>--}}
+{{--                            <div>Teacher</div>--}}
                         </div>
                         <div class="video_container">
-                            <video id="vid1" class="video-js vjs-default-skin" controls width="100%" height="100%"
-                                data-setup='{ "poster": "images/video.jpg", "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://youtu.be/IV3ueyrp5M4"}], "youtube": { "iv_load_policy": 1 } }'>
+{{--                            <video id="vid1" class="video-js vjs-default-skin" controls width="100%" height="100%"--}}
+{{--                                data-setup='{ "poster": "images/video.jpg", "techOrder": ["youtube"], "sources": [{ "type": "video/youtube",--}}
+{{--                                "src": "https://youtu.be/IV3ueyrp5M4"}], "youtube": { "iv_load_policy": 1 } }'>--}}
+{{--                            </video>--}}
+                            <video controls width="100%" height="100%">
+                                <source src="{{ asset('intro.mp4') }}" type="video/mp4">
                             </video>
                         </div>
                     </div>
                     @if(\Illuminate\Support\Facades\Auth::user() == null)
                     <div class="register_button">
-                        <a href="{{ route('register') }}">register</a>
+                        <a href="{{ route('register') }}">Đăng ký ngay</a>
                     </div>
                     @endif
                 </div>
@@ -40,7 +44,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="section_title text-center">The Best Tutors in Town</h2>
+                <h2 class="section_title text-center">Giảng viên được yêu thích</h2>
             </div>
         </div>
         <div class="row instructors_row">
@@ -78,7 +82,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="section_title text-center">Top Teachers in Every Field</h2>
+                <h2 class="section_title text-center">Giảng viên trong từng chuyên ng</h2>
             </div>
         </div>
         <div class="row teachers_row">

@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 class="section_title text-center">Welcome to our blog!</h2>
+                <h2 class="section_title text-center">Diễn đàn</h2>
             </div>
         </div>
 

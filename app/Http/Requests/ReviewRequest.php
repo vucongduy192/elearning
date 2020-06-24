@@ -30,4 +30,14 @@ class ReviewRequest extends FormRequest
             'student_id' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'content.required' => 'Hãy nhập nội dung đánh gái',
+            'rating.required'  => 'Hãy chọn số star',
+            'rating.min' => 'Chọn số star lớn hơn hoặc bằng 1',
+            'rating.max' => 'Chọn số star nhỏ hoặc bằng 5'
+        ];
+    }
 }
