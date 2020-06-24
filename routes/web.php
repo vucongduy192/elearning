@@ -34,6 +34,7 @@ Route::get('blogs', 'BlogController@index')->name('blogs.index');
 Route::get('blogs/{blog}', 'BlogController@show')->name('blogs.show');
 Route::post('blogs', 'BlogController@search')->name('blogs.search');
 
+Route::get('reviews/{course}', 'ReviewController@index')->name('reviews.index');
 
 Route::group(['middleware' => ['verified']], function () {
     Route::get('profile', 'ProfileController@show')->name('profile.show');
@@ -58,7 +59,6 @@ Route::group(['middleware' => ['verified']], function () {
         Route::delete('processes', 'ProcessController@destroy')->name('processes.destroy');
 
         # ---------------- Student's reviews -------------------
-        Route::get('reviews/{course}', 'ReviewController@index')->name('reviews.index');
         Route::post('reviews', 'ReviewController@store')->name('reviews.store');
 
     });
