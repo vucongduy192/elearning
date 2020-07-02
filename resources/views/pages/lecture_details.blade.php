@@ -20,7 +20,7 @@
                         </ul>
                     </div>
                     <div class="course_text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla.</p>
+                        <p>{{ $lecture->module->course->overview }}</p>
                     </div>
                 </div>
                 <br>
@@ -78,7 +78,9 @@
                     <embed type="application/pdf">
                 </object>
                 <div class="course_footer d-flex flex-row align-items-center justify-content-start">
-                    <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span>86</span></div>
+                    <div class="course_students">
+                        <i class="fa fa-user" aria-hidden="true"></i><span>{{ count($lecture->module->course->num_enrolls) }}</span>
+                    </div>
                     <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span>4.5</span>
                     </div>
                 </div>
