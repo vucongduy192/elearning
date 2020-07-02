@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('styles')
-    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/main_styles.css") }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/responsive.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/main_styles.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset("front-end/styles/responsive.css") }}">
 @endsection
 @section('content')
 <div class="header_padding" style="height: 120px;"></div>
@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="first_name" class="col-md-2 col-form-label text-md-right">First name</label>
+                                <label for="first_name" class="col-md-2 col-form-label text-md-right">Họ của bạn</label>
 
                                 <div class="col-md-6">
                                     <input id="first_name" type="text"
@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="last_name" class="col-md-2 col-form-label text-md-right">Last name</label>
+                                <label for="last_name" class="col-md-2 col-form-label text-md-right">Tên của bạn</label>
 
                                 <div class="col-md-6">
                                     <input id="last_name" type="text"
@@ -59,7 +59,8 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="last_name" class="col-md-2 col-form-label text-md-right">Ảnh đại diện</label>
+                                <label for="last_name" class="col-md-2 col-form-label text-md-right">Ảnh đại
+                                    diện</label>
 
                                 <div class="col-md-6">
                                     <input type="file" id="avatar" name="avatar"
@@ -135,7 +136,8 @@
                             @endif
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-2">
-                                    Cập nhật sở thích của bạn. Làm <a href="{{ route('survey.show') }}"> khảo sát </a> ngay.
+                                    Cập nhật sở thích của bạn. Làm <a href="{{ route('survey.show') }}"> khảo sát </a>
+                                    ngay.
                                 </div>
                             </div>
                             <div class="form-group row mb-0">

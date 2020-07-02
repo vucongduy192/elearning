@@ -44,7 +44,7 @@
                         <div class="course_info">
                             <ul>
                                 <li><a href="instructors.html">{{ $course->teacher->user->name }}</a></li>
-{{--                                <li><a href="#">English</a></li>--}}
+                                {{--                                <li><a href="#">English</a></li>--}}
                             </ul>
                         </div>
                         <div class="course_text">
@@ -114,6 +114,59 @@
         </div>
     </div>
 </div>
+
+@if(!empty($recommend_courses))
+<div class="courses">
+    <div class="courses_background"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="section_title text-center">Gợi ý cho bạn</h2>
+            </div>
+        </div>
+        <div class="row courses_row">
+            <!-- Course -->
+            @foreach($recommend_courses as $course)
+            <div class="col-lg-4 course_col">
+                <div class="course">
+                    <div class="course_image"><img
+                            src="{{ asset($course->thumbnail ? $course->thumbnail : \App\Models\Config::PLACEHOLDER_THUMBNAIL) }}"
+                            alt=""></div>
+                    <div class="course_body">
+                        <div class="course_title">
+                            <a href="{{ route('courses.show', ['id' => $course->id ]) }}">
+                                {{ mb_substr($course->name, 0, 21, "utf-8") }}
+                            </a>
+                        </div>
+                        <div class="course_info">
+                            <ul>
+                                <li><a href="instructors.html">{{ $course->teacher->user->name }}</a></li>
+                                {{--                                <li><a href="#">English</a></li>--}}
+                            </ul>
+                        </div>
+                        <div class="course_text">
+                            <p>{{ $course->overview }}</p>
+                        </div>
+                    </div>
+                    <div class="course_footer d-flex flex-row align-items-center justify-content-start">
+                        <div class="course_students"><i class="fa fa-user"
+                                aria-hidden="true"></i><span>{{ $course->enrolls }}</span></div>
+                        <div class="course_rating ml-auto"><i class="fa fa-star"
+                                aria-hidden="true"></i><span>{{ (count($course->reviews) != 0) ? round($course->reviews->pluck('rating')->avg(), 0) : '0' }}</span>
+                        </div>
+                        @if($course->price == 0)
+                        <div class="course_mark course_free trans_200"><a href="#">Free</a></div>
+                        @else
+                        <div class="course_mark trans_200"><a href="#">${{$course->price}}</a></div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
 
 @guest
 <div class="register">
@@ -204,7 +257,8 @@
                 <div class="register_timer_container">
                     <div class="register_timer_title">Đăng ký ngay</div>
                     <div class="register_timer_text">
-                        <p>ELearn là hệ thống học trực tuyến lớn, tổng hợp nhiều khóa học từ các trường Đại học hàng đầu Việt Nam</p>
+                        <p>ELearn là hệ thống học trực tuyến lớn, tổng hợp nhiều khóa học từ các trường Đại học hàng đầu
+                            Việt Nam</p>
                     </div>
                     <div class="timer_container">
                         <ul class="timer_list">
