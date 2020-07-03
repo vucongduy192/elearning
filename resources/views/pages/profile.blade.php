@@ -71,7 +71,7 @@
                             </div>
                             @if($user->role_id == \App\Models\User::STUDENT)
                             <div class="form-group row">
-                                <label for="school" class="col-md-2 col-form-label text-md-right">School</label>
+                                <label for="school" class="col-md-2 col-form-label text-md-right">Trường</label>
 
                                 <div class="col-md-6">
                                     <input id="school" type="text"
@@ -87,7 +87,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="school" class="col-md-2 col-form-label text-md-right">Major</label>
+                                <label for="school" class="col-md-2 col-form-label text-md-right">Chuyên ngành</label>
 
                                 <div class="col-md-6">
                                     <input id="major" type="text"
@@ -101,9 +101,16 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-2">
+                                    Cập nhật sở thích của bạn. Làm <a href="{{ route('survey.show') }}"> khảo sát </a>
+                                    ngay.
+                                </div>
+                            </div>
                             @elseif($user->role_id == \App\Models\User::TEACHER)
                             <div class="form-group row">
-                                <label for="expert" class="col-md-2 col-form-label text-md-right">Expert</label>
+                                <label for="expert" class="col-md-2 col-form-label text-md-right">Chức danh</label>
 
                                 <div class="col-md-6">
                                     <input id="expert" type="text"
@@ -119,7 +126,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="expert" class="col-md-2 col-form-label text-md-right">Workplace</label>
+                                <label for="expert" class="col-md-2 col-form-label text-md-right">Nơi làm việc</label>
 
                                 <div class="col-md-6">
                                     <input id="workplace" type="text"
@@ -134,12 +141,6 @@
                                 </div>
                             </div>
                             @endif
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-2">
-                                    Cập nhật sở thích của bạn. Làm <a href="{{ route('survey.show') }}"> khảo sát </a>
-                                    ngay.
-                                </div>
-                            </div>
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-2">
                                     <button type="submit" class="btn btn-primary e-btn">
