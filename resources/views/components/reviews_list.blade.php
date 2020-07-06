@@ -5,7 +5,10 @@
         <div
             class="review_title d-flex flex-row align-items-center justify-content-center">
             <div class="review_author_image">
-                <div><img src="#" alt=""></div>
+                <div>
+                    <img style="height: 40px; width: 40px; border-radius: 50%;"
+                        src="{{ $r->student->user->avatar ? $r->student->user->avatar : \App\Models\Config::PLACEHOLDER_AVATAR }}" alt="">
+                </div>
             </div>
             <div class="review_author">
                 <div class="review_author_name"><a href="#">{{ $r->student->user->name }}</a></div>

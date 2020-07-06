@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\BlogRepository;
 use App\Repositories\CourseRepository;
+use App\Repositories\SurveyRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\EnrollRepository;
 use Illuminate\Http\Request;
@@ -12,15 +13,16 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    protected $course, $teacher, $blog, $enroll;
+    protected $course, $teacher, $blog, $enroll, $survey;
 
     public function __construct(CourseRepository $courseRepository, TeacherRepository $teacherRepository,
-                                BlogRepository $blogRepository, EnrollRepository $enrollRepository)
+                                BlogRepository $blogRepository, EnrollRepository $enrollRepository, SurveyRepository $surveyRepository)
     {
         $this->course = $courseRepository;
         $this->teacher = $teacherRepository;
         $this->blog = $blogRepository;
         $this->enroll = $enrollRepository;
+        $this->survey = $surveyRepository;
     }
     /**
      * Show the application dashboard.
