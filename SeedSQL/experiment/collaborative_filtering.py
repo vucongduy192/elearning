@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import sys
 
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.cluster import SpectralClustering
@@ -124,7 +125,7 @@ class CF(object):
 
 
 if __name__ == '__main__':
-    version = 'v1'
+    version = sys.argv[1]
     train = pd.read_csv(version + '/enroll_train.csv')
     test = pd.read_csv(version + '/enroll_test.csv')
     k_neighbor = 5
